@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Button } from 'semantic-ui-react'
 
 class ShelterPortalHome extends Component {
-
-    componentDidMount() {
-        this.props.dispatch({ type: 'GET_USER_SHELTERS' });
-        console.log(this.props.reduxState.shelters)
-    }
-    render(){
+    
+    render() {
         return (
             <>
-              
+                <Button primary>up+</Button>
+                <Button primary>down-</Button>
+
             </>
         )
     }

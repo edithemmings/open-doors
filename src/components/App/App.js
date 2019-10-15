@@ -16,7 +16,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-
 import './App.css';
 
 class App extends Component {
@@ -44,7 +43,7 @@ class App extends Component {
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
             <ProtectedRoute
-              exact
+              // exact
               path="/home"
               component={UserPage}
             />
