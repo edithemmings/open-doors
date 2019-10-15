@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import ShelterPortalHome from '../ShelterPortalHome/ShelterPortalHome'
+import ShelterListingPage from '../ShelterListingPage/ShelterListingPage'
 
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
@@ -12,6 +14,9 @@ const UserPage = (props) => (
     </h1>
     <p>Your ID is: {props.user.id}</p>
     <LogOutButton className="log-in" />
+    <ShelterListingPage />
+    {/* {if user is attached to a shelter, then show ShelterPortalHome, 
+    but if user is not, show SignUpForm1 } */}
   </div>
 );
 
