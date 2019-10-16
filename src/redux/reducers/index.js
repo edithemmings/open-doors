@@ -4,6 +4,10 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import shelters from './sheltersReducer';
 import userShelter from './userShelterReducer';
+import signUpForm from './signUpFormReducer';
+import types from './typesReducer';
+import tags from './tagsReducer';
+
 
 
 
@@ -19,6 +23,9 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   shelters, // will return all shelters from the database
   userShelter, // grabs the one shelter belonging to the user
+  signUpForm,
+  types,
+  tags
 });
 
 export default rootReducer;

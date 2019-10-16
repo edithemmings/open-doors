@@ -4,6 +4,8 @@ import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import allSheltersSaga from './allSheltersSaga'
 import userShelterSaga from './userShelterSaga.js'
+import allTypesSaga from './allTypesSaga'
+import allTagsSaga from './allTagsSaga'
 
 
 // rootSaga is the primary saga.
@@ -19,6 +21,8 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     allSheltersSaga(),
-    userShelterSaga()
+    userShelterSaga(),
+    allTypesSaga(),
+    allTagsSaga(),
   ]);
 }

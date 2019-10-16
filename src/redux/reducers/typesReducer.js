@@ -1,6 +1,6 @@
-const sheltersReducer = (state = {}, action) => {
+const typesReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_SHELTERS':
+        case 'SET_TYPES':
             console.log(action.payload)
             return action.payload;
         default:
@@ -8,4 +8,4 @@ const sheltersReducer = (state = {}, action) => {
     }
 };
 
-export default sheltersReducer;
+export default typesReducer;

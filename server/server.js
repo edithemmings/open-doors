@@ -12,6 +12,9 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const sheltersRouter = require('./routes/shelter/all.router');
 const userShelterRouter = require('./routes/shelter/user.router');
+const typesRouter = require('./routes/shelter/types.router');
+const tagsRouter = require('./routes/shelter/tags.router');
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,6 +31,9 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/shelter/all', sheltersRouter);
 app.use('/api/shelter/user', userShelterRouter);
+app.use('/api/shelter/types', typesRouter);
+app.use('/api/shelter/tags', tagsRouter);
+
 
 // Serve static files
 app.use(express.static('build'));
