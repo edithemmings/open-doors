@@ -6,7 +6,7 @@ import axios from 'axios'
 class UserPortalSignUpSubmit extends Component {
 
     postShelter = () => {
-        axios.post('/api/shelter/moreInfo', this.props.reduxState.signUpForm)
+        axios.post('/api/shelter/user/moreInfo', this.props.reduxState.signUpForm)
         .then(response => {
             console.log('shelter was posted', response)
         }).catch(error => {
