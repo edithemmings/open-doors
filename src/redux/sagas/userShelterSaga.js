@@ -5,7 +5,7 @@ function* getUserShelter(action) {
     try {
         const response = yield axios.get(`/api/shelter/user`);
         yield put({ type: 'SET_USER_SHELTER', payload: response.data });
-        console.log(response.data)
+        // console.log(response.data)
     } catch (error) {
         console.log("Error with GET request", error);
     }

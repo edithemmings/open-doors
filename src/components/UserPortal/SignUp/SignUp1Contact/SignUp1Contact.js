@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Button, Input, Form, Grid, Dropdown } from 'semantic-ui-react'
+import { Button, Input} from 'semantic-ui-react'
 import Axios from 'axios';
 
 class UserPortalSignUp1 extends Component {

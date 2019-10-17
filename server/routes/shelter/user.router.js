@@ -56,6 +56,20 @@ router.post('/moreInfo', (req, res) => {
         });
 });
 
+// --------------------------------------------------//
+// ------------GETTING ONE SHELTER --------------//
+router.get('/types/:id', (req, res) => {
+    //-----------query text for any call
+    const queryText = `SELECT * from "shelter_guest_count" WHERE "shelter_id" = $1;`;
+    //-------------querying database 
+    pool.query(queryText, [Number(req.params.id)])
+        .then((result) => { res.send(result.rows); console.log(result.rows); })
+        .catch((err) => {
+            console.log('Error grabbing your shelter types', err);
+            res.sendStatus(500);
+        });
+});
+
 //INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES ($1, $2, $3, $4);
 
 
