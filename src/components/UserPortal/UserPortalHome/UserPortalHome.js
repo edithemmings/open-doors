@@ -23,7 +23,7 @@ class ShelterPortalHome extends Component {
         })
     }
     handleClick =(id, upOrDown, type) => {
-        Axios.put(`/api/shelter/user/${upOrDown}/${id}`, {type: type})
+        Axios.put(`/api/shelter/user/${upOrDown}/${id}`)
         .then(response => {
             console.log(response)
             this.getUserGuestCounts();
@@ -36,18 +36,16 @@ class ShelterPortalHome extends Component {
             <>
             {this.state.typeCounts ? 
                 this.state.typeCounts.map(type => (
-                    <div>
+                    <div key={type.id}>
                         <h2>{type.count}/{type.capacity}</h2>
                         <p>{type.type} guests</p>
-                        <Button 
-                            key={type.id} 
+                        <Button  
                             primary
-                            onClick={() => this.handleClick(type.id, 'up', type.type)}
+                            onClick={() => this.handleClick(type.id, 'up')}
                         >up+</Button>
                         <Button 
-                            key={type.id} 
                             primary
-                            onClick={() => this.handleClick(type.id, 'down', type.type)}
+                            onClick={() => this.handleClick(type.id, 'down')}
                         >down-</Button>
                     </div>
             )) : ''}
