@@ -70,7 +70,32 @@ router.get('/types/:id', (req, res) => {
         });
 });
 
-//INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES ($1, $2, $3, $4);
+
+router.put(`/up/:id`, (req, res) => {
+    //-----------query text for any call
+    const queryText = `UPDATE "shelter_guest_count" SET "count" = "count"+1 WHERE "shelter_id" = $1 AND "type"=$2;`;
+    //-------------querying database 
+    pool.query(queryText, [Number(req.params.id), req.body.type])
+        .then((result) => { res.send(result.rows); console.log(result.rows); })
+        .catch((err) => {
+            console.log('Error incrementing', err);
+            res.sendStatus(500);
+        });
+
+});
+
+router.put(`/down/:id`, (req, res) => {
+    //-----------query text for any call
+    const queryText = `UPDATE "shelter_guest_count" SET "count" = "count"-1 WHERE "shelter_id" = $1 AND "type"=$2;`;
+    //-------------querying database 
+    pool.query(queryText, [Number(req.params.id), req.body.type])
+        .then((result) => { res.send(result.rows); console.log(result.rows); })
+        .catch((err) => {
+            console.log('Error decrementing', err);
+            res.sendStatus(500);
+        });
+
+});
 
 
 module.exports = router;
