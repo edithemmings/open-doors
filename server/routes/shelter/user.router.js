@@ -33,26 +33,25 @@ router.post('/contact', (req, res) => {
 //----------------------------------------------------------//
 //----------------POSTING NEW HOURS, TYPES AND TAGS FOR SHELTER-----------------------//
 router.post('/moreInfo', (req, res) => {
-    const queryText = ''
+    let queryText = ''
     req.body.guest_types.forEach(obj => {
-        queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type", "capacity") VALUES(${req.body.id}, ${obj.type}, ${obj.capacity});`
+        queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type", "capacity") VALUES(${Number(req.body.id)}, '${obj.type}', ${Number(obj.capacity)});`
+        console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
     })
     req.body.hours.forEach(obj => {
-        queryText = queryText + `INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES (${req.body.id}, ${obj.day}, ${obj.open}, ${obj.close});`
+        queryText = queryText + `INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES (${Number(req.body.id)}, '${obj.day}', '${obj.open}', '${obj.close}');`
+        console.log('day, open, close', obj.day, obj.open, obj.close)
     })
     req.body.tags.forEach(obj => {
-        queryText = queryText + `INSERT INTO "tags" ("shelter_id", "tag") VALUES (${req.user.id}, ${obj.tag});`
+        queryText = queryText + `INSERT INTO "shelter_tags" ("shelter_id", "tag") VALUES (${Number(req.body.id)}, '${obj.tag}');`
+        console.log('tag', obj.tag)
     })
     console.log(queryText)
     //-----------query text
-    // const queryText2 = `INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES ($1, $2, $3, $4);
-    //                     INSERT INTO "tags" ("shelter_id", "tag") VALUES ($1, $5);
-    //                     INSERT INTO "shelter_guest_count" ("shelter_id", "type", "count", "capacity") VALUES ($1, $6, $7, $8);`;
-    //-------------querying database 
     pool.query(queryText,)
         .then((result) => { res.send(result.rows); console.log(result.rows); })
         .catch((err) => {
-            console.log('Error grabbing shelters by tag', err);
+            console.log('Error grabbing adding your shelter details', err);
             res.sendStatus(500);
         });
 });
