@@ -14,11 +14,7 @@ class Settings2Hours extends Component {
             { id: 7, day: 'Every day' },
             { id: 8, day: 'Monday-Friday' },
             { id: 9, day: 'Saturday-Sunday' }
-        ],
-        selectedDays: this.props.shelter.hours
-    }
-    componentDidMount() {
-        console.log(this.props.shelter.hours)
+        ]
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
@@ -33,12 +29,20 @@ class Settings2Hours extends Component {
         })
     }
     handleHourAdd = () => {
+        let totalHours = this.props.shelter.hours
         if (this.state.inputHour) {
-            this.setState({
-                ...this.state,
-                selectedDays: [...this.state.selectedDays, this.state.inputHour]
-            })
+            totalHours.push(this.state.inputHour);
         }
+        this.props.handleEdit('hours', totalHours)
+    }
+    deleteHour = (event) => {
+        let remainingHours = []
+        this.props.shelter.hours.forEach(hour => {
+            if (hour.id != event.target.value){
+                remainingHours.push(hour)
+            }
+        })
+        this.props.handleEdit('hours', remainingHours)
     }
     render() {
         return (
@@ -57,7 +61,7 @@ class Settings2Hours extends Component {
                                 <label>Closes</label>
                             </Grid.Column>
                         </Grid.Row>
-                        {this.state.selectedDays.map(selectedDay => (
+                        {this.props.shelter.hours.map(selectedDay => (
                             <Grid.Row>
                                 <Grid.Column width={6}>
                                     {selectedDay.day}
@@ -69,7 +73,11 @@ class Settings2Hours extends Component {
                                     {selectedDay.close}
                                 </Grid.Column>
                                 <Grid.Column width={2}>
-                                    <Button size='mini' value={selectedDay.id}>X</Button>
+                                    <Button 
+                                        size='mini' 
+                                        value={selectedDay.id}
+                                        onClick={this.deleteHour}
+                                    >X</Button>
                                 </Grid.Column>
                             </Grid.Row>
                         ))}
@@ -100,8 +108,6 @@ class Settings2Hours extends Component {
                     </Grid>
                     <Button onClick={this.handleHourAdd}>Add</Button>
                 </div>
-                <Button onClick={this.handleSubmit}>Next</Button>
-
             </div>
         )
     }

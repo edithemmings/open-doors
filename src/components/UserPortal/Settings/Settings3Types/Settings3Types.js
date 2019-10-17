@@ -3,29 +3,16 @@ import { connect } from "react-redux";
 import { Button, Input, Grid } from 'semantic-ui-react'
 
 class Settings3Types extends Component {
-    state = {
-        selectedTypes: [{ id: 1, type: 'family', capacity: 45 }]
-    }
+    state = {}
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
+        console.log(this.props.shelter.guest_types)
     }
-
-    handleSubmit = () => {
-        console.log(this.state.selectedTypes)
-        this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
-        this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
-
-    }
-
-    handleTypeAdd = () => {
-        console.log(this.state.inputType)
-        if (this.state.inputType) {
-            this.setState({
-                ...this.state,
-                selectedTypes: [...this.state.selectedTypes, this.state.inputType]
-            })
-        }
-    }
+    // handleSubmit = () => {
+    //     console.log(this.state.selectedTypes)
+    //     this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
+    //     this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
+    // }
     handleTypeNameChange = (event) => {
         this.setState({
             ...this.state,
@@ -35,6 +22,16 @@ class Settings3Types extends Component {
             }
         })
     }
+    handleTypeAdd = () => {
+        // console.log(this.state.inputType)
+        if (this.state.inputType) {
+            this.setState({
+                ...this.state,
+                selectedTypes: [...this.state.selectedTypes, this.state.inputType]
+            })
+        }
+    }
+
     handleTypeCapacityChange = (event) => {
         this.setState({
             ...this.state,
@@ -58,7 +55,7 @@ class Settings3Types extends Component {
                                     Capacity
                             </Grid.Column>
                             </Grid.Row>
-                            {this.state.selectedTypes.map(selectedTypes => (
+                            {this.props.shelter.types.map(selectedTypes => (
                                 <Grid.Row>
                                     <Grid.Column width={10}>
                                         {selectedTypes.type}
@@ -84,7 +81,6 @@ class Settings3Types extends Component {
                         </Grid>
                         <Button onClick={this.handleTypeAdd}>Add</Button>
                     </div>
-                    <Button onClick={this.handleSubmit}>Next</Button>
 
                 </div>
             </>

@@ -29,10 +29,9 @@ router.get('/', (req, res) => {
 router.get('/user', (req, res) => {
     //-----------query text for any call
     const queryText = `SELECT 
-	array_agg(distinct "tags".tag) AS "tags",
-	array_agg(distinct "guest_type") AS "types",
-	array_agg(distinct "shelter_guest_count") AS "counts",
-	array_agg(distinct "hours") AS "hours"
+	json_agg(distinct "tags".tag) AS "tags",
+	json_agg(distinct "shelter_guest_count") AS "types",
+	json_agg(distinct "hours") AS "hours"
  FROM "shelter"
     JOIN "hours" 
     	on "shelter".id = "hours".shelter_id
