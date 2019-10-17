@@ -23,33 +23,41 @@ class AllSettings extends Component {
         }
     }
     handleSave = () => {
-        const oldName = this.props.reduxState.userShelter.name;
-        const oldLocation = this.props.reduxState.userShelter.location;
-        const oldPhone = this.props.reduxState.userShelter.phone;
-        const oldWebsite = this.props.reduxState.userShelter.website
+        console.log('contact changed?', this.contactChanged())//returns true or false
         const id = this.props.reduxState.userShelter.id;
         const oldTypes = this.props.reduxState.userShelter.types;
         const oldHours = this.props.reduxState.userShelter.hours;
         const oldTags = this.props.reduxState.userShelter.tags;
-        // deciding whether to update the contact info
-        if (
-            oldName !== this.state.contact.name ||
-            oldLocation!== this.state.contact.location ||
-            oldPhone !== this.state.contact.phone ||
-            oldWebsite !== this.state.contact.website
-        ){
-            console.log('...updating your contact info...')
-            // axios.put('/api/shelter/user/contact', {this.state.contact})
-        }
+        
         newTypes = []
         oldTypes.forEach(oldType => {
-            this.state.contact.forEach(stateType => {
+            this.state.moreInfo.types.forEach(stateType => {
                 if (oldType.id === stateType.id){
                     newTypes.push(stateType);
                 }
             });
         });
+        // delete rows from this shelters types if they are not in newTypes,
+        // post rows to this shelter's types if they are in this.state.contact, but not in newTypes
+        // move types, hours, and tags to their own functions to clean up handleSave
 
+    }
+    contactChanged = () => {
+        // determines whether the shelter contact info was edited in settings
+        const oldName = this.props.reduxState.userShelter.name;
+        const oldLocation = this.props.reduxState.userShelter.location;
+        const oldPhone = this.props.reduxState.userShelter.phone;
+        const oldWebsite = this.props.reduxState.userShelter.website
+        if (
+            oldName !== this.state.contact.name ||
+            oldLocation !== this.state.contact.location ||
+            oldPhone !== this.state.contact.phone ||
+            oldWebsite !== this.state.contact.website
+        ) {
+            return true;
+        } else {
+            return false;
+        }
     }
     handleEditContact = (event, keyName) => {
         this.setState({
