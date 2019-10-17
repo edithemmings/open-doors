@@ -11,12 +11,13 @@ import SignUpSubmit from './SignUp/SignUpSubmit/SignUpSubmit'
 class ShelterPortalHome extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'GET_USER_SHELTER' });
+        this.props.dispatch({ type: 'GET_USER_MOREINFO' });
     }
     render() {
         return (
             <div>
                 {this.props.reduxState.userShelter.id
-                    ? <UserPortalHome id={this.props.reduxState.userShelter.id}/> 
+                    ? <UserPortalHome shelter={this.props.reduxState.userShelter}/> 
                     : 
                     <div><SignUp1Contact /><SignUp2Hours /> <SignUp3Types /> <SignUp4Tags/> <SignUpSubmit /></div>
                 }

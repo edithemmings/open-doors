@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button } from 'semantic-ui-react'
 import Axios from 'axios';
+import AllSettings from '../Settings/AllSettings'
+
 
 class ShelterPortalHome extends Component {
     state = {}
     componentDidMount() {
         this.getUserGuestCounts();
     }
-    componentDidUpdate() {
-        console.log(this.state.typeCounts)
-    }
     getUserGuestCounts = () => {
-        Axios.get(`/api/shelter/user/types/${this.props.id}`)
+        Axios.get(`/api/shelter/user/types/${this.props.shelter.id}`)
         .then((response) => {
             this.setState({
                 typeCounts: response.data
             })
-            console.log(response.data)
+            // console.log(response.data)
         }).catch(error => {
             console.log(error)
         })
@@ -49,7 +48,10 @@ class ShelterPortalHome extends Component {
                         >down-</Button>
                     </div>
             )) : ''}
-                
+            
+            <div>
+                <AllSettings/>
+            </div>
 
             </>
         )

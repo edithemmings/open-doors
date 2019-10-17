@@ -5,7 +5,7 @@ function* getTypes(action) {
     try {
         const response = yield axios.get(`/api/shelter/types`);
         yield put({ type: 'SET_TYPES', payload: response.data });
-        console.log(response.data)
+        // console.log(response.data)
     } catch (error) {
         console.log("Error with GET request", error);
     }
