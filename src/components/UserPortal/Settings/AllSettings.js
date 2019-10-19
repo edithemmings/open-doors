@@ -96,10 +96,10 @@ class AllSettings extends Component {
                         shelter={this.state.moreInfo}
                         handleEdit={this.handleEditMoreInfo}
                     />
-                    {/* <Settings4Tags
+                    <Settings4Tags
                         shelter={this.state.moreInfo}
                         handleEdit={this.handleEditMoreInfo}
-                    /> */}
+                    />
                     <Button onClick={this.handleSave}>Save</Button>
                 </div>
 

@@ -16,9 +16,6 @@ class Settings2Hours extends Component {
             { id: 9, day: 'Saturday-Sunday' }
         ]
     }
-    // handleSubmit = () => {
-    //     this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
-    // }
     handleHourChange = (event, keyName) => {
         this.setState({
             ...this.state,

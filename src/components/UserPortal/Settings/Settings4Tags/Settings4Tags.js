@@ -3,31 +3,24 @@ import { connect } from "react-redux";
 import { Button, Grid } from 'semantic-ui-react'
 
 class Settings4Tags extends Component {
-    state = {
-        selectedTags: [{ id: 1, tag: 'shower' }],
-    }
-    componentDidMount() {
-        this.props.dispatch({ type: 'GET_TAGS' });
-    }
-    handleSubmit = () => {
-        console.log(this.state.selectedTags)
-        this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
-    }
+    // state = {
+    //     selectedTags: [{ id: 1, tag: 'shower' }],
+    // }
     handleTagChange = (event) => {
         let currentTag = event.target.value;
         let redundant = false;
-        this.state.selectedTags.forEach(selectedTag => {
-            if (selectedTag.tag === currentTag){
-                console.log(selectedTag.tag, currentTag)
-                redundant = true;
-                alert('already selected')
-            }  
-        })
-        if (!redundant){
-            this.setState({
-                ...this.state,
-                selectedTags: [...this.state.selectedTags, { tag: currentTag }]
+        if (this.props.shelter.tags){
+            this.props.shelter.tags.forEach(tag => {
+                if (tag.tag === currentTag) {
+                    console.log(tag.tag, currentTag)
+                    redundant = true;
+                    alert('already selected')
+                }
             })
+        }
+        if (!redundant) {
+            let totalTags = [...this.props.shelter.tags, {tag: event.target.value}]
+            this.props.handleEdit('tags', totalTags)
         }
     }
     render() {
@@ -41,7 +34,7 @@ class Settings4Tags extends Component {
                                     Tags
                                 </Grid.Column>
                             </Grid.Row>
-                            {this.state.selectedTags.map(selectedTag => (
+                            {this.props.shelter.tags.map(selectedTag => (
                                 <Grid.Row>
                                     <Grid.Column width={16}>
                                         {selectedTag.tag}
