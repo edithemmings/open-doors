@@ -104,9 +104,11 @@ class Settings2Hours extends Component {
                                     onChange={(e) => this.handleHourChange(e, 'close')}
                                 />
                             </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Button onClick={this.handleHourAdd}>Add</Button>
+                            </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    <Button onClick={this.handleHourAdd}>Add</Button>
                 </div>
             </div>
         )
