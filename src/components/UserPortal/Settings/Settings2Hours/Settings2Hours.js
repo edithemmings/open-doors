@@ -16,9 +16,9 @@ class Settings2Hours extends Component {
             { id: 9, day: 'Saturday-Sunday' }
         ]
     }
-    handleSubmit = () => {
-        this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
-    }
+    // handleSubmit = () => {
+    //     this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
+    // }
     handleHourChange = (event, keyName) => {
         this.setState({
             ...this.state,
@@ -38,7 +38,7 @@ class Settings2Hours extends Component {
     deleteHour = (event) => {
         let remainingHours = []
         this.props.shelter.hours.forEach(hour => {
-            if (hour.id != event.target.value){
+            if (hour.day != event.target.value){
                 remainingHours.push(hour)
             }
         })
@@ -75,7 +75,7 @@ class Settings2Hours extends Component {
                                 <Grid.Column width={2}>
                                     <Button 
                                         size='mini' 
-                                        value={selectedDay.id}
+                                        value={selectedDay.day}
                                         onClick={this.deleteHour}
                                     >X</Button>
                                 </Grid.Column>

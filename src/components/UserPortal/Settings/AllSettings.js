@@ -29,7 +29,7 @@ class AllSettings extends Component {
         const oldHours = this.props.reduxState.userShelter.hours;
         const oldTags = this.props.reduxState.userShelter.tags;
         
-        newTypes = []
+        let newTypes = []
         oldTypes.forEach(oldType => {
             this.state.moreInfo.types.forEach(stateType => {
                 if (oldType.id === stateType.id){
