@@ -6,6 +6,9 @@ class Settings4Tags extends Component {
     // state = {
     //     selectedTags: [{ id: 1, tag: 'shower' }],
     // }
+    componentDidMount() {
+        console.log(this.props.shelter.tags)
+    }
     handleTagChange = (event) => {
         let currentTag = event.target.value;
         let redundant = false;
@@ -17,12 +20,14 @@ class Settings4Tags extends Component {
                     alert('already selected')
                 }
             })
-        }
+        }////THIS ISN'T WORKING
         if (!redundant) {
-            let totalTags = [...this.props.shelter.tags, {tag: event.target.value}]
+            let totalTags = [...this.props.shelter.tags, event.target.value]
             this.props.handleEdit('tags', totalTags)
         }
     }
+
+    //NEED DELETE FUNCTIONALITY
     render() {
         return (
             <>
@@ -34,10 +39,10 @@ class Settings4Tags extends Component {
                                     Tags
                                 </Grid.Column>
                             </Grid.Row>
-                            {this.props.shelter.tags.map(selectedTag => (
+                            {this.props.shelter.tags.map(tag => (
                                 <Grid.Row>
                                     <Grid.Column width={16}>
-                                        {selectedTag.tag}
+                                        {tag}
                                     </Grid.Column>
                                 </Grid.Row>
                             ))}
