@@ -1,29 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { Button, Input} from 'semantic-ui-react'
-import Axios from 'axios';
+import { Input} from 'semantic-ui-react'
 
-class Settings1Contact extends Component {
-    state = {}
-    handleSubmit = () => {
-        console.log(this.state.contact)
-        Axios.put('/api/shelter/user/contact', this.state.contact)
-        .then(response => {
-            console.log(response)
-            this.props.dispatch({type: 'GET_USER_SHELTER'})
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-    handleContactChange = (event, keyName) => {
-        this.setState({
-            ...this.state,
-            contact: {
-                ...this.state.contact,
-                [keyName]: event.target.value
-            }
-        })
-    }
+class Settings1Contact extends Component {  
     render() {
         return (
             <div>
@@ -61,9 +39,4 @@ class Settings1Contact extends Component {
     }
 }
 
-
-const putStateOnProps = (reduxState) => ({
-    reduxState
-})
-
-export default connect(putStateOnProps)(Settings1Contact);
+export default Settings1Contact;

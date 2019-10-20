@@ -24,7 +24,7 @@ class AllSettings extends Component {
     }
     handleEditContact = (event, keyName) => {
         this.setState({
-            shelter: {
+            contact: {
                 ...this.state.contact,
                 [keyName]: event.target.value
             }
@@ -45,6 +45,27 @@ class AllSettings extends Component {
         // this.typesDidChange();
     }
     handleSave = () => {
+        // declaring some variables
+        const contactDidChange = this.contactDidChange();
+        const typesDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type');
+        const hoursDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day');
+        const tagsDidChange = this.arrayOfStringsDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags);
+        //checking if each dataset changed
+        if (contactDidChange){
+            const contactChanges = contactDidChange;
+        }
+        if (typesDidChange) {
+            const typesChanges = typesDidChange;
+            // delete typesChanges.delete array items
+            // post typesChanges.post array items
+        } 
+        if (hoursDidChange) {
+            const hoursChanges = hoursDidChange;
+        } 
+        if (tagsDidChange) {
+            const tagsChanges = tagsDidChange;
+        }
+
         console.log('contact changed?', this.contactDidChange())//returns true or false
         console.log('types changed?', this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type'))//returns false, or arrays of things to delete/post
         console.log('hours changed?', this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day'))//returns false, or arrays of things to delete/post
