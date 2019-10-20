@@ -51,15 +51,43 @@ class AllSettings extends Component {
         console.log('tags changed?', this.arrayOfStringsDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags))//returns false, or arrays of things to delete/post
     
     }
+    contactDidChange = () => {
+        // naming some variables :)
+        const oldName = this.props.reduxState.userShelter.name;
+        const oldLocation = this.props.reduxState.userShelter.location;
+        const oldPhone = this.props.reduxState.userShelter.phone;
+        const oldWebsite = this.props.reduxState.userShelter.website
+        // checking if anything changed
+        // if it did change, it returns all fields
+        // if not, returns false
+        if (
+            oldName !== this.state.contact.name ||
+            oldLocation !== this.state.contact.location ||
+            oldPhone !== this.state.contact.phone ||
+            oldWebsite !== this.state.contact.website
+        ) {
+            return {
+                name: this.state.contact.name,
+                location: this.state.contact.location,
+                phone: this.state.contact.phone,
+                website: this.state.contact.website
+            };
+        } else {
+            return false;
+        }
+    }// end contactDidChange
     arrayOfObjDidChange = (oldArray, newArray, keyToCheck) => {
         let unchanged = [];
-        oldArray.forEach(oldObj => { // generates a list of Types that are shared between the database and the local state
+        //checks for what objects were left unedited and stores them
+        oldArray.forEach(oldObj => {
             newArray.forEach(newObj => {
                 if (oldObj[keyToCheck] === newObj[keyToCheck]) {
                     unchanged.push(newObj);
                 }
             });
         });
+        //if no changes, returns false, if there are changes, it returns the 
+        //objects that need to be deleted or posted
         if (unchanged.length === oldArray.length) {
             return false;
         } else {
@@ -68,16 +96,19 @@ class AllSettings extends Component {
                 post: this.objectsToPost(newArray, unchanged, keyToCheck)
             };
         }
-    }
+    } //end arrayOfObjDidChange
     arrayOfStringsDidChange = (oldArray, newArray) => {
         let unchanged = [];
-        oldArray.forEach(oldString => { // generates a list of Types that are shared between the database and the local state
+        //checks for what strings were left unedited and stores them
+        oldArray.forEach(oldString => { 
             newArray.forEach(newString => {
                 if (oldString === newString) {
                     unchanged.push(newString);
                 }
             });
         });
+        //if no changes, returns false, if there are changes, it returns the
+        //strings that need to be deleted or posted
         if (unchanged.length === oldArray.length) {
             return false;
         } else {
@@ -86,8 +117,11 @@ class AllSettings extends Component {
                 post: this.stringsToPost(newArray, unchanged)
             };
         }
-    }
+    } //end arrayOfStringsDidChange
     objectsToDelete = (oldArray, unchanged, keyToCheck) => {
+        //splices unedited items from the old array, which
+        //leaves behind only items that the user deleted from the state
+        //returns a list of the user's deleted items
         let toDelete = [...oldArray];
         oldArray.forEach(oldObj => { 
             unchanged.forEach(unchangedObj => {
@@ -97,8 +131,11 @@ class AllSettings extends Component {
             });
         });
         return toDelete;
-    }
+    } //end objectsToDelete
     stringsToDelete = (oldArray, unchanged) => {
+        //splices unedited items from the old array, which
+        //leaves behind only items that the user deleted from the state
+        //returns a list of the user's deleted items
         let toDelete = [...oldArray];
         oldArray.forEach(oldString => {
             unchanged.forEach(unchangedString => {
@@ -108,8 +145,11 @@ class AllSettings extends Component {
             });
         });
         return toDelete;
-    }
+    } //end stringsToDelete
     objectsToPost = (newArray, unchanged, keyToCheck) => {
+        //splices unedited items from the new array, which
+        //leaves behind only items that the user has added to state
+        //returns a list of the user's added items
         let toPost = [...newArray];
         newArray.forEach(newObj => {
             unchanged.forEach(unchangedObj => {
@@ -119,8 +159,11 @@ class AllSettings extends Component {
             });
         });
         return toPost;
-    }
+    } //end objectsToPost
     stringsToPost = (newArray, unchanged) => {
+        //splices unedited items from the new array, which
+        //leaves behind only items that the user has added to state
+        //returns a list of the user's added items
         let toPost = [...newArray];
         newArray.forEach(newString => {
             unchanged.forEach(unchangedString => {
@@ -130,29 +173,7 @@ class AllSettings extends Component {
             });
         });
         return toPost;
-    }
-    contactDidChange = () => {
-        // determines whether the shelter contact info was edited in settings
-        const oldName = this.props.reduxState.userShelter.name;
-        const oldLocation = this.props.reduxState.userShelter.location;
-        const oldPhone = this.props.reduxState.userShelter.phone;
-        const oldWebsite = this.props.reduxState.userShelter.website
-        if (
-            oldName !== this.state.contact.name ||
-            oldLocation !== this.state.contact.location ||
-            oldPhone !== this.state.contact.phone ||
-            oldWebsite !== this.state.contact.website
-        ) {
-            return {
-                name : this.state.contact.name,
-                location : this.state.contact.location,
-                phone : this.state.contact.phone,
-                website : this.state.contact.website
-            };
-        } else {
-            return false;
-        }
-    }
+    } //end stringsToPost
 
     render() {
         return (
