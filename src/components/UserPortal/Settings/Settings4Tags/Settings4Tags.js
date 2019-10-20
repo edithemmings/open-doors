@@ -14,20 +14,28 @@ class Settings4Tags extends Component {
         let redundant = false;
         if (this.props.shelter.tags){
             this.props.shelter.tags.forEach(tag => {
-                if (tag.tag === currentTag) {
-                    console.log(tag.tag, currentTag)
+                if (tag === currentTag) {
+                    console.log(tag, currentTag)
                     redundant = true;
                     alert('already selected')
                 }
             })
-        }////THIS ISN'T WORKING
+        }
         if (!redundant) {
             let totalTags = [...this.props.shelter.tags, event.target.value]
             this.props.handleEdit('tags', totalTags)
         }
     }
-
-    //NEED DELETE FUNCTIONALITY
+    deleteTag = (event) => {
+        let remainingTags = []
+        this.props.shelter.tags.forEach(tag => {
+            if (tag != event.target.value) {
+                remainingTags.push(tag)
+            }
+        })
+        this.props.handleEdit('tags', remainingTags)
+    }
+    
     render() {
         return (
             <>
@@ -41,23 +49,31 @@ class Settings4Tags extends Component {
                             </Grid.Row>
                             {this.props.shelter.tags.map(tag => (
                                 <Grid.Row>
-                                    <Grid.Column width={16}>
+                                    <Grid.Column width={14}>
                                         {tag}
+                                    </Grid.Column>
+                                    <Grid.Column width={2}>
+                                        <Button
+                                            size='mini'
+                                            value={tag}
+                                            onClick={this.deleteTag}
+                                        >X</Button>
                                     </Grid.Column>
                                 </Grid.Row>
                             ))}
                             <Grid.Row>
-                                <Grid.Column width={16}>
+                                <Grid.Column width={14}>
                                     <select className="dropdown" onChange={this.handleTagChange}>
                                         {this.props.reduxState.tags.map(tag => (
                                             <option key={tag.id}>{tag.tag}</option>
                                         ))}
                                     </select>
                                 </Grid.Column>
+                                <Grid.Column width={2}>
+                                </Grid.Column>
                             </Grid.Row>
                         </Grid>
                     </div>
-                    <Button onClick={this.handleSubmit}>Next</Button>
 
                 </div>
             </>
