@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 
 router.get('/user', (req, res) => {
     //-----------query text for any call
-    const queryText = `SELECT 
+    const queryText = `SELECT "shelter"."id", "name", "location", "phone", "website", "user_id", 
 	json_agg(distinct "tags".tag) AS "tags",
 	json_agg(distinct "shelter_guest_count") AS "types",
 	json_agg(distinct "hours") AS "hours"

@@ -10,8 +10,8 @@ import SignUpSubmit from './SignUp/SignUpSubmit/SignUpSubmit'
 
 class ShelterPortalHome extends Component {
     componentDidMount() {
-        this.props.dispatch({ type: 'GET_USER_MOREINFO' });
-        this.props.dispatch({ type: 'GET_USER_SHELTER' });
+        this.props.dispatch({ type: 'GET_USER_ALL_SHELTER_INFO' });
+        // this.props.dispatch({ type: 'GET_USER_SHELTER' });
     }
     render() {
         return (

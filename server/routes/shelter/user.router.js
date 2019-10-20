@@ -57,10 +57,10 @@ router.post('/moreInfo', (req, res) => {
 });
 
 // --------------------------------------------------//
-// ------------GETTING ONE SHELTER --------------//
+// ------------GETTING ONE SHELTER TYPES--------------//
 router.get('/types/:id', (req, res) => {
     //-----------query text for any call
-    const queryText = `SELECT * from "shelter_guest_count" WHERE "shelter_id" = $1;`;
+    const queryText = `SELECT * from "shelter_guest_count" WHERE "shelter_id" = $1 ORDER BY "id";`;
     //-------------querying database 
     pool.query(queryText, [Number(req.params.id)])
         .then((result) => { res.send(result.rows); console.log(result.rows); })

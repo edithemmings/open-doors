@@ -14,7 +14,7 @@ function* getUserShelter(action) {
 function* getUserShelterInfo(action) {
     try {
         const response = yield axios.get(`/api/shelter/all/user`);
-        yield put({ type: 'SET_USER_MOREINFO', payload: response.data });
+        yield put({ type: 'SET_USER_ALL_SHELTER_INFO', payload: response.data });
         // console.log(response.data)
     } catch (error) {
         console.log("Error with GET request", error);
@@ -23,7 +23,7 @@ function* getUserShelterInfo(action) {
 
 function* userShelterSaga() {
     yield takeEvery('GET_USER_SHELTER', getUserShelter)
-    yield takeEvery('GET_USER_MOREINFO', getUserShelterInfo)
+    yield takeEvery('GET_USER_ALL_SHELTER_INFO', getUserShelterInfo)
 
 }
 
