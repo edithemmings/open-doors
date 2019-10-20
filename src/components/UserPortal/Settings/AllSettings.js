@@ -88,18 +88,18 @@ class AllSettings extends Component {
         }
     }
     objectsToDelete = (oldArray, unchanged, keyToCheck) => {
-        let toDelete = oldArray;
+        let toDelete = [...oldArray];
         oldArray.forEach(oldObj => { 
             unchanged.forEach(unchangedObj => {
                 if (oldObj[keyToCheck] === unchangedObj[keyToCheck]) {
-                    toDelete.splice(toDelete.indexOf(oldObj[keyToCheck]), 1)
+                    toDelete.splice(toDelete.indexOf(oldObj), 1)
                 }
             });
         });
         return toDelete;
     }
     stringsToDelete = (oldArray, unchanged) => {
-        let toDelete = oldArray;
+        let toDelete = [...oldArray];
         oldArray.forEach(oldString => {
             unchanged.forEach(unchangedString => {
                 if (oldString === unchangedString) {
@@ -110,18 +110,18 @@ class AllSettings extends Component {
         return toDelete;
     }
     objectsToPost = (newArray, unchanged, keyToCheck) => {
-        let toPost = newArray;
+        let toPost = [...newArray];
         newArray.forEach(newObj => {
             unchanged.forEach(unchangedObj => {
                 if (newObj[keyToCheck] === unchangedObj[keyToCheck]) {
-                    toPost.splice(toPost.indexOf(newObj[keyToCheck]), 1)
+                    toPost.splice(toPost.indexOf(newObj), 1)
                 }
             });
         });
         return toPost;
     }
     stringsToPost = (newArray, unchanged) => {
-        let toPost = newArray;
+        let toPost = [...newArray];
         newArray.forEach(newString => {
             unchanged.forEach(unchangedString => {
                 if (newString === unchangedString) {
@@ -131,7 +131,6 @@ class AllSettings extends Component {
         });
         return toPost;
     }
-
     contactDidChange = () => {
         // determines whether the shelter contact info was edited in settings
         const oldName = this.props.reduxState.userShelter.name;
@@ -144,7 +143,12 @@ class AllSettings extends Component {
             oldPhone !== this.state.contact.phone ||
             oldWebsite !== this.state.contact.website
         ) {
-            return true;
+            return {
+                name : this.state.contact.name,
+                location : this.state.contact.location,
+                phone : this.state.contact.phone,
+                website : this.state.contact.website
+            };
         } else {
             return false;
         }
