@@ -14,6 +14,7 @@ const sheltersRouter = require('./routes/shelter/all.router');
 const userShelterRouter = require('./routes/shelter/user.router');
 const typesRouter = require('./routes/shelter/types.router');
 const tagsRouter = require('./routes/shelter/tags.router');
+const settingsRouter = require('./routes//settings.router');
 
 
 // Body parser middleware
@@ -33,6 +34,8 @@ app.use('/api/shelter/all', sheltersRouter);
 app.use('/api/shelter/user', userShelterRouter);
 app.use('/api/shelter/types', typesRouter);
 app.use('/api/shelter/tags', tagsRouter);
+app.use('/api/settings', settingsRouter);
+
 
 
 // Serve static files

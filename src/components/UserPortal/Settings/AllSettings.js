@@ -5,6 +5,7 @@ import Settings1Contact from '../Settings/Settings1Contact/Settings1Contact'
 import Settings2Hours from '../Settings/Settings2Hours/Settings2Hours'
 import Settings3Types from '../Settings/Settings3Types/Settings3Types'
 import Settings4Tags from '../Settings/Settings4Tags/Settings4Tags'
+import Axios from 'axios';
 
 
 class AllSettings extends Component {
@@ -50,27 +51,37 @@ class AllSettings extends Component {
         const typesDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type');
         const hoursDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day');
         const tagsDidChange = this.arrayOfStringsDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags);
-        //checking if each dataset changed
-        if (contactDidChange){
-            const contactChanges = contactDidChange;
+        const shelterId = this.state.moreInfo.id;
+
+        //if datasets were changed, 
+        if (contactDidChange) {
+            Axios.put('api/settings', contactDidChange)
+            .then(response => {
+                console.log(response)
+            }).catch(error => {
+                console.log(error)
+            })
         }
-        if (typesDidChange) {
-            const typesChanges = typesDidChange;
-            // delete typesChanges.delete array items
-            // post typesChanges.post array items
-        } 
-        if (hoursDidChange) {
-            const hoursChanges = hoursDidChange;
-        } 
-        if (tagsDidChange) {
-            const tagsChanges = tagsDidChange;
+        if (typesDidChange || hoursDidChange || tagsDidChange) {
+            Axios.post('/api/settings', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+                .then(response => {
+                    console.log(response)
+                }).catch(error => {
+                    console.log(error)
+                })
+            Axios.post('/api/settings', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+                .then(response => {
+                    console.log(response)
+                }).catch(error => {
+                    console.log(error)
+                })
         }
 
-        console.log('contact changed?', this.contactDidChange())//returns true or false
-        console.log('types changed?', this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type'))//returns false, or arrays of things to delete/post
-        console.log('hours changed?', this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day'))//returns false, or arrays of things to delete/post
-        console.log('tags changed?', this.arrayOfStringsDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags))//returns false, or arrays of things to delete/post
-    
+        console.log('contact changed?', contactDidChange)//returns true or false
+        console.log('types changed?', typesDidChange)//returns false, or arrays of things to delete/post
+        console.log('hours changed?', hoursDidChange)//returns false, or arrays of things to delete/post
+        console.log('tags changed?', tagsDidChange)//returns false, or arrays of things to delete/post
+
     }
     contactDidChange = () => {
         // naming some variables :)
@@ -121,7 +132,7 @@ class AllSettings extends Component {
     arrayOfStringsDidChange = (oldArray, newArray) => {
         let unchanged = [];
         //checks for what strings were left unedited and stores them
-        oldArray.forEach(oldString => { 
+        oldArray.forEach(oldString => {
             newArray.forEach(newString => {
                 if (oldString === newString) {
                     unchanged.push(newString);
@@ -144,7 +155,7 @@ class AllSettings extends Component {
         //leaves behind only items that the user deleted from the state
         //returns a list of the user's deleted items
         let toDelete = [...oldArray];
-        oldArray.forEach(oldObj => { 
+        oldArray.forEach(oldObj => {
             unchanged.forEach(unchangedObj => {
                 if (oldObj[keyToCheck] === unchangedObj[keyToCheck]) {
                     toDelete.splice(toDelete.indexOf(oldObj), 1)
