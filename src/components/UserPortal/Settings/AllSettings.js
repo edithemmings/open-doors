@@ -22,43 +22,6 @@ class AllSettings extends Component {
             tags: this.props.reduxState.userShelter.tags,
         }
     }
-    handleSave = () => {
-        console.log('contact changed?', this.contactChanged())//returns true or false
-        const id = this.props.reduxState.userShelter.id;
-        const oldTypes = this.props.reduxState.userShelter.types;
-        const oldHours = this.props.reduxState.userShelter.hours;
-        const oldTags = this.props.reduxState.userShelter.tags;
-        
-        let newTypes = []
-        oldTypes.forEach(oldType => {
-            this.state.moreInfo.types.forEach(stateType => {
-                if (oldType.id === stateType.id){
-                    newTypes.push(stateType);
-                }
-            });
-        });
-        // delete rows from this shelters types if they are not in newTypes,
-        // post rows to this shelter's types if they are in this.state.contact, but not in newTypes
-        // move types, hours, and tags to their own functions to clean up handleSave
-
-    }
-    contactChanged = () => {
-        // determines whether the shelter contact info was edited in settings
-        const oldName = this.props.reduxState.userShelter.name;
-        const oldLocation = this.props.reduxState.userShelter.location;
-        const oldPhone = this.props.reduxState.userShelter.phone;
-        const oldWebsite = this.props.reduxState.userShelter.website
-        if (
-            oldName !== this.state.contact.name ||
-            oldLocation !== this.state.contact.location ||
-            oldPhone !== this.state.contact.phone ||
-            oldWebsite !== this.state.contact.website
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     handleEditContact = (event, keyName) => {
         this.setState({
             shelter: {
@@ -79,7 +42,114 @@ class AllSettings extends Component {
         // console.log(this.state)
         // console.log(this.props.reduxState.userShelter)
         // console.log(this.props.reduxState.userShelter.hours)
+        // this.typesDidChange();
     }
+    handleSave = () => {
+        console.log('contact changed?', this.contactDidChange())//returns true or false
+        console.log('types changed?', this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type'))//returns false, or arrays of things to delete/post
+        console.log('hours changed?', this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day'))//returns false, or arrays of things to delete/post
+        console.log('tags changed?', this.arrayOfStringsDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags))//returns false, or arrays of things to delete/post
+    
+    }
+    arrayOfObjDidChange = (oldArray, newArray, keyToCheck) => {
+        let unchanged = [];
+        oldArray.forEach(oldObj => { // generates a list of Types that are shared between the database and the local state
+            newArray.forEach(newObj => {
+                if (oldObj[keyToCheck] === newObj[keyToCheck]) {
+                    unchanged.push(newObj);
+                }
+            });
+        });
+        if (unchanged.length === oldArray.length) {
+            return false;
+        } else {
+            return {
+                delete: this.objectsToDelete(oldArray, unchanged, keyToCheck),
+                post: this.objectsToPost(newArray, unchanged, keyToCheck)
+            };
+        }
+    }
+    arrayOfStringsDidChange = (oldArray, newArray) => {
+        let unchanged = [];
+        oldArray.forEach(oldString => { // generates a list of Types that are shared between the database and the local state
+            newArray.forEach(newString => {
+                if (oldString === newString) {
+                    unchanged.push(newString);
+                }
+            });
+        });
+        if (unchanged.length === oldArray.length) {
+            return false;
+        } else {
+            return {
+                delete: this.stringsToDelete(oldArray, unchanged),
+                post: this.stringsToPost(newArray, unchanged)
+            };
+        }
+    }
+    objectsToDelete = (oldArray, unchanged, keyToCheck) => {
+        let toDelete = oldArray;
+        oldArray.forEach(oldObj => { 
+            unchanged.forEach(unchangedObj => {
+                if (oldObj[keyToCheck] === unchangedObj[keyToCheck]) {
+                    toDelete.splice(toDelete.indexOf(oldObj[keyToCheck]), 1)
+                }
+            });
+        });
+        return toDelete;
+    }
+    stringsToDelete = (oldArray, unchanged) => {
+        let toDelete = oldArray;
+        oldArray.forEach(oldString => {
+            unchanged.forEach(unchangedString => {
+                if (oldString === unchangedString) {
+                    toDelete.splice(toDelete.indexOf(oldString), 1)
+                }
+            });
+        });
+        return toDelete;
+    }
+    objectsToPost = (newArray, unchanged, keyToCheck) => {
+        let toPost = newArray;
+        newArray.forEach(newObj => {
+            unchanged.forEach(unchangedObj => {
+                if (newObj[keyToCheck] === unchangedObj[keyToCheck]) {
+                    toPost.splice(toPost.indexOf(newObj[keyToCheck]), 1)
+                }
+            });
+        });
+        return toPost;
+    }
+    stringsToPost = (newArray, unchanged) => {
+        let toPost = newArray;
+        newArray.forEach(newString => {
+            unchanged.forEach(unchangedString => {
+                if (newString === unchangedString) {
+                    toPost.splice(toPost.indexOf(newString), 1)
+                }
+            });
+        });
+        return toPost;
+    }
+
+    contactDidChange = () => {
+        // determines whether the shelter contact info was edited in settings
+        const oldName = this.props.reduxState.userShelter.name;
+        const oldLocation = this.props.reduxState.userShelter.location;
+        const oldPhone = this.props.reduxState.userShelter.phone;
+        const oldWebsite = this.props.reduxState.userShelter.website
+        if (
+            oldName !== this.state.contact.name ||
+            oldLocation !== this.state.contact.location ||
+            oldPhone !== this.state.contact.phone ||
+            oldWebsite !== this.state.contact.website
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         return (
             <>
