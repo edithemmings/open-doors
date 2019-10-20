@@ -77,7 +77,7 @@ class AllSettings extends Component {
     }
     componentDidMount() {
         // console.log(this.state)
-        console.log(this.props.reduxState.userShelter)
+        // console.log(this.props.reduxState.userShelter)
         // console.log(this.props.reduxState.userShelter.hours)
     }
     render() {

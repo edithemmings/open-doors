@@ -58,7 +58,7 @@ class Settings2Hours extends Component {
                                 <label>Closes</label>
                             </Grid.Column>
                         </Grid.Row>
-                        {this.props.shelter.hours.map(selectedDay => (
+                        {this.props.shelter.hours ? this.props.shelter.hours.map(selectedDay => (
                             <Grid.Row>
                                 <Grid.Column width={6}>
                                     {selectedDay.day}
@@ -77,7 +77,7 @@ class Settings2Hours extends Component {
                                     >X</Button>
                                 </Grid.Column>
                             </Grid.Row>
-                        ))}
+                        )) : ''}
                         <Grid.Row>
                             <Grid.Column width={6}>
                                 <select className="dropdown"

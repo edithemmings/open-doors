@@ -6,13 +6,8 @@ class Settings3Types extends Component {
     state = {}
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
-        console.log(this.props.shelter.guest_types)
+        // console.log(this.props.shelter.guest_types)
     }
-    // handleSubmit = () => {
-    //     console.log(this.state.selectedTypes)
-    //     this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
-    //     this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
-    // }
     handleTypeChange = (event, keyName) => {
         this.setState({
             ...this.state,
@@ -55,7 +50,7 @@ class Settings3Types extends Component {
                                     Capacity
                             </Grid.Column>
                             </Grid.Row>
-                            {this.props.shelter.types.map(selectedTypes => (
+                            {this.props.shelter.types ? this.props.shelter.types.map(selectedTypes => (
                                 <Grid.Row>
                                     <Grid.Column width={8}>
                                         {selectedTypes.type}
@@ -71,7 +66,7 @@ class Settings3Types extends Component {
                                         >X</Button>
                                     </Grid.Column>
                                 </Grid.Row>
-                            ))}
+                            )) : ''}
                             <Grid.Row>
                                 <Grid.Column width={8}>
                                     <select className="dropdown"

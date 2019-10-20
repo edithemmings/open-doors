@@ -3,11 +3,8 @@ import { connect } from "react-redux";
 import { Button, Grid } from 'semantic-ui-react'
 
 class Settings4Tags extends Component {
-    // state = {
-    //     selectedTags: [{ id: 1, tag: 'shower' }],
-    // }
     componentDidMount() {
-        console.log(this.props.shelter.tags)
+        // console.log(this.props.shelter.tags)
     }
     handleTagChange = (event) => {
         let currentTag = event.target.value;
@@ -15,7 +12,7 @@ class Settings4Tags extends Component {
         if (this.props.shelter.tags){
             this.props.shelter.tags.forEach(tag => {
                 if (tag === currentTag) {
-                    console.log(tag, currentTag)
+                    // console.log(tag, currentTag)
                     redundant = true;
                     alert('already selected')
                 }
@@ -47,7 +44,7 @@ class Settings4Tags extends Component {
                                     Tags
                                 </Grid.Column>
                             </Grid.Row>
-                            {this.props.shelter.tags.map(tag => (
+                            {this.props.shelter.tags ? this.props.shelter.tags.map(tag => (
                                 <Grid.Row>
                                     <Grid.Column width={14}>
                                         {tag}
@@ -60,7 +57,7 @@ class Settings4Tags extends Component {
                                         >X</Button>
                                     </Grid.Column>
                                 </Grid.Row>
-                            ))}
+                            )): ''}
                             <Grid.Row>
                                 <Grid.Column width={14}>
                                     <select className="dropdown" onChange={this.handleTagChange}>
