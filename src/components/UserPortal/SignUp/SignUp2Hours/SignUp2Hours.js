@@ -48,10 +48,10 @@ class UserPortalSignUp1 extends Component {
                             <Grid.Column width={6}>
                                 Day of the Week
                             </Grid.Column>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={3}>
                                 <label>Opens</label>
                             </Grid.Column>
-                            <Grid.Column width={6}>
+                            <Grid.Column width={5}>
                                 <label>Closes</label>
                             </Grid.Column>
                         </Grid.Row>
@@ -60,10 +60,10 @@ class UserPortalSignUp1 extends Component {
                                 <Grid.Column width={6}>
                                     {selectedDay.day}
                                 </Grid.Column>
-                                <Grid.Column width={4}>
+                                <Grid.Column width={3}>
                                     {selectedDay.open}
                                 </Grid.Column>
-                                <Grid.Column width={4}>
+                                <Grid.Column width={3}>
                                     {selectedDay.close}
                                 </Grid.Column>
                                 <Grid.Column width={2}>
@@ -80,23 +80,25 @@ class UserPortalSignUp1 extends Component {
                                     ))}
                                 </select>
                             </Grid.Column>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={3}>
                                 <Input
                                     fluid
                                     placeholder={'Opens'}
                                     onChange={(e) => this.handleHourChange(e, 'open')}
                                 />
                             </Grid.Column>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={3}>
                                 <Input
                                     fluid
                                     placeholder={'Closes'}
                                     onChange={(e) => this.handleHourChange(e, 'close')}
                                 />
                             </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Button onClick={this.handleHourAdd}>Add</Button>
+                            </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    <Button onClick={this.handleHourAdd}>Add</Button>
                 </div>
                 <Button onClick={this.handleSubmit}>Next</Button>
 

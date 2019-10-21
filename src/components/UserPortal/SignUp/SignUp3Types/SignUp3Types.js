@@ -51,25 +51,28 @@ class UserPortalSignUp2 extends Component {
                     <div>
                         <Grid celled >
                             <Grid.Row>
-                                <Grid.Column width={10}>
+                                <Grid.Column width={8}>
                                     Guest Types
                             </Grid.Column>
-                                <Grid.Column width={6}>
+                                <Grid.Column width={8}>
                                     Capacity
                             </Grid.Column>
                             </Grid.Row>
                             {this.state.selectedTypes.map(selectedTypes => (
                                 <Grid.Row>
-                                    <Grid.Column width={10}>
+                                    <Grid.Column width={8}>
                                         {selectedTypes.type}
                                     </Grid.Column>
                                     <Grid.Column width={6}>
                                         {selectedTypes.capacity}
                                     </Grid.Column>
+                                    <Grid.Column width={2}>
+                                        <Button>X</Button>
+                                    </Grid.Column>
                                 </Grid.Row>
                             ))}
                             <Grid.Row>
-                                <Grid.Column width={10}>
+                                <Grid.Column width={8}>
                                     <select className="dropdown"
                                         onChange={this.handleTypeNameChange}>
                                         {this.props.reduxState.types.map(type => (
@@ -80,9 +83,10 @@ class UserPortalSignUp2 extends Component {
                                 <Grid.Column width={6}>
                                     <Input fluid placeholder={'Capacity'} onChange={this.handleTypeCapacityChange} />
                                 </Grid.Column>
+                                <Grid.Column width={2}>
+                                    <Button onClick={this.handleTypeAdd}>Add</Button>                                </Grid.Column>
                             </Grid.Row>
                         </Grid>
-                        <Button onClick={this.handleTypeAdd}>Add</Button>
                     </div>
                     <Button onClick={this.handleSubmit}>Next</Button>
 

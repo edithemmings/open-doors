@@ -44,8 +44,11 @@ class UserPortalSignUp2 extends Component {
                             </Grid.Row>
                             {this.state.selectedTags.map(selectedTag => (
                                 <Grid.Row>
-                                    <Grid.Column width={16}>
+                                    <Grid.Column width={14}>
                                         {selectedTag.tag}
+                                    </Grid.Column>
+                                    <Grid.Column width={2}>
+                                        <Button>X</Button>
                                     </Grid.Column>
                                 </Grid.Row>
                             ))}
