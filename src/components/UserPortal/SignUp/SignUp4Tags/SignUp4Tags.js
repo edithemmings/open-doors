@@ -4,7 +4,7 @@ import { Button, Grid } from 'semantic-ui-react'
 
 class UserPortalSignUp2 extends Component {
     state = {
-        selectedTags: [{ id: 1, tag: 'shower' }],
+        selectedTags: [],
     }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TAGS' });

@@ -11,15 +11,21 @@ import SignUpSubmit from './SignUp/SignUpSubmit/SignUpSubmit'
 class ShelterPortalHome extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'GET_USER_ALL_SHELTER_INFO' });
-        // this.props.dispatch({ type: 'GET_USER_SHELTER' });
+    }
+
+    toPage2 = () => {
+        this.props.history.push('/sign-up-2')
     }
     render() {
         return (
             <div>
-                {this.props.reduxState.userShelter.id
+                {this.props.reduxState.userShelter.types
                     ? <UserPortalHome shelter={this.props.reduxState.userShelter}/> 
                     : 
-                    <div><SignUp1Contact /></div>
+                    <div><SignUp1Contact toPage2={this.toPage2}/>
+                    {/* <SignUp2Hours /><SignUp3Types /><SignUp4Tags /><SignUpSubmit  /> */}
+                    </div>
+                    // this.props.history.push('/sign-up-1')
                 }
             </div>
         )

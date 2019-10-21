@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AllSettings from '../UserPortal/Settings/AllSettings'
+import UserPortal from '../UserPortal/UserPortal'
 import SignUp1Contact from '../UserPortal/SignUp/SignUp1Contact/SignUp1Contact'
 import SignUp2Hours from '../UserPortal/SignUp/SignUp2Hours/SignUp2Hours'
 import SignUp3Types from '../UserPortal/SignUp/SignUp3Types/SignUp3Types'
@@ -52,7 +53,7 @@ class App extends Component {
             <ProtectedRoute
               // exact
               path="/home"
-              component={UserPage}
+              component={UserPortal}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
@@ -65,6 +66,11 @@ class App extends Component {
               exact
               path="/settings"
               component={AllSettings}
+            />
+            <ProtectedRoute
+              exact
+              path="/sign-up-1"
+              component={SignUp1Contact}
             />
             <ProtectedRoute
               exact

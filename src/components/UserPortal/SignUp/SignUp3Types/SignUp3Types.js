@@ -4,7 +4,7 @@ import { Button, Input, Grid } from 'semantic-ui-react'
 
 class UserPortalSignUp2 extends Component {
     state = {
-        selectedTypes: [{ id: 1, type: 'family', capacity: 45 }]
+        selectedTypes: []
     }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
@@ -14,7 +14,7 @@ class UserPortalSignUp2 extends Component {
         console.log(this.state.selectedTypes)
         this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
         this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
-        this.props.history.push('/sign-up-3')
+        this.props.history.push('/sign-up-4')
     }
 
     handleTypeAdd = () => {

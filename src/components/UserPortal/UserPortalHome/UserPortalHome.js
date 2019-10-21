@@ -47,7 +47,9 @@ class ShelterPortalHome extends Component {
                         >down-</Button>
                     </div>
             )) : ''}
+            
                 <Link to='/settings'><Button>Settings</Button></Link>
+
 
             </>
         )

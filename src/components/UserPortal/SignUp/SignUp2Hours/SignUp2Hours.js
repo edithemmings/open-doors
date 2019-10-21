@@ -15,10 +15,7 @@ class UserPortalSignUp1 extends Component {
             { id: 8, day: 'Monday-Friday' },
             { id: 9, day: 'Saturday-Sunday' }
         ],
-        selectedDays: [
-            { id: 1, day: 'Monday', open: '5:00 PM', close: '9:00 AM' },
-            { id: 2, day: 'Tuesday', open: '7:00 PM', close: '9:00 AM' },
-        ]
+        selectedDays: []
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })

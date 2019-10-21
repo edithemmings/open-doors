@@ -4,7 +4,7 @@ import { Button, Grid } from 'semantic-ui-react'
 
 class Settings4Tags extends Component {
     componentDidMount() {
-        // console.log(this.props.shelter.tags)
+        this.props.dispatch({ type: 'GET_TAGS' });
     }
     handleTagChange = (event) => {
         let currentTag = event.target.value;
