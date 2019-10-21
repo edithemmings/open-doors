@@ -90,6 +90,10 @@ let stringsToPost = (newArray, unchanged) => {
 // console.log('contact changed?', contactDidChange())//returns true or false
 // console.log('types changed?', arrayOfObjDidChange([{ type: 1 }, { type: 2 }, { type: 3 }], [{ type: 1 }, { type: 2 },{ type: 4 }], 'type'))//returns false, or arrays of things to delete/post
 // console.log('hours changed?', arrayOfObjDidChange([{ day: 'eggs' }, { type: 'grits' }, { day: 'bacon' }], [{ day: 'eggs' }, { type: 'grits' },{ day: 'potatoes' }], 'day'))//returns false, or arrays of things to delete/post
-console.log('tags changed?', arrayOfStringsDidChange(['eggs', 'grits', 'bacon'], ['eggs', 'grits', 'potatoes']))//returns false, or arrays of things to delete/post
+// console.log('tags changed?', arrayOfStringsDidChange(['eggs', 'grits', 'bacon'], ['eggs', 'grits', 'potatoes']))//returns false, or arrays of things to delete/post
 
 // console.log('types changed?', objectsToPost([{ type: 1 }, { type: 2 }, { type: 4 }], [{ type: 1 }, { type: 2 }], 'type'))//returns false, or arrays of things to delete/post
+
+
+let now = new Date()
+console.log(now)

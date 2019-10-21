@@ -28,7 +28,10 @@ class ShelterPortalHome extends Component {
         }).catch(error => {
             console.log(error)
         })
-        //axios.put('/api/timestamp')
+        // updates the time stamp of most recent bed availability update
+        Axios.put('/api/timestamp', { timestamp: new Date() })
+        .then(response => {console.log(response)})
+        .catch(error => {console.log(error)})
     } 
     render() {
         return (

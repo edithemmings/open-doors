@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react'
 import axios from 'axios'
 class ShelterList extends Component {
-    getTimeStamp = () => {
-        // axios.get('/api/timestamp')
+    componentDidMount() {
+        this.getTimeStamp(8);
+    }
+    getTimeStamp = (id) => {
+        axios.get('/api/timestamp/' + id)
+            .then(response => { 
+                console.log('RESPONSEEEE', response.data[0])
+            })
+            .catch(error => { console.log(error) })
     }
     render() {
         return (
