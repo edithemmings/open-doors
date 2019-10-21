@@ -28,6 +28,7 @@ class ShelterPortalHome extends Component {
         }).catch(error => {
             console.log(error)
         })
+        //axios.put('/api/timestamp')
     } 
     render() {
         return (
