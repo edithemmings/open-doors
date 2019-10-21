@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button } from 'semantic-ui-react'
 import Axios from 'axios';
-import AllSettings from '../Settings/AllSettings'
-
+import { Link } from 'react-router-dom'
 
 class ShelterPortalHome extends Component {
     state = {}
@@ -48,10 +47,7 @@ class ShelterPortalHome extends Component {
                         >down-</Button>
                     </div>
             )) : ''}
-            
-            <div>
-                <AllSettings/>
-            </div>
+                <Link to='/settings'><Button>Settings</Button></Link>
 
             </>
         )

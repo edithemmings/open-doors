@@ -19,7 +19,7 @@ class ShelterPortalHome extends Component {
                 {this.props.reduxState.userShelter.id
                     ? <UserPortalHome shelter={this.props.reduxState.userShelter}/> 
                     : 
-                    <div><SignUp1Contact /><SignUp2Hours /> <SignUp3Types /> <SignUp4Tags/> <SignUpSubmit /></div>
+                    <div><SignUp1Contact /></div>
                 }
             </div>
         )

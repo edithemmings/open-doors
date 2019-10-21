@@ -81,7 +81,7 @@ class AllSettings extends Component {
         console.log('types changed?', typesDidChange)//returns false, or arrays of things to delete/post
         console.log('hours changed?', hoursDidChange)//returns false, or arrays of things to delete/post
         console.log('tags changed?', tagsDidChange)//returns false, or arrays of things to delete/post
-
+        this.props.history.push('/home')
     }
     contactDidChange = () => {
         // naming some variables :)

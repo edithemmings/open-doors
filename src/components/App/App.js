@@ -16,6 +16,13 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import AllSettings from '../UserPortal/Settings/AllSettings'
+import SignUp1Contact from '../UserPortal/SignUp/SignUp1Contact/SignUp1Contact'
+import SignUp2Hours from '../UserPortal/SignUp/SignUp2Hours/SignUp2Hours'
+import SignUp3Types from '../UserPortal/SignUp/SignUp3Types/SignUp3Types'
+import SignUp4Tags from '../UserPortal/SignUp/SignUp4Tags/SignUp4Tags'
+import SignUpSubmit from '../UserPortal/SignUp/SignUpSubmit/SignUpSubmit'
+
 import './App.css';
 
 class App extends Component {
@@ -53,6 +60,31 @@ class App extends Component {
               exact
               path="/info"
               component={InfoPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/settings"
+              component={AllSettings}
+            />
+            <ProtectedRoute
+              exact
+              path="/sign-up-2"
+              component={SignUp2Hours}
+            />
+            <ProtectedRoute
+              exact
+              path="/sign-up-3"
+              component={SignUp3Types}
+            />
+            <ProtectedRoute
+              exact
+              path="/sign-up-4"
+              component={SignUp4Tags}
+            />
+            <ProtectedRoute
+              exact
+              path="/sign-up-submit"
+              component={SignUpSubmit}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

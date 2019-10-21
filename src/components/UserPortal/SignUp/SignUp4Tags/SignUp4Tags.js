@@ -12,6 +12,7 @@ class UserPortalSignUp2 extends Component {
     handleSubmit = () => {
         console.log(this.state.selectedTags)
         this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
+        this.props.history.push('/sign-up-submit')
     }
     handleTagChange = (event) => {
         let currentTag = event.target.value;

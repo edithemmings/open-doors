@@ -22,6 +22,7 @@ class UserPortalSignUp1 extends Component {
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
+        this.props.history.push('/sign-up-3')
     }
     handleHourChange = (event, keyName) => {
         this.setState({

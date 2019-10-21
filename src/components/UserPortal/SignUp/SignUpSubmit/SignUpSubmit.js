@@ -12,6 +12,7 @@ class UserPortalSignUpSubmit extends Component {
         }).catch(error => {
             console.log(error)
         })
+        this.props.history.push('/home')
     }
     render() {
         let shelter = this.props.reduxState.signUpForm
