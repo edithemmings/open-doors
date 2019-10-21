@@ -19,7 +19,7 @@ router.put('/', (req, res) => {
 });
 
 // posts hours, types, or tags that the user added in settings
-router.post('/', (req, res) => {
+router.post('/post', (req, res) => {
     //-----------query text for any call
     let queryText = ''
     if (req.body.types) {
@@ -50,22 +50,25 @@ router.post('/', (req, res) => {
 });
 
 // deletes hours, types, or tags that the user deleted in settings
-router.delete('/', (req, res) => {
+router.post('/delete', (req, res) => {
     //-----------query text for any call
+    console.log('in server delete', req.body)
     let queryText = ''
     if (req.body.types){
+        console.log('-----TYPES', req.body.types)
         req.body.types.delete.forEach(obj => {
             queryText = queryText + `DELETE FROM "shelter_guest_count" WHERE "shelter_id" = ${req.body.id} AND "type" = '${obj.type}';`
-            // console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
         })
     }
     if (req.body.hours){
+        console.log('-----HOURS', req.body.hours)
         req.body.hours.delete.forEach(obj => {
             queryText = queryText + `DELETE FROM "hours" WHERE "shelter_id" = ${req.body.id} AND "day" = '${obj.day}';`
             // console.log('day, open, close', obj.day, obj.open, obj.close)
         })
     }
     if (req.body.tags) {
+        console.log('-----TAGS', req.body.tags)
         req.body.tags.delete.forEach(string => {
             queryText = queryText + `DELETE FROM "shelter_tags" WHERE "shelter_id" = ${req.body.id} AND "tag" = '${string}';`
             // console.log('tag', obj.tag)
@@ -73,7 +76,7 @@ router.delete('/', (req, res) => {
     }  
     //-------------querying database 
     pool.query(queryText)
-        .then((result) => { res.sendStatus(201); console.log(result); })
+        .then((result) => { res.sendStatus(201); console.log('delete seemed to work!'); })
         .catch((err) => {
             console.log('Error deleting', err);
             res.sendStatus(500);

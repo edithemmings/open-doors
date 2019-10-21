@@ -63,13 +63,13 @@ class AllSettings extends Component {
             })
         }
         if (typesDidChange || hoursDidChange || tagsDidChange) {
-            Axios.post('/api/settings', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+            Axios.post('/api/settings/post', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
                 .then(response => {
                     console.log(response)
                 }).catch(error => {
                     console.log(error)
                 })
-            Axios.post('/api/settings', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+            Axios.post('/api/settings/delete', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
                 .then(response => {
                     console.log(response)
                 }).catch(error => {
@@ -120,7 +120,7 @@ class AllSettings extends Component {
         });
         //if no changes, returns false, if there are changes, it returns the 
         //objects that need to be deleted or posted
-        if (unchanged.length === oldArray.length) {
+        if (unchanged.length === oldArray.length && unchanged.length === newArray.length) {
             return false;
         } else {
             return {
@@ -141,7 +141,7 @@ class AllSettings extends Component {
         });
         //if no changes, returns false, if there are changes, it returns the
         //strings that need to be deleted or posted
-        if (unchanged.length === oldArray.length) {
+        if (unchanged.length === oldArray.length && unchanged.length === newArray.length) {
             return false;
         } else {
             return {
