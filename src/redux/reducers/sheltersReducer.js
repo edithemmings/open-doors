@@ -1,4 +1,4 @@
-const sheltersReducer = (state = {}, action) => {
+const sheltersReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SHELTERS':
             console.log(action.payload)
