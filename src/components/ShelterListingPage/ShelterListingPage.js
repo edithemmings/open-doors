@@ -8,12 +8,15 @@ class ShelterListing extends Component {
         this.props.dispatch({ type: 'GET_SHELTERS' });
         console.log(this.props.reduxState.shelters, Array.isArray(this.props.reduxState.shelters))
     }
+    goToDetailsPage = (id) => {
+        this.props.history.push(`/explore/${id}`)
+    }
     render(){
         return (
             <>
-                <p>Hello</p>
                 <ShelterList 
                     shelters={this.props.reduxState.shelters}
+                    goToDetailsPage={this.goToDetailsPage}
                 />
                 
             </>

@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 
 class ShelterList extends Component {
-    goToDetailsPage = (id) => {
-        // console.log(id)
-        this.props.history.push(`/explore/${id}`)
-    }
     render() {
         return (
             <>
                 {Array.isArray(this.props.shelters) ?
                     <div>                    
                     {this.props.shelters.map((shelter) => {
-                        return <div key={shelter.id} className='listingCard' value={shelter.id} onClick={() => this.goToDetailsPage(shelter.id)}>
+                        return <div key={shelter.id} className='listingCard' value={shelter.id} onClick={() => this.props.goToDetailsPage(shelter.id)}>
                                     <h3>{shelter.name}</h3>
                                     <p>{shelter.location}</p>
                                     <p>{shelter.phone}</p>

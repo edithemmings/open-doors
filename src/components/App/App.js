@@ -13,7 +13,8 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import Explore from '../Explore/Explore';
+import ShelterListingPage from '../ShelterListingPage/ShelterListingPage';
+import ShelterDetails from '../ShelterListingPage/ShelterDetails/ShelterDetails';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AllSettings from '../UserPortal/Settings/AllSettings'
@@ -44,7 +45,12 @@ class App extends Component {
             <Route
               exact
               path="/explore"
-              component={Explore}
+              component={ShelterListingPage}
+            />
+            <Route
+              exact
+              path="/explore/:id"
+              component={ShelterDetails}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
