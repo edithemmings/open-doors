@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
     pool.query(queryText)
         .then((result) => { res.sendStatus(201); console.log(result); })
         .catch((err) => {
-            console.log('Error grabbing shelters by tag', err);
+            console.log('posting', err);
             res.sendStatus(500);
         });
 });
@@ -53,23 +53,29 @@ router.post('/', (req, res) => {
 router.delete('/', (req, res) => {
     //-----------query text for any call
     let queryText = ''
-    req.body.types.delete.forEach(obj => {
-        queryText = queryText + `DELETE FROM "shelter_guest_count" WHERE "shelter_id" = ${req.body.id} AND "type" = '${obj.type}';`
-        // console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
-    })
-    req.body.hours.delete.forEach(obj => {
-        queryText = queryText + `DELETE FROM "hours" WHERE "shelter_id" = ${req.body.id} AND "day" = '${obj.day}';`
-        // console.log('day, open, close', obj.day, obj.open, obj.close)
-    })
-    req.body.tags.delete.forEach(string => {
-        queryText = queryText + `DELETE FROM "shelter_tags" WHERE "shelter_id" = ${req.body.id} AND "tag" = '${string}';`
-        // console.log('tag', obj.tag)
-    })
+    if (req.body.types){
+        req.body.types.delete.forEach(obj => {
+            queryText = queryText + `DELETE FROM "shelter_guest_count" WHERE "shelter_id" = ${req.body.id} AND "type" = '${obj.type}';`
+            // console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
+        })
+    }
+    if (req.body.hours){
+        req.body.hours.delete.forEach(obj => {
+            queryText = queryText + `DELETE FROM "hours" WHERE "shelter_id" = ${req.body.id} AND "day" = '${obj.day}';`
+            // console.log('day, open, close', obj.day, obj.open, obj.close)
+        })
+    }
+    if (req.body.tags) {
+        req.body.tags.delete.forEach(string => {
+            queryText = queryText + `DELETE FROM "shelter_tags" WHERE "shelter_id" = ${req.body.id} AND "tag" = '${string}';`
+            // console.log('tag', obj.tag)
+        })
+    }  
     //-------------querying database 
     pool.query(queryText)
         .then((result) => { res.sendStatus(201); console.log(result); })
         .catch((err) => {
-            console.log('Error grabbing shelters by tag', err);
+            console.log('Error deleting', err);
             res.sendStatus(500);
         });
 });
