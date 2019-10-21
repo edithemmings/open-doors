@@ -5,7 +5,7 @@ class ShelterDetails extends Component {
     render() {
         return (
             <>
-                {Array.isArray(this.props.shelters) ?
+                {Array.isArray(this.props.reduxState.shelters) ?
                     <div className='listingCard' onClick={this.goToDetailsPage}>
                         {this.props.reduxState.shelters.map((shelter) => {
                             if (shelter.id == this.props.match.params.id){
@@ -21,14 +21,14 @@ class ShelterDetails extends Component {
                                     </ul>
                                     <ul>
                                         {shelter.types.map(type => {
-                                            return <li>{type}</li>
+                                            return <li>{type.type}, {type.count}/{type.capacity}</li>
                                         })}
                                     </ul>
                                     {/* <li>{JSON.stringify(shelter)}</li> */}
                                 </div>
                             }
                         })}</div>
-                    : ''}
+                    : 'error, try refreshing'}
             </>
         )
     }
