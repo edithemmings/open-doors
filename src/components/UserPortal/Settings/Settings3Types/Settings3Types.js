@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Button, Input, Grid } from 'semantic-ui-react'
 
 class Settings3Types extends Component {
-    state = {}
+    state = { inputType: { capacity: '' } }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
         // console.log(this.props.shelter.guest_types)
@@ -25,6 +25,13 @@ class Settings3Types extends Component {
             totalTypes.push(this.state.inputType)
         }
         this.props.handleEdit('types', totalTypes)
+        this.setState({
+            ...this.state,
+            inputType: {
+                ...this.state.inputType,
+                capacity: ''
+            }
+        })
     }
     deleteType = (event) => {
         let remainingTypes = []
@@ -77,7 +84,11 @@ class Settings3Types extends Component {
                                     </select>
                                 </Grid.Column>
                                 <Grid.Column width={6}>
-                                    <Input fluid placeholder={'Capacity'} onChange={(e) => this.handleTypeChange(e, 'capacity')} />
+                                    <Input
+                                        fluid
+                                        placeholder={'Capacity'}
+                                        value={this.state.inputType.capacity}
+                                        onChange={(e) => this.handleTypeChange(e, 'capacity')} />
                                 </Grid.Column>
                                 <Grid.Column width={2}>
                                     <Button onClick={this.handleTypeAdd}>Add</Button>

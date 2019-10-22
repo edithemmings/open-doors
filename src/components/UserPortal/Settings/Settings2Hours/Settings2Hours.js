@@ -14,7 +14,11 @@ class Settings2Hours extends Component {
             { id: 7, day: 'Every day' },
             { id: 8, day: 'Monday-Friday' },
             { id: 9, day: 'Saturday-Sunday' }
-        ]
+        ],
+        inputHour: {
+            open: '',
+            close: ''
+        }
     }
     handleHourChange = (event, keyName) => {
         this.setState({
@@ -31,6 +35,14 @@ class Settings2Hours extends Component {
             totalHours.push(this.state.inputHour);
         }
         this.props.handleEdit('hours', totalHours)
+        this.setState({
+            ...this.state,
+            inputHour: {
+                ...this.state.inputHour,
+                open: '',
+                close: ''
+            }
+        })
     }
     deleteHour = (event) => {
         let remainingHours = []
@@ -91,6 +103,7 @@ class Settings2Hours extends Component {
                                 <Input
                                     fluid
                                     placeholder={'Opens'}
+                                    value={this.state.inputHour.open}
                                     onChange={(e) => this.handleHourChange(e, 'open')}
                                 />
                             </Grid.Column>
@@ -98,6 +111,7 @@ class Settings2Hours extends Component {
                                 <Input
                                     fluid
                                     placeholder={'Closes'}
+                                    value={this.state.inputHour.close}
                                     onChange={(e) => this.handleHourChange(e, 'close')}
                                 />
                             </Grid.Column>
