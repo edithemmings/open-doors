@@ -97,5 +97,18 @@ router.put(`/down/:id`, (req, res) => {
 
 });
 
+router.put(`/set/:id`, (req, res) => {
+    //-----------query text for any call
+    const queryText = `UPDATE "shelter_guest_count" SET "count" = $1 WHERE "id" = $2;`;
+    //-------------querying database 
+    pool.query(queryText, [req.body.count, req.params.id])
+        .then((result) => { res.sendStatus(201); })
+        .catch((err) => {
+            console.log('Error decrementing', err);
+            res.sendStatus(500);
+        });
+
+})
+
 
 module.exports = router;
