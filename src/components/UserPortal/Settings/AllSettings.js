@@ -9,19 +9,27 @@ import Axios from 'axios';
 
 
 class AllSettings extends Component {
-    state = {
-        contact: {
-            name: this.props.reduxState.userShelter.name,
-            location: this.props.reduxState.userShelter.location,
-            phone: this.props.reduxState.userShelter.phone,
-            website: this.props.reduxState.userShelter.website
-        },
-        moreInfo: {
-            id: this.props.reduxState.userShelter.id,
-            types: this.props.reduxState.userShelter.types,
-            hours: this.props.reduxState.userShelter.hours,
-            tags: this.props.reduxState.userShelter.tags,
-        }
+    componentDidMount() {
+        Axios.get(`/api/shelter/all/user`)
+            .then(response => {
+                console.log(response.data);
+                let shelter = response.data[0];
+                this.setState({
+                    contact: {
+                        name: shelter.name,
+                        location: shelter.location,
+                        phone: shelter.phone,
+                        website: shelter.website
+                    },
+                    moreInfo: {
+                        id: shelter.id,
+                        types: shelter.types,
+                        hours: shelter.hours,
+                        tags: shelter.tags,
+                    }
+                })
+            }).catch(error => {console.log(error)})
+        this.props.dispatch({ type: 'GET_USER_ALL_SHELTER_INFO' });
     }
     handleEditContact = (event, keyName) => {
         this.setState({
@@ -39,12 +47,7 @@ class AllSettings extends Component {
             }
         })
     }
-    componentDidMount() {
-        // console.log(this.state)
-        // console.log(this.props.reduxState.userShelter)
-        // console.log(this.props.reduxState.userShelter.hours)
-        // this.typesDidChange();
-    }
+
     handleSave = () => {
         // declaring some variables
         const contactDidChange = this.contactDidChange();
@@ -56,11 +59,11 @@ class AllSettings extends Component {
         //if datasets were changed, 
         if (contactDidChange) {
             Axios.put('api/settings', contactDidChange)
-            .then(response => {
-                console.log(response)
-            }).catch(error => {
-                console.log(error)
-            })
+                .then(response => {
+                    console.log(response)
+                }).catch(error => {
+                    console.log(error)
+                })
         }
         if (typesDidChange || hoursDidChange || tagsDidChange) {
             Axios.post('/api/settings/post', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
@@ -210,26 +213,28 @@ class AllSettings extends Component {
     render() {
         return (
             <>
-                <div>
-                    <Settings1Contact
-                        shelter={this.state.contact}
-                        handleEdit={this.handleEditContact}
-                    />
-                    <Settings2Hours
-                        shelter={this.state.moreInfo}
-                        handleEdit={this.handleEditMoreInfo}
-                    />
-                    <Settings3Types
-                        shelter={this.state.moreInfo}
-                        handleEdit={this.handleEditMoreInfo}
-                    />
-                    <Settings4Tags
-                        shelter={this.state.moreInfo}
-                        handleEdit={this.handleEditMoreInfo}
-                    />
-                    <Button onClick={this.handleSave}>Save</Button>
-                </div>
+                {this.state ?
+                    <div>
+                        <Settings1Contact
+                            shelter={this.state.contact}
+                            handleEdit={this.handleEditContact}
+                        />
+                        <Settings2Hours
+                            shelter={this.state.moreInfo}
+                            handleEdit={this.handleEditMoreInfo}
+                        />
+                        <Settings3Types
+                            shelter={this.state.moreInfo}
+                            handleEdit={this.handleEditMoreInfo}
+                        />
+                        <Settings4Tags
+                            shelter={this.state.moreInfo}
+                            handleEdit={this.handleEditMoreInfo}
+                        />
+                        <Button onClick={this.handleSave}>Save</Button>
 
+                    </div>
+                : <h1>LOADING</h1>}
             </>
         )
     }
