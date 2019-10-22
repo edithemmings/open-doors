@@ -19,13 +19,13 @@ class UserPortalSignUp2 extends Component {
         let currentTag = event.target.value;
         let redundant = false;
         this.state.selectedTags.forEach(selectedTag => {
-            if (selectedTag.tag === currentTag){
+            if (selectedTag.tag === currentTag) {
                 console.log(selectedTag.tag, currentTag)
                 redundant = true;
                 alert('already selected')
-            }  
+            }
         })
-        if (!redundant){
+        if (!redundant) {
             this.setState({
                 ...this.state,
                 selectedTags: [...this.state.selectedTags, { tag: currentTag }]
@@ -72,7 +72,8 @@ class UserPortalSignUp2 extends Component {
                             </Grid.Row>
                         </Grid>
                     </div>
-                    <Button onClick={this.handleSubmit}>Next</Button>
+                    <Button onClick={this.handleBack}>Back</Button>
+                    <Button primary onClick={this.handleSubmit}>Next</Button>
 
                 </div>
             </>

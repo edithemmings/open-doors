@@ -43,75 +43,76 @@ class UserPortalSignUp1 extends Component {
             <div>
                 <div>
                     <Header
-                    icon1={'checkmark'}
-                    value2={2}
-                    value3={3}
-                    value4={4}
-                    value5={'Review'}
-                    color2={'grey'}
-                />
-                <div>
-                    <label>Hours</label>
-                    <Grid celled >
-                        <Grid.Row>
-                            <Grid.Column width={6}>
-                                Day of the Week
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <label>Opens</label>
-                            </Grid.Column>
-                            <Grid.Column width={5}>
-                                <label>Closes</label>
-                            </Grid.Column>
-                        </Grid.Row>
-                        {this.state.selectedDays.map(selectedDay => (
+                        icon1={'checkmark'}
+                        value2={2}
+                        value3={3}
+                        value4={4}
+                        value5={'Review'}
+                        color2={'grey'}
+                    />
+                    <div>
+                        <label>Hours</label>
+                        <Grid celled >
                             <Grid.Row>
                                 <Grid.Column width={6}>
-                                    {selectedDay.day}
-                                </Grid.Column>
+                                    Day of the Week
+                            </Grid.Column>
                                 <Grid.Column width={3}>
-                                    {selectedDay.open}
+                                    <label>Opens</label>
                                 </Grid.Column>
-                                <Grid.Column width={3}>
-                                    {selectedDay.close}
-                                </Grid.Column>
-                                <Grid.Column width={2}>
-                                    <Button size='mini' value={selectedDay.id}>X</Button>
+                                <Grid.Column width={5}>
+                                    <label>Closes</label>
                                 </Grid.Column>
                             </Grid.Row>
-                        ))}
-                        <Grid.Row>
-                            <Grid.Column width={6}>
-                                <select className="dropdown"
-                                    onChange={(e) => this.handleHourChange(e, 'day')}>
-                                    {this.state.allDays.map(day => (
-                                        <option key={day.id}>{day.day}</option>
-                                    ))}
-                                </select>
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <Input
-                                    fluid
-                                    placeholder={'Opens'}
-                                    onChange={(e) => this.handleHourChange(e, 'open')}
-                                />
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <Input
-                                    fluid
-                                    placeholder={'Closes'}
-                                    onChange={(e) => this.handleHourChange(e, 'close')}
-                                />
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                                <Button onClick={this.handleHourAdd}>Add</Button>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </div>
-                <Button onClick={this.handleSubmit}>Next</Button>
+                            {this.state.selectedDays.map(selectedDay => (
+                                <Grid.Row>
+                                    <Grid.Column width={6}>
+                                        {selectedDay.day}
+                                    </Grid.Column>
+                                    <Grid.Column width={3}>
+                                        {selectedDay.open}
+                                    </Grid.Column>
+                                    <Grid.Column width={3}>
+                                        {selectedDay.close}
+                                    </Grid.Column>
+                                    <Grid.Column width={2}>
+                                        <Button size='mini' value={selectedDay.id}>X</Button>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            ))}
+                            <Grid.Row>
+                                <Grid.Column width={6}>
+                                    <select className="dropdown"
+                                        onChange={(e) => this.handleHourChange(e, 'day')}>
+                                        {this.state.allDays.map(day => (
+                                            <option key={day.id}>{day.day}</option>
+                                        ))}
+                                    </select>
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Input
+                                        fluid
+                                        placeholder={'Opens'}
+                                        onChange={(e) => this.handleHourChange(e, 'open')}
+                                    />
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Input
+                                        fluid
+                                        placeholder={'Closes'}
+                                        onChange={(e) => this.handleHourChange(e, 'close')}
+                                    />
+                                </Grid.Column>
+                                <Grid.Column width={2}>
+                                    <Button onClick={this.handleHourAdd}>Add</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </div>
+                    <Button onClick={this.handleBack}>Back</Button>
+                    <Button primary onClick={this.handleSubmit}>Next</Button>
 
-            </div>
+                </div>
             </div>
         )
     }

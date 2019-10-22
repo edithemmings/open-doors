@@ -56,7 +56,8 @@ class UserPortalSignUpSubmit extends Component {
                             ))}</ul>
                         </div>
                         : ''}
-                    <Button onClick={this.postShelter}>Submit</Button>
+                    <Button onClick={this.handleBack}>Back</Button>
+                    <Button color='green' onClick={this.postShelter}>Submit</Button>
                 </div>
             </div>
         )
