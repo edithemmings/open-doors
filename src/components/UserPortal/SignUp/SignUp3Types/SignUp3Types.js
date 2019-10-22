@@ -5,7 +5,8 @@ import Header from '../Header/Header'
 
 class UserPortalSignUp2 extends Component {
     state = {
-        selectedTypes: this.props.reduxState.signUpForm.types || []
+        selectedTypes: this.props.reduxState.signUpForm.types || [],
+        inputType: { capacity: '' }
     }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
@@ -23,13 +24,14 @@ class UserPortalSignUp2 extends Component {
     }
 
     handleTypeAdd = () => {
-        console.log(this.state.inputType)
-        if (this.state.inputType) {
-            this.setState({
-                ...this.state,
-                selectedTypes: [...this.state.selectedTypes, this.state.inputType]
-            })
-        }
+        this.setState({
+            ...this.state,
+            selectedTypes: [...this.state.selectedTypes, this.state.inputType],
+            inputType: {
+                ...this.state.inputType,
+                capacity: ''
+            }
+        })
     }
     handleTypeNameChange = (event) => {
         this.setState({
@@ -108,7 +110,10 @@ class UserPortalSignUp2 extends Component {
                                         </select>
                                     </Grid.Column>
                                     <Grid.Column width={6}>
-                                        <Input fluid placeholder={'Capacity'} onChange={this.handleTypeCapacityChange} />
+                                        <Input fluid 
+                                        placeholder={'Capacity'} 
+                                        onChange={this.handleTypeCapacityChange}
+                                        value={this.state.inputType.capacity} />
                                     </Grid.Column>
                                     <Grid.Column width={2}>
                                         <Button onClick={this.handleTypeAdd}>Add</Button>                                </Grid.Column>

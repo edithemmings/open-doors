@@ -15,7 +15,8 @@ class UserPortalSignUp1 extends Component {
             { id: 8, day: 'Monday-Friday' },
             { id: 9, day: 'Saturday-Sunday' }
         ],
-        selectedDays: this.props.reduxState.signUpForm.hours || []
+        selectedDays: this.props.reduxState.signUpForm.hours || [],
+        inputHour: {open: '', close: ''}
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
@@ -39,9 +40,15 @@ class UserPortalSignUp1 extends Component {
         if (this.state.inputHour) {
             this.setState({
                 ...this.state,
-                selectedDays: [...this.state.selectedDays, this.state.inputHour]
+                selectedDays: [...this.state.selectedDays, this.state.inputHour],
+                inputHour: {
+                    ...this.state.inputHour,
+                    open: '',
+                    close: ''
+                }
             })
         }
+
     }
     deleteFromState = (event) => {
         let deletedDay = event.target.value;
@@ -112,6 +119,7 @@ class UserPortalSignUp1 extends Component {
                                         fluid
                                         placeholder={'Opens'}
                                         onChange={(e) => this.handleHourChange(e, 'open')}
+                                        value={this.state.inputHour.open}
                                     />
                                 </Grid.Column>
                                 <Grid.Column width={3}>
@@ -119,6 +127,7 @@ class UserPortalSignUp1 extends Component {
                                         fluid
                                         placeholder={'Closes'}
                                         onChange={(e) => this.handleHourChange(e, 'close')}
+                                        value={this.state.inputHour.close}
                                     />
                                 </Grid.Column>
                                 <Grid.Column width={2}>
