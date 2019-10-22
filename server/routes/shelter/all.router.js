@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
     const queryText = `SELECT "shelter"."id", "name", "location", "phone", "website", "user_id", 
 	json_agg(distinct "shelter_tags".tag) AS "tags",
 	json_agg(distinct "shelter_guest_count") AS "types",
-	json_agg(distinct "hours") AS "hours"
+    json_agg(distinct "hours") AS "hours",
+    ("lastupdate"::timestamp AT TIME ZONE 'CST') AS "timestamp"
     FROM "shelter"
     JOIN "hours"  on "shelter".id = "hours".shelter_id
     JOIN "shelter_guest_count" on "shelter".id = "shelter_guest_count".shelter_id

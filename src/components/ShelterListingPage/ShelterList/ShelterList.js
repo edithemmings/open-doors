@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react'
-import axios from 'axios'
+
+
 class ShelterList extends Component {
-    componentDidMount() {
-        this.getTimeStamp(8);
-    }
-    getTimeStamp = (id) => {
-        axios.get('/api/timestamp/' + id)
-            .then(response => { 
-                console.log('RESPONSEEEE', response.data[0])
-            })
-            .catch(error => { console.log(error) })
+
+    subtractDate = (date) => {
+        // console.log(date.replace(/-/g, '/').replace(/T/g, ' '), new Date())
+        let difInMillis = Math.abs(new Date() - new Date(date.replace(/-/g, '/').replace(/T/g, ' ')))
+        let difInMinutes = Math.floor((difInMillis / 1000) / 60);
+        let difInHours = Math.floor((difInMinutes) / 60);
+        let difInDays = Math.floor((difInHours) / 24);
+        console.log(difInMinutes, difInHours, difInDays)
+        if (difInDays > 1) {
+            return difInDays + ' days';
+        } else if (difInDays === 1) {
+            return '1 day';
+        } else if (difInHours > 1) {
+            return difInHours + ' hours';
+        } else if (difInHours === 1) {
+            return '1 hour';
+        } else if (difInMinutes === 1) {
+            return '1 min';
+        } else {
+            return difInMinutes + ' mins';
+        }
+
     }
     render() {
         return (
@@ -32,6 +46,7 @@ class ShelterList extends Component {
                                                     return <li>{type.type}, {type.count}/{type.capacity}</li>
                                                 })}
                                             </ul>
+                                            {shelter.timestamp ? <p>Updated {this.subtractDate(shelter.timestamp)} ago</p> : ''}
                                         </Card.Content>
                                         <Card.Content>
                                             <Button value={shelter.phone}>Call</Button>
