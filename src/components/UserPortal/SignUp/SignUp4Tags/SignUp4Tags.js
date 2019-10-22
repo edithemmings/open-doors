@@ -36,6 +36,19 @@ class UserPortalSignUp2 extends Component {
             })
         }
     }
+    deleteFromState = (event) => {
+        let deleteTag = event.target.value;
+        let tagsArray = [...this.state.selectedTags]
+        tagsArray.forEach(tag => {
+            if (tag === deleteTag) {
+                tagsArray.splice(tagsArray.indexOf(tag), 1);
+            }
+        })
+        this.setState({
+            ...this.state,
+            selectedTags: [...tagsArray]
+        })
+    }
     render() {
         return (
             <>
@@ -61,7 +74,7 @@ class UserPortalSignUp2 extends Component {
                                         {selectedTag.tag}
                                     </Grid.Column>
                                     <Grid.Column width={2}>
-                                        <Button>X</Button>
+                                        <Button value={selectedTag.tag} onClick={this.deleteFromState}>X</Button>
                                     </Grid.Column>
                                 </Grid.Row>
                             ))}

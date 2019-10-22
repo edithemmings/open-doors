@@ -43,8 +43,18 @@ class UserPortalSignUp1 extends Component {
             })
         }
     }
-    deleteFromState = () => {
-        
+    deleteFromState = (event) => {
+        let deletedDay = event.target.value;
+        let hourArray = [...this.state.selectedDays]
+        hourArray.forEach(hour => {
+            if (hour.day === deletedDay){
+                hourArray.splice(hourArray.indexOf(hour), 1);
+            }
+        })
+        this.setState({
+            ...this.state,
+            selectedDays: [...hourArray]
+        })
     }
     render() {
         return (
@@ -84,7 +94,7 @@ class UserPortalSignUp1 extends Component {
                                         {selectedDay.close}
                                     </Grid.Column>
                                     <Grid.Column width={2}>
-                                        <Button size='mini' value={selectedDay.id}>X</Button>
+                                        <Button size='mini' value={selectedDay.day} onClick={this.deleteFromState}>X</Button>
                                     </Grid.Column>
                                 </Grid.Row>
                             ))}

@@ -49,6 +49,19 @@ class UserPortalSignUp2 extends Component {
             }
         })
     }
+    deleteFromState = (event) => {
+        let deleteType = event.target.value;
+        let typesArray = [...this.state.selectedTypes]
+        typesArray.forEach(type => {
+            if (type.type === deleteType) {
+                typesArray.splice(typesArray.indexOf(type), 1);
+            }
+        })
+        this.setState({
+            ...this.state,
+            selectedTypes: [...typesArray]
+        })
+    }
     render() {
         return (
             <>
@@ -81,7 +94,7 @@ class UserPortalSignUp2 extends Component {
                                             {selectedTypes.capacity}
                                         </Grid.Column>
                                         <Grid.Column width={2}>
-                                            <Button>X</Button>
+                                            <Button value={selectedTypes.type} onClick={this.deleteFromState}>X</Button>
                                         </Grid.Column>
                                     </Grid.Row>
                                 ))}
