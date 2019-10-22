@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button, Input} from 'semantic-ui-react'
 import Axios from 'axios';
+import Header from '../Header/Header'
 
 class UserPortalSignUp1 extends Component {
     state = {}
@@ -29,6 +30,15 @@ class UserPortalSignUp1 extends Component {
     render() {
         return (
             <div>
+                <Header 
+                    value1={1}
+                    value2={2}
+                    value3={3}
+                    value4={4}
+                    value5={'Review'}
+                    color1={'grey'}
+                />
+            <div>
                 <label>Shelter Name</label>
                 <Input
                     fluid
@@ -55,6 +65,7 @@ class UserPortalSignUp1 extends Component {
                 />
                 <Button onClick={this.handleSubmit}>Next</Button>
 
+            </div>
             </div>
         )
     }

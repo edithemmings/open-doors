@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button, Grid } from 'semantic-ui-react'
+import Header from '../Header/Header'
 
 class UserPortalSignUp2 extends Component {
     state = {
@@ -35,6 +36,14 @@ class UserPortalSignUp2 extends Component {
         return (
             <>
                 <div>
+                    <Header
+                        icon1={'checkmark'}
+                        icon2={'checkmark'}
+                        icon3={'checkmark'}
+                        value4={4}
+                        value5={'Review'}
+                        color4={'grey'}
+                    />
                     <div>
                         <Grid celled >
                             <Grid.Row>
