@@ -15,11 +15,16 @@ class UserPortalSignUp1 extends Component {
             { id: 8, day: 'Monday-Friday' },
             { id: 9, day: 'Saturday-Sunday' }
         ],
-        selectedDays: []
+        selectedDays: this.props.reduxState.signUpForm.hours || []
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
         this.props.history.push('/sign-up-3')
+    }
+    handleBack = () => {
+        this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
+        this.props.history.push('/sign-up-1')
+
     }
     handleHourChange = (event, keyName) => {
         this.setState({
@@ -37,6 +42,9 @@ class UserPortalSignUp1 extends Component {
                 selectedDays: [...this.state.selectedDays, this.state.inputHour]
             })
         }
+    }
+    deleteFromState = () => {
+        
     }
     render() {
         return (

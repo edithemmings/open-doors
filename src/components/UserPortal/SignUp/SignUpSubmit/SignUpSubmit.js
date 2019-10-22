@@ -15,6 +15,9 @@ class UserPortalSignUpSubmit extends Component {
             })
         this.props.history.push('/home')
     }
+    handleBack = () => {
+        this.props.history.push('/sign-up-4')
+    }
     render() {
         let shelter = this.props.reduxState.signUpForm
         let shelterContact = this.props.reduxState.userShelter
@@ -40,10 +43,10 @@ class UserPortalSignUpSubmit extends Component {
                             ))}</ul>
                         </div>
                         : ''}
-                    {shelter.guest_types ?
+                    {shelter.types ?
                         <div>
                             <p>Guest Types:</p>
-                            <ul>{shelter.guest_types.map(type => (
+                            <ul>{shelter.types.map(type => (
                                 <li key={type.type}>{type.capacity} beds for {type.type} guests</li>
                             ))}</ul>
                             <p>Tags:</p>

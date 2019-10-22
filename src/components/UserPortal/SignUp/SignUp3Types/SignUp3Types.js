@@ -5,7 +5,7 @@ import Header from '../Header/Header'
 
 class UserPortalSignUp2 extends Component {
     state = {
-        selectedTypes: []
+        selectedTypes: this.props.reduxState.signUpForm.types || []
     }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
@@ -16,6 +16,10 @@ class UserPortalSignUp2 extends Component {
         this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
         this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
         this.props.history.push('/sign-up-4')
+    }
+    handleBack = () => {
+        this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
+        this.props.history.push('/sign-up-2')
     }
 
     handleTypeAdd = () => {

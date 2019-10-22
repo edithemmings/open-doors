@@ -12,7 +12,7 @@ class UserPortalSignUp1 extends Component {
             .then(response => {
                 console.log(response)
                 this.props.dispatch({ type: 'GET_USER_SHELTER' })
-                // this.props.history.push('/sign-up-2')
+                this.props.history.push('/sign-up-2')
                 this.props.toPage2();
             }).catch(error => {
                 console.log(error)
@@ -63,7 +63,6 @@ class UserPortalSignUp1 extends Component {
                         placeholder={'Website URL'}
                         onChange={(e) => this.handleContactChange(e, 'website')}
                     />
-                    <Button onClick={this.handleBack}>Back</Button>
                     <Button primary onClick={this.handleSubmit}>Next</Button>
 
                 </div>

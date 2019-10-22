@@ -5,7 +5,7 @@ const signUpForm = (state = {}, action) => {
             return {...state, hours: action.payload}; 
         case 'TYPES_FORM':
             console.log(action.payload)
-            return { ...state, guest_types: action.payload };
+            return { ...state, types: action.payload };
         case 'TAGS_FORM':
             console.log(action.payload)
             return { ...state, tags: action.payload }; 

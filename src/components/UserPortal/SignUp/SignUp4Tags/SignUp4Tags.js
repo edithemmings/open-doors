@@ -5,7 +5,7 @@ import Header from '../Header/Header'
 
 class UserPortalSignUp2 extends Component {
     state = {
-        selectedTags: [],
+        selectedTags: this.props.reduxState.signUpForm.tags || [],
     }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TAGS' });
@@ -14,6 +14,10 @@ class UserPortalSignUp2 extends Component {
         console.log(this.state.selectedTags)
         this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
         this.props.history.push('/sign-up-submit')
+    }
+    handleBack = () => {
+        this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
+        this.props.history.push('/sign-up-3')
     }
     handleTagChange = (event) => {
         let currentTag = event.target.value;
