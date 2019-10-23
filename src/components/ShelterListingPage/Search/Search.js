@@ -62,7 +62,9 @@ class App extends Component {
         console.log(this.state)
         //closes modal
         this.handleClose();
-        console.log(this.props.filterSearchResults(this.state.tags, this.state.types, this.state.form.tags, this.state.form.types))
+        const searchResults = this.props.filterSearchResults(this.state.tags, this.state.types, this.state.form.tags, this.state.form.types)
+        this.props.reloadSheltersWithSearchResults(searchResults);
+        console.log(searchResults)
     } // end handle submit
 
     handleOpen = () => this.setState({ modalOpen: true })

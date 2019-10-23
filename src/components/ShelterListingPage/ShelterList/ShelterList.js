@@ -120,7 +120,7 @@ class ShelterList extends Component {
     render() {
         return (
             <>
-                {Array.isArray(this.props.shelters) && (this.state.loadingDistances === false) && this.state.distances && this.state.geolocation ?
+                {this.props.shelters && (this.state.loadingDistances === false) && this.state.distances && this.state.geolocation ?
                     <div>
                         {this.props.shelters.map((shelter) => {
                             let shelterCoords = {};

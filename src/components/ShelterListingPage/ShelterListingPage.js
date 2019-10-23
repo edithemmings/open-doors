@@ -88,7 +88,7 @@ class ShelterListing extends Component {
         })
         return fullMatch
     }
-    setStateShelters = (shelters) => {
+    reloadSheltersWithSearchResults = (shelters) => {
         this.setState({
             shelters: shelters
         })
@@ -99,6 +99,7 @@ class ShelterListing extends Component {
             <>
                 <Search
                     filterSearchResults={this.filterSearchResults}
+                    reloadSheltersWithSearchResults={this.reloadSheltersWithSearchResults}
                 />
                 <ShelterList
                     shelters={this.state ? this.state.shelters : this.props.reduxState.shelters}
