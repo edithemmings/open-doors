@@ -98,7 +98,17 @@ class App extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-
+                {this.state.form.tags || this.state.form.types ?
+                    <ul>
+                        {/* {this.state.form.tags.map(tag => {
+                            return <li>{tag}</li>
+                        })}
+                        {this.state.form.types.map(type => {
+                            return <li>{type.type}</li>
+                        })} */}
+                        {/* these are freaking objects not arrays!!!! */}
+                    </ul>
+                    : ''}
 
             </div>
         )
