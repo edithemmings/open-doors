@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import ShelterList from './ShelterList/ShelterList'
+import Search from '../ShelterListingPage/Search/Search'
+import Search2 from '../ShelterListingPage/Search2/Search2'
+
 
 class ShelterListing extends Component {
 
@@ -14,11 +17,11 @@ class ShelterListing extends Component {
     render(){
         return (
             <>
+                <Search2 />
                 <ShelterList 
                     shelters={this.props.reduxState.shelters}
                     goToDetailsPage={this.goToDetailsPage}
-                />
-                
+                /> 
             </>
         )
     }
