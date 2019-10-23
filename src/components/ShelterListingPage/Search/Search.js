@@ -1,24 +1,101 @@
 import React, { Component } from 'react';
-import { Form } from 'semantic-ui-react';
+import {
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    FormGroup,
+    Checkbox,
+    FormHelperText
+} from '@material-ui/core';
+import { Modal, Header, Icon, Button } from 'semantic-ui-react'
 import axios from 'axios';
+import SearchModal from './SearchModal/SearchModal'
 
 
 //--------------COMPONENT------------------//
 
-class Search extends Component {
- 
+class App extends Component {
+    state = {
+        form: {},
+        results: []
+    }
+    componentDidMount() {
+        this.getTags();
+        this.getTypes();
+    }
+    getTags = () => {
+        axios.get('/api/shelter/tags').then(response => {
+            this.setState({
+                ...this.state,
+                tags: response.data
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    getTypes = () => {
+        axios.get('/api/shelter/types').then(response => {
+            this.setState({
+                ...this.state,
+                types: response.data
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    handleChange = (event, tagId, tagsOrTypes) => {
+        //grabs the tag ID from the dom and generates a keyname for it
+        //to store the checked/unchecked status in this.state.form
+        let keyName = 'id' + tagId
+        this.setState({
+            ...this.state,
+            form: {
+                ...this.state.form,
+                [tagsOrTypes]: {
+                    ...this.state.form[tagsOrTypes],
+                    [keyName]: event.target.checked
+                }
+            }
+        });
+    };
+    handleSubmit = () => {
+        console.log(this.state)
+        //closes modal
+        this.handleClose();
+        console.log(this.props.filterSearchResults(this.state.tags, this.state.types, this.state.form.tags, this.state.form.types))
+    } // end handle submit
 
+    handleOpen = () => this.setState({ modalOpen: true })
+    handleClose = () => this.setState({ modalOpen: false })
     render() {
         return (
-            <div className="Search">
-                <h2>Find Shelter by Tags</h2>
-                 {/* <Form> */}
-                     <Form.Group>
-                        <label>HTML checkboxes</label>
-                        <Form.Field label='This one' control='input' type='checkbox' />
-                        <Form.Field label='That one' control='input' type='checkbox' /> 
-                     </Form.Group>
-                 {/* </Form> */}
+            <div className="App">
+                <Modal
+                    trigger={<Button onClick={this.handleOpen}>Filter by Tags and Guest Type</Button>}
+                    open={this.state.modalOpen}
+                    onClose={this.handleClose}
+
+                    size='small'
+                >
+                    <Header icon='browser' content='Filter by Tags and Guest Type' />
+                    <Modal.Content>
+                        <SearchModal
+                            tags={this.state.tags}
+                            types={this.state.types}
+                            handleChange={this.handleChange}
+                            form={this.state.form}
+                        />
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button color='green'
+                            type='submit'
+                            onClick={this.handleSubmit}
+                            inverted
+                        >
+                            <Icon name='search' /> Search
+                        </Button>
+                    </Modal.Actions>
+                </Modal>
 
 
             </div>
@@ -26,4 +103,4 @@ class Search extends Component {
     }
 }
 
-export default Search;
+export default App;

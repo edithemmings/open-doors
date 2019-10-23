@@ -31,14 +31,14 @@ class ShelterList extends Component {
     }
 
     componentDidUpdate() {
-        if (this.state.loadingDistances === true && this.props.shelters) {
-            this.loopSheltersSetState();
-            this.getMyCoords();
-            this.setState({
-                ...this.state,
-                loadingDistances: false
-            })
-        }
+        // if (this.state.loadingDistances === true && this.props.shelters) {
+        //     this.loopSheltersSetState();
+        //     this.getMyCoords();
+        //     this.setState({
+        //         ...this.state,
+        //         loadingDistances: false
+        //     })
+        // }
     }
 
     loopSheltersSetState = () => {
