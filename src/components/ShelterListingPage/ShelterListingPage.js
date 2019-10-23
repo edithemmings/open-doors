@@ -5,7 +5,6 @@ import Search from '../ShelterListingPage/Search/Search'
 
 
 class ShelterListing extends Component {
-
     componentDidMount() {
         this.props.dispatch({ type: 'GET_SHELTERS' });
         console.log(this.props.reduxState.shelters, Array.isArray(this.props.reduxState.shelters))
@@ -34,19 +33,19 @@ class ShelterListing extends Component {
         let matchingShelters = []
         if (selectedTypes && selectedTags){
             this.props.reduxState.shelters.forEach(shelter => {
-                if (this.doesShelterMatch(shelter, selectedTags) && this.doesShelterMatch(shelter, selectedTypes)) {
+                if (this.doShelterTagsMatch(shelter.tags, selectedTags) && this.doShelterTypesMatch(shelter.types, selectedTypes)) {
                     matchingShelters.push(shelter)
                 };
             })
         } else if (selectedTypes ) {
             this.props.reduxState.shelters.forEach(shelter => {
-                if (this.doesShelterMatch(shelter, selectedTypes)) {
+                if (this.doShelterTypesMatch(shelter.types.type, selectedTypes)) {
                     matchingShelters.push(shelter)
                 };
             })
         } else if ( selectedTags) {
             this.props.reduxState.shelters.forEach(shelter => {
-                if (this.doesShelterMatch(shelter, selectedTags)) {
+                if (this.doShelterTagsMatch(shelter.tags, selectedTags)) {
                     matchingShelters.push(shelter)
                 };
             })
@@ -57,23 +56,44 @@ class ShelterListing extends Component {
             return this.props.reduxState.shelters;
         }
     }
-
-    doesShelterMatch = (shelter, selectedTags) => {
+    doShelterTagsMatch = (shelterItems, selectedItems) => {
         let fullMatch = true;
-        selectedTags.forEach(selectedTag => {
-            let tagMatch = false;
-            shelter.tags.forEach(shelterTag => {
-                if (shelterTag === selectedTag) {
-                    tagMatch = true;
+        selectedItems.forEach(selectedItem => {
+            let itemMatch = false;
+            shelterItems.forEach(shelterItem => {
+                if (shelterItem === selectedItem) {
+                    itemMatch = true;
                     return;
                 }
             })
-            if (tagMatch === false) {
+            if (itemMatch === false) {
                 fullMatch = false
             }
         })
         return fullMatch
     }
+    doShelterTypesMatch = (shelterItems, selectedItems) => {
+        let fullMatch = true;
+        selectedItems.forEach(selectedItem => {
+            let itemMatch = false;
+            shelterItems.forEach(shelterItem => {
+                if (shelterItem.type === selectedItem) {
+                    itemMatch = true;
+                    return;
+                }
+            })
+            if (itemMatch === false) {
+                fullMatch = false
+            }
+        })
+        return fullMatch
+    }
+    setStateShelters = (shelters) => {
+        this.setState({
+            shelters: shelters
+        })
+    }
+    
     render() {
         return (
             <>
@@ -81,7 +101,7 @@ class ShelterListing extends Component {
                     filterSearchResults={this.filterSearchResults}
                 />
                 <ShelterList
-                    shelters={this.props.reduxState.shelters}
+                    shelters={this.state ? this.state.shelters : this.props.reduxState.shelters}
                     goToDetailsPage={this.goToDetailsPage}
                 />
             </>
