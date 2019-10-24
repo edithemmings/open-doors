@@ -8,10 +8,6 @@ class ShelterPortalHome extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'GET_USER_ALL_SHELTER_INFO' });
     }
-
-    toPage2 = () => {
-        this.props.history.push('/sign-up-2')
-    }
     render() {
         return (
             <div>

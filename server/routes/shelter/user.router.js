@@ -34,7 +34,7 @@ router.post('/contact', (req, res) => {
 //----------------POSTING NEW HOURS, TYPES AND TAGS FOR SHELTER-----------------------//
 router.post('/moreInfo', (req, res) => {
     let queryText = ''
-    req.body.guest_types.forEach(obj => {
+    req.body.types.forEach(obj => {
         queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type", "capacity") VALUES(${Number(req.body.id)}, '${obj.type}', ${Number(obj.capacity)});`
         console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
     })

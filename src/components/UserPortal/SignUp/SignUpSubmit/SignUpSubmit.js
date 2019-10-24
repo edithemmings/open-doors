@@ -10,11 +10,11 @@ class UserPortalSignUpSubmit extends Component {
         axios.post('/api/shelter/user/moreInfo', this.props.reduxState.signUpForm)
             .then(response => {
                 console.log('shelter was posted', response)
+                this.props.history.push('/home')
             }).catch(error => {
                 console.log(error)
             })
         console.log('SIGN UP FORM REDUX STATE', this.props.reduxState.signUpForm)
-        this.props.history.push('/home')
     }
     handleBack = () => {
         this.props.history.push('/sign-up-4')
