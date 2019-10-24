@@ -17,10 +17,13 @@ class ShelterPortalHome extends Component {
             <div>
                 {this.props.reduxState.userShelter.types
                     ? <UserPortalHome shelter={this.props.reduxState.userShelter} />
-                    :
-                    <div><SignUp1Contact toPage2={this.toPage2} />
-                    </div>
+                    : <h1>LOADING</h1>
                 }
+                {/* {!this.props.reduxState.userShelter.types 
+                    ? <div><SignUp1Contact toPage2={this.toPage2} />
+                    </div>
+                    : <UserPortalHome shelter={this.props.reduxState.userShelter} />
+                } */}
             </div>
         )
     }

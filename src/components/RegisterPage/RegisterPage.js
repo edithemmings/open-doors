@@ -28,6 +28,7 @@ class RegisterPage extends Component {
     } else {
       this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
+    this.props.history.push('/sign-up-1')
   } // end registerUser
 
   handleInputChangeFor = propertyName => (event) => {
