@@ -142,7 +142,7 @@ class ShelterList extends Component {
                             </div>
                         })}
                     </div>
-                    : <div><Facebook /><Facebook /><Facebook /><Facebook /></div>}
+                    : <div className='explore-loaders'><Facebook className='explore-loader' /><Facebook className='explore-loader' /><Facebook className='explore-loader' /><Facebook className='explore-loader'/></div>}
             </>
         )
     }
