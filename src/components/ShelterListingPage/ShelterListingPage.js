@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import ShelterList from './ShelterList/ShelterList'
 import Search from '../ShelterListingPage/Search/Search'
+import SelectedFilters from './SelectedFilters/SelectedFilters'
 
 
-class ShelterListing extends Component {
+class ShelterListingPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'GET_SHELTERS' });
         console.log(this.props.reduxState.shelters, Array.isArray(this.props.reduxState.shelters))
@@ -51,9 +52,15 @@ class ShelterListing extends Component {
             })
         }
         if (matchingShelters !== []){
-            return matchingShelters;
+            return {
+                shelters: matchingShelters, 
+                filters: [...selectedTags, ...selectedTypes]
+            };
         } else {
-            return this.props.reduxState.shelters;
+            return {
+                shelters: this.props.reduxState.shelters, 
+                filters: [...selectedTags, ...selectedTypes]
+        };;
         }
     }
     doShelterTagsMatch = (shelterItems, selectedItems) => {
@@ -88,9 +95,11 @@ class ShelterListing extends Component {
         })
         return fullMatch
     }
-    reloadSheltersWithSearchResults = (shelters) => {
+    reloadSheltersWithSearchResults = (searchResults) => {
         this.setState({
-            shelters: shelters
+            ...this.state,
+            shelters: searchResults.shelters,
+            filters: searchResults.filters
         })
     }
     
@@ -101,6 +110,7 @@ class ShelterListing extends Component {
                     filterSearchResults={this.filterSearchResults}
                     reloadSheltersWithSearchResults={this.reloadSheltersWithSearchResults}
                 />
+                {this.state ? <SelectedFilters filters={this.state.filters}/> : ''}
                 <ShelterList
                     shelters={this.state ? this.state.shelters : this.props.reduxState.shelters}
                     goToDetailsPage={this.goToDetailsPage}
@@ -115,4 +125,4 @@ const putStateOnProps = (reduxState) => ({
     reduxState
 })
 
-export default connect(putStateOnProps)(ShelterListing);
+export default connect(putStateOnProps)(ShelterListingPage);
