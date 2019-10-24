@@ -1,0 +1,37 @@
+.nav-right, .nav, .footer {
+    display: none;
+}
+
+h1 {
+    font-family: 'Righteous', cursive;
+    color: #e0e1e2;
+    font-size: 75px;
+    text-align: center;
+    display: block;
+    padding: 30px 0 30px 0;
+    width: 600px;
+    margin: auto;
+}
+.welcomeTo{
+    display: block;
+    font-size: 50px;
+}
+.Welcome {
+    background-color: #9D5C63;
+    height: 100vh;
+    padding: 50px;
+}
+.purple {
+    background-color: #584B53;
+    padding: 40px;
+}
+
+.exploreBtn, .homeBtn {
+    display: block;
+    margin: auto;
+    padding: 20px;
+    width: fit-content;
+}
+.homeBtn {
+    margin-bottom: 40px;
+}
