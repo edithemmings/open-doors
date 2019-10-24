@@ -9,9 +9,9 @@ body {
 }
 
 form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
+    /* background-color: #dbd5d5; */
+    width: 60%;
+    /* height: 250px; */
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
@@ -21,7 +21,13 @@ input {
     margin: 5px;
     margin-bottom: 10px;
 }
-
+label {
+    display: inline-block;
+    width: 100px;
+}
+.signUp {
+    margin: 20px;
+}
 .log-in, .log-out, .register {
   background-color: #00acb0;
   border-radius: 4px;
@@ -30,6 +36,9 @@ input {
   min-width: 100px;
   outline:0;
   cursor: pointer;
+}
+.hidden {
+    display: none;
 }
 
 .log-in:hover, .log-out:hover, .register:hover {
