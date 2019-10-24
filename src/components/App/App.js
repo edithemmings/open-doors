@@ -24,6 +24,7 @@ import SignUp2Hours from '../UserPortal/SignUp/SignUp2Hours/SignUp2Hours'
 import SignUp3Types from '../UserPortal/SignUp/SignUp3Types/SignUp3Types'
 import SignUp4Tags from '../UserPortal/SignUp/SignUp4Tags/SignUp4Tags'
 import SignUpSubmit from '../UserPortal/SignUp/SignUpSubmit/SignUpSubmit'
+import Welcome from '../Welcome/Welcome'
 
 import './App.css';
 
@@ -39,7 +40,7 @@ class App extends Component {
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/about" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
             <Route
@@ -51,6 +52,11 @@ class App extends Component {
               exact
               path="/explore/:id"
               component={ShelterDetails}
+            />
+            <Route
+              exact
+              path="/about"
+              component={Welcome}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
