@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ListCard from '../ListCard/ListCard'
 import axios from 'axios'
+import { Facebook } from 'react-content-loader'
 
 class ShelterList extends Component {
     state = {
@@ -141,7 +142,7 @@ class ShelterList extends Component {
                             </div>
                         })}
                     </div>
-                    : <h1>'LOADING'</h1>}
+                    : <div><Facebook /><Facebook /><Facebook /><Facebook /></div>}
             </>
         )
     }
