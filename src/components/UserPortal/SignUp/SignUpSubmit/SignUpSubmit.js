@@ -14,7 +14,6 @@ class UserPortalSignUpSubmit extends Component {
             }).catch(error => {
                 console.log(error)
             })
-        console.log('SIGN UP FORM REDUX STATE', this.props.reduxState.signUpForm)
     }
     handleBack = () => {
         this.props.history.push('/sign-up-4')

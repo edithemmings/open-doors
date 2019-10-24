@@ -14,7 +14,6 @@ class UserPortalSignUp2 extends Component {
         console.log(this.state.selectedTags)
         this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
         this.props.history.push('/sign-up-submit')
-        console.log('SIGN UP FORM REDUX STATE', this.props.reduxState.signUpForm)
     }
     handleBack = () => {
         this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
