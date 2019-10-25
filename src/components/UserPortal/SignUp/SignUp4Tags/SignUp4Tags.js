@@ -80,7 +80,8 @@ class UserPortalSignUp2 extends Component {
                             ))}
                             <Grid.Row>
                                 <Grid.Column width={16}>
-                                    <select className="dropdown" onChange={this.handleTagChange}>
+                                    <select className="dropdown" 
+                                    onChange={this.handleTagChange}>
                                         {this.props.reduxState.tags.map(tag => (
                                             <option key={tag.id}>{tag.tag}</option>
                                         ))}
