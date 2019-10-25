@@ -48,24 +48,24 @@ class LoginPage extends Component {
           <div className='signUp'>
             <label htmlFor="username" className='username'>
               Username:
+            </label>
               <Input
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
-            </label>
           </div>
           <div className='signUp'> 
             <label htmlFor="password" className='password'>
               Password:
+            </label>
               <Input
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
-            </label>
           </div>
           <div>
             <input

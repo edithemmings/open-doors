@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button, Input, Grid } from 'semantic-ui-react'
 import Header from '../Header/Header'
+import swal from "sweetalert";
 class UserPortalSignUp1 extends Component {
     state = {
         allDays: [
@@ -23,9 +24,7 @@ class UserPortalSignUp1 extends Component {
         this.props.history.push('/sign-up-3')
     }
     handleBack = () => {
-        this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
-        this.props.history.push('/sign-up-1')
-
+        swal("Blocked", "Your shelter was already submitted. Please continue filling out the additional details. If you would like to make changes to your contact info, you may do it later in settings.", "error")
     }
     handleHourChange = (event, keyName) => {
         this.setState({
@@ -83,10 +82,10 @@ class UserPortalSignUp1 extends Component {
                                     Day of the Week
                             </Grid.Column>
                                 <Grid.Column width={3}>
-                                    <label>Opens</label>
+                                    Opens
                                 </Grid.Column>
                                 <Grid.Column width={5}>
-                                    <label>Closes</label>
+                                    Closes
                                 </Grid.Column>
                             </Grid.Row>
                             {this.state.selectedDays.map(selectedDay => (

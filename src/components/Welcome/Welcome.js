@@ -8,7 +8,7 @@ class Welcome extends Component {
         return (
             <div className='Welcome'>
                 <div className='purple'>
-                    <h1><span className='welcomeTo'>Welcome to</span>Open Doors</h1>
+                    <h1>Welcome to<span className='welcomeTo'>Open Doors</span></h1>
                     <div className='exploreBtn'>
                         <Link to='/explore'><Button size='massive'>Find a Shelter</Button>
                         </Link>

@@ -64,3 +64,8 @@ input {
 .explore-loader {
     margin: 25px;
 }
+
+label {
+    display: block;
+    margin-top: 15px;
+}
