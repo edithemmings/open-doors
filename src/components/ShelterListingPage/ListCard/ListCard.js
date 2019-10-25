@@ -21,12 +21,16 @@ class ListCard extends Component {
                                     return <li className='type'>
                                         {type.capacity ? <span className={classNames({
                                             'availability': true,
-                                            'redStatus': (type.count / type.capacity) >= 0.9,
-                                            'yellowStatus': (type.count / type.capacity) < 0.9 && (type.count / type.capacity) >= 0.6,
-                                            'greenStatus': (type.count / type.capacity) < 0.6,
+                                            'redStatus': (type.capacity - type.count) === 0,
+                                            'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                            'greenStatus': (type.capacity - type.count) > 5,
                                         })}>
-                                            <span className='count'>{type.count}/</span>
-                                            <span className='capacity'>{type.capacity} beds</span></span> : '--  '}
+                                            {/* <span className='count'>{type.count}/</span>
+                                            <span className='capacity'>{type.capacity} beds</span> */}
+                                            <span className='count'>{type.capacity - type.count}</span>
+                                            <span className='capacity'> beds available</span>
+                                            </span>
+                                            : '--  '}
                                         <span className='typeName'>{type.type}</span>
                                     </li>
                                 })}

@@ -5,49 +5,57 @@ import axios from 'axios'
 import Nav from '../../Nav/Nav'
 
 class ShelterDetails extends Component {
-    state = { googlePlace: {} }
-    
+    state = { googlePlace: {}, loading: true }
+
     componentDidMount() {
-        let location = '';
-        this.props.reduxState.shelters.forEach((shelter) => {
-            if (shelter.id == this.props.match.params.id) {
-                location = shelter.location;
-            }
-        })
-        this.getShelterCoordinates(location)
+        this.props.dispatch({ type: 'GET_SHELTERS' });
+    }
+    componentDidUpdate() {
+        if (this.state.loading && this.props.reduxState.shelters) {
+            let location = '';
+            this.props.reduxState.shelters.forEach((shelter) => {
+                if (shelter.id == this.props.match.params.id) {
+                    location = shelter.location;
+                }
+            })
+            this.getShelterCoordinates(location)
+            this.setState({ ...this.state, loading: false })
+        }
     }
 
     getShelterCoordinates = (location) => {
-        let url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${process.env.REACT_APP_API_KEY}&fields=photos,formatted_address,name,rating,opening_hours,geometry&inputtype=textquery&input=${location}`
-        let proxy = "https://cors-anywhere.herokuapp.com/"
-        axios({
-            method: 'GET',
-            url: proxy + url,
-            proxyurl: proxy
-        })
-            .then((response) => {
-                console.log(location, response.data)
-                this.setState({
-                    ...this.state,
-                    googlePlace: response.data.candidates[0]
-                })
-            }).catch(error => {
-                console.log('error finding place: ', error)
-            })
+        // let url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${process.env.REACT_APP_API_KEY}&fields=photos,formatted_address,name,rating,opening_hours,geometry&inputtype=textquery&input=${location}`
+        // let proxy = "https://cors-anywhere.herokuapp.com/"
+        // axios({
+        //     method: 'GET',
+        //     url: proxy + url,
+        //     proxyurl: proxy
+        // })
+        //     .then((response) => {
+        //         console.log(location, response.data)
+        //         this.setState({
+        //             ...this.state,
+        //             googlePlace: response.data.candidates[0]
+        //         })
+        //     }).catch(error => {
+        //         console.log('error finding place: ', error)
+        //     })
     }
     render() {
         return (
             <>
                 <Nav />
                 {Array.isArray(this.props.reduxState.shelters) ?
-                    <div className='listingCard' onClick={this.goToDetailsPage}>
+                    <div className='detailsPage' onClick={this.goToDetailsPage}>
                         {this.props.reduxState.shelters.map((shelter) => {
                             if (shelter.id == this.props.match.params.id) {
                                 return <div key={shelter.id}>
-                                    <h3>{shelter.name}</h3>
-                                    <p>{shelter.location}</p>
-                                    <p>{shelter.phone}</p>
-                                    <p>{shelter.website}</p>
+                                    <h3 className='detailsName'>{shelter.name}</h3>
+                                    <div className='detailsDetails'>
+                                        <p>{shelter.location}</p>
+                                        <p>{shelter.phone}</p>
+                                        <p><a href={shelter.website}>{shelter.website}</a></p>
+                                    
                                     <ul>
                                         {shelter.tags.map(tag => {
                                             return <li>{tag}</li>
@@ -58,6 +66,7 @@ class ShelterDetails extends Component {
                                             return <li>{type.type}, {type.count}/{type.capacity}</li>
                                         })}
                                     </ul>
+                                    </div>
                                     {/* {this.state.googlePlace ?
                                         <Map
                                             coords={this.state.googlePlace.geometry}

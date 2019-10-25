@@ -1,5 +1,6 @@
 li.type {
     list-style: none;
+    margin-bottom: 10px;
 }
 
 .count {
@@ -67,4 +68,16 @@ li.type {
     width: fit-content;
     margin: 10px auto 0 auto;
 
+}
+.detailsPage{
+    margin-top: 30px;
+}
+.detailsName{
+    text-align: center;
+    font-size: 30px;
+}
+.detailsDetails{
+    display: block;
+    width: fit-content;
+    margin: auto;
 }

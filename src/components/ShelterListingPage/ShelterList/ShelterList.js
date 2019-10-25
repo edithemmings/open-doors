@@ -46,7 +46,6 @@ class ShelterList extends Component {
     loopSheltersSetState = () => {
         this.props.shelters.forEach(shelter => {
             this.getShelterCoordinates(shelter.id, shelter.location)
-            console.log('in get shelter loop', shelter.id)
         })
     }
     calculateDistance = (myLocation, shelterLocation) => {

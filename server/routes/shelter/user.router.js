@@ -23,7 +23,7 @@ router.post('/contact', (req, res) => {
     //-----------query text
     const queryText = `INSERT INTO "shelter" ("name", "location", "phone", "website", "user_id") VALUES ($1, $2, $3, $4, $5);`;
     //-------------querying database 
-    pool.query(queryText, [req.body.name, req.body.address, req.body.phone, req.body.website, req.user.id])
+    pool.query(queryText, [req.body.name, req.body.address, req.body.phone, 'http://' + req.body.website, req.user.id])
         .then((result) => { res.send(result.rows); console.log(result.rows); })
         .catch((err) => {
             console.log('Error grabbing shelters by tag', err);

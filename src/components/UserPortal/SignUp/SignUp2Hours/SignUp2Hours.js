@@ -17,7 +17,10 @@ class UserPortalSignUp1 extends Component {
             { id: 9, day: 'Saturday-Sunday' }
         ],
         selectedDays: this.props.reduxState.signUpForm.hours || [],
-        inputHour: { open: '', close: '' }
+        inputHour: {
+            open: '',
+            close: ''
+        }
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
@@ -62,6 +65,26 @@ class UserPortalSignUp1 extends Component {
             selectedDays: [...hourArray]
         })
     }
+    presentationInfo1 = () => {
+        this.setState({
+            ...this.state,
+            inputHour: {
+                ...this.state.inputHour,
+                open: '7:00 PM',
+                close: '10:00 AM'
+            }
+        })
+    }
+    presentationInfo2 = () => {
+        this.setState({
+            ...this.state,
+            inputHour: {
+                ...this.state.inputHour,
+                open: '5:00 PM',
+                close: '9:00 AM'
+            }
+        })
+    }
     render() {
         return (
             <div>
@@ -79,10 +102,10 @@ class UserPortalSignUp1 extends Component {
                         <Grid celled >
                             <Grid.Row>
                                 <Grid.Column width={6}>
-                                    <span className='tableLabel'>Day of the Week</span>
+                                    <span className='tableLabel' onClick={this.presentationInfo1}>Day of the Week</span>
                                 </Grid.Column>
                                 <Grid.Column width={3}>
-                                    <span className='tableLabel'>Opens</span>
+                                    <span className='tableLabel' onClick={this.presentationInfo2}>Opens</span>
                                 </Grid.Column>
                                 <Grid.Column width={5}>
                                     <span className='tableLabel'>Closes</span>
@@ -107,7 +130,8 @@ class UserPortalSignUp1 extends Component {
                             <Grid.Row>
                                 <Grid.Column width={6}>
                                     <select className="dropdown"
-                                        onChange={(e) => this.handleHourChange(e, 'day')}>
+                                        onChange={(e) => this.handleHourChange(e, 'day')}
+                                    >
                                         {this.state.allDays.map(day => (
                                             <option key={day.id}>{day.day}</option>
                                         ))}

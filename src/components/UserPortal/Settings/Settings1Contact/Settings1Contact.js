@@ -22,6 +22,7 @@ class Settings1Contact extends Component {
                 <label>Phone Number</label>
                 <Input
                     fluid
+                    label='+ 1' 
                     placeholder={'Phone Number'}
                     value={this.props.shelter.phone}
                     onChange={(e) => this.props.handleEdit(e, 'phone')}
@@ -29,6 +30,7 @@ class Settings1Contact extends Component {
                 <label>Website URL</label>
                 <Input
                     fluid
+                    label='http://' 
                     placeholder={'Website URL'}
                     value={this.props.shelter.website}
                     onChange={(e) => this.props.handleEdit(e, 'website')}
