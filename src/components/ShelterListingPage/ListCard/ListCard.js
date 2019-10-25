@@ -47,8 +47,8 @@ class ListCard extends Component {
                                             'redStatus': this.props.distance > 3,
                                             'yellowStatus': this.props.distance <= 3 && this.props.distance > 1,
                                             'greenStatus': this.props.distance <= 1,
-                                        })}><Icon name='location arrow'/> {this.props.distance} miles away</p>
-                                        : <p><Icon name='location arrow' /> Distance away --</p>}
+                                        })}><Icon name='map pin'/> {this.props.distance} miles away</p>
+                                        : <p><Icon name='map pin' /> Distance away --</p>}
                                 </li>
                             </ul>
                             </div>

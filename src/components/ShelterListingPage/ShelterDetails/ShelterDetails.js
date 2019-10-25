@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Map from '../../Map/Map'
 import axios from 'axios'
 import Nav from '../../Nav/Nav'
+import classNames from 'classnames'
+import { Icon } from 'semantic-ui-react'
 
 class ShelterDetails extends Component {
     state = { googlePlace: {}, loading: true }
@@ -46,33 +48,51 @@ class ShelterDetails extends Component {
             <>
                 <Nav />
                 {Array.isArray(this.props.reduxState.shelters) ?
-                    <div className='detailsPage' onClick={this.goToDetailsPage}>
+                    <div onClick={this.goToDetailsPage}>
                         {this.props.reduxState.shelters.map((shelter) => {
                             if (shelter.id == this.props.match.params.id) {
-                                return <div key={shelter.id}>
-                                    <h3 className='detailsName'>{shelter.name}</h3>
+                                return <div className='detailsPage' key={shelter.id}>
                                     <div className='detailsDetails'>
-                                        <p>{shelter.location}</p>
-                                        <p>{shelter.phone}</p>
+                                        <h3 className='detailsName'>{shelter.name}</h3>
+                                        <p><Icon name='phone' /> {shelter.phone}</p>
+                                        <p><Icon name='map pin' />
+                                            <a href={`https://www.google.com/maps/search/${shelter.location}`}> 
+                                        {shelter.location}
+                                        </a></p>
                                         <p><a href={shelter.website}>{shelter.website}</a></p>
-                                    
-                                    <ul>
-                                        {shelter.tags.map(tag => {
-                                            return <li>{tag}</li>
-                                        })}
-                                    </ul>
-                                    <ul>
-                                        {shelter.types.map(type => {
-                                            return <li>{type.type}, {type.count}/{type.capacity}</li>
-                                        })}
-                                    </ul>
+                                        <ul className='detailsUL'>
+                                            {shelter.types.map(type => {
+                                                return <li className='type'>
+                                                    {type.capacity ? <span className={classNames({
+                                                        'availability': true,
+                                                        'redStatus': (type.capacity - type.count) === 0,
+                                                        'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                                        'greenStatus': (type.capacity - type.count) > 5,
+                                                    })}>
+                                                        <span className='count'>{type.capacity - type.count}</span>
+                                                        <span className='capacity'> beds available</span>
+                                                    </span>
+                                                        : '--  '}
+                                                    <span className='typeName'>for {type.type} guests ({type.capacity} total)</span>
+                                                </li>
+                                            })}
+                                            <li className='type tags'><Icon name='hashtag' />Shelter Tags</li>
+                                            <li className='type'><ul>
+                                                {shelter.tags.map(tag => {
+                                                    return <li className='detailsTags'>{tag}</li>
+                                                })}
+                                            </ul></li>
+                                        </ul>
+                                       
                                     </div>
-                                    {/* {this.state.googlePlace ?
+                                    <div className='googleMap'>
+                                    {this.state.googlePlace ?
                                         <Map
                                             coords={this.state.googlePlace.geometry}
                                             name={shelter.name}
                                         />
-                                        : ''} */}
+                                        : 'Loading Map'}
+                                    </div>
                                 </div>
                             }
                         })}</div>
