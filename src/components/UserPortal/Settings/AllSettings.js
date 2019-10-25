@@ -6,6 +6,7 @@ import Settings2Hours from '../Settings/Settings2Hours/Settings2Hours'
 import Settings3Types from '../Settings/Settings3Types/Settings3Types'
 import Settings4Tags from '../Settings/Settings4Tags/Settings4Tags'
 import Axios from 'axios';
+import Nav from '../../Nav/Nav';
 
 
 class AllSettings extends Component {
@@ -212,7 +213,8 @@ class AllSettings extends Component {
 
     render() {
         return (
-            <>
+            <> 
+                <Nav />
                 {this.state ?
                     <div>
                         <Settings1Contact

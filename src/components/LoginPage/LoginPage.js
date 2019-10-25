@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Input } from 'semantic-ui-react'
+
+import Nav from '../Nav/Nav';
 
 class LoginPage extends Component {
   state = {
@@ -31,7 +34,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div><Nav />
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -42,10 +45,10 @@ class LoginPage extends Component {
         )}
         <form onSubmit={this.login}>
           <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
+          <div className='signUp'>
+            <label htmlFor="username" className='username'>
               Username:
-              <input
+              <Input
                 type="text"
                 name="username"
                 value={this.state.username}
@@ -53,10 +56,10 @@ class LoginPage extends Component {
               />
             </label>
           </div>
-          <div>
-            <label htmlFor="password">
+          <div className='signUp'> 
+            <label htmlFor="password" className='password'>
               Password:
-              <input
+              <Input
                 type="password"
                 name="password"
                 value={this.state.password}

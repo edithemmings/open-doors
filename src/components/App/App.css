@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin: 0px;
 }
 
@@ -21,7 +21,7 @@ input {
     margin: 5px;
     margin-bottom: 10px;
 }
-label {
+.username, .password {
     display: inline-block;
     width: 100px;
 }

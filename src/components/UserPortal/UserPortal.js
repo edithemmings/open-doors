@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import UserPortalHome from './UserPortalHome/UserPortalHome'
 import { Button } from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom' 
+import Nav from '../Nav/Nav';
+
 
 class ShelterPortalHome extends Component {
     componentDidMount() {
@@ -11,6 +13,8 @@ class ShelterPortalHome extends Component {
     render() {
         return (
             <div>
+
+                <Nav />
                 {this.props.reduxState.userShelter.types
                     ? <UserPortalHome shelter={this.props.reduxState.userShelter} />
                     : <div>

@@ -67,7 +67,7 @@ class ShelterPortalHome extends Component {
     }
     render() {
         return (
-            <>
+            <> 
                 {this.state.typeCounts ? <div>
 
                     <Tab panes={[

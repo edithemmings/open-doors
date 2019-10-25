@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Map from '../../Map/Map'
 import axios from 'axios'
+import Nav from '../../Nav/Nav'
 
 class ShelterDetails extends Component {
     state = { googlePlace: {} }
@@ -37,6 +38,7 @@ class ShelterDetails extends Component {
     render() {
         return (
             <>
+                <Nav />
                 {Array.isArray(this.props.reduxState.shelters) ?
                     <div className='listingCard' onClick={this.goToDetailsPage}>
                         {this.props.reduxState.shelters.map((shelter) => {

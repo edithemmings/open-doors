@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Button } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
+import Nav from '../Nav/Nav';
 
 class RegisterPage extends Component {
   state = {
@@ -39,7 +40,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
+      <div><Nav />
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -51,7 +52,7 @@ class RegisterPage extends Component {
         <form onSubmit={this.registerUser}>
           <h2>Register User</h2>
           <div className='signUp'>
-            <label htmlFor="username">
+            <label htmlFor="username" className='username'>
               Username:
             </label>
             <Input
@@ -62,7 +63,7 @@ class RegisterPage extends Component {
             />
           </div>
           <div className='signUp'>
-            <label htmlFor="password">
+            <label htmlFor="password" className='password'>
               Password:
             </label>
             <Input

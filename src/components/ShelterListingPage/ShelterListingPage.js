@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import ShelterList from './ShelterList/ShelterList'
 import Search from '../ShelterListingPage/Search/Search'
 import SelectedFilters from './SelectedFilters/SelectedFilters'
-
+import Nav from '../Nav/Nav'
 
 class ShelterListingPage extends Component {
     componentDidMount() {
@@ -106,6 +106,7 @@ class ShelterListingPage extends Component {
     render() {
         return (
             <>
+                <Nav />
                 <Search
                     filterSearchResults={this.filterSearchResults}
                     reloadSheltersWithSearchResults={this.reloadSheltersWithSearchResults}

@@ -1,5 +1,5 @@
 .nav-right, .nav, .footer {
-    display: none;
+    /* display: none; */
 }
 
 h1 {
@@ -22,7 +22,7 @@ h1 {
     padding: 50px;
 }
 .purple {
-    background-color: #584B53;
+    background-color: #191616;
     padding: 40px;
 }
 
