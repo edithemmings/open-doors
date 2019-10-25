@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Button } from 'semantic-ui-react'
 import axios from 'axios'
 import Header from '../Header/Header'
+import swal from 'sweetalert'
 
 class UserPortalSignUpSubmit extends Component {
 
@@ -11,6 +12,7 @@ class UserPortalSignUpSubmit extends Component {
             .then(response => {
                 console.log('shelter was posted', response)
                 this.props.history.push('/home')
+                swal("Success", "Details were added to your shelter", "success");
             }).catch(error => {
                 console.log(error)
             })

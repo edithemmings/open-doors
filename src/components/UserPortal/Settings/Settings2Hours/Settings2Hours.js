@@ -56,18 +56,17 @@ class Settings2Hours extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <label>Hours</label>
+                <div> 
                     <Grid celled >
                         <Grid.Row>
                             <Grid.Column width={6}>
-                                Day of the Week
+                                <span className='tableLabel'>Day of the Week</span>
                             </Grid.Column>
                             <Grid.Column width={4}>
-                                <label>Opens</label>
+                                <span className='tableLabel'>Opens</span>   
                             </Grid.Column>
                             <Grid.Column width={6}>
-                                <label>Closes</label>
+                                <span className='tableLabel'>Closes</span>  
                             </Grid.Column>
                         </Grid.Row>
                         {this.props.shelter.hours ? this.props.shelter.hours.map(selectedDay => (

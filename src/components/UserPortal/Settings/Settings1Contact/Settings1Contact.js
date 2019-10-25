@@ -4,7 +4,7 @@ import { Input} from 'semantic-ui-react'
 class Settings1Contact extends Component {  
     render() {
         return (
-            <div>
+            <div className='contactSettings'>
                 <label>Shelter Name</label>
                 <Input
                     fluid

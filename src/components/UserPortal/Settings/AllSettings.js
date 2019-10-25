@@ -7,6 +7,7 @@ import Settings3Types from '../Settings/Settings3Types/Settings3Types'
 import Settings4Tags from '../Settings/Settings4Tags/Settings4Tags'
 import Axios from 'axios';
 import Nav from '../../Nav/Nav';
+import './Settings.css'
 
 
 class AllSettings extends Component {
@@ -216,24 +217,29 @@ class AllSettings extends Component {
             <> 
                 <Nav />
                 {this.state ?
-                    <div>
+                    <div className='settingsContainer'>
+                        <h2 className='settingsTitle'>Settings</h2>
+                        <label className='settingsLabel'>Contact Information</label>
                         <Settings1Contact
                             shelter={this.state.contact}
                             handleEdit={this.handleEditContact}
                         />
+                        <label className='settingsLabel'>Hours of Operation</label>
                         <Settings2Hours
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
                         />
+                        <label className='settingsLabel'>Guests Received</label>
                         <Settings3Types
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
                         />
+                        <label className='settingsLabel'>Amenities and Policy</label>
                         <Settings4Tags
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
                         />
-                        <Button onClick={this.handleSave}>Save</Button>
+                        <Button primary onClick={this.handleSave}>Save</Button>
 
                     </div>
                 : <h1>LOADING</h1>}

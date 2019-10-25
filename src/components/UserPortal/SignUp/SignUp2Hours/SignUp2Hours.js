@@ -79,13 +79,13 @@ class UserPortalSignUp1 extends Component {
                         <Grid celled >
                             <Grid.Row>
                                 <Grid.Column width={6}>
-                                    Day of the Week
+                                    <span className='tableLabel'>Day of the Week</span>
                             </Grid.Column>
                                 <Grid.Column width={3}>
-                                    Opens
+                                    <span className='tableLabel'>Opens</span>
                                 </Grid.Column>
                                 <Grid.Column width={5}>
-                                    Closes
+                                    <span className='tableLabel'>Closes</span>
                                 </Grid.Column>
                             </Grid.Row>
                             {this.state.selectedDays.map(selectedDay => (

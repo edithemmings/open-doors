@@ -41,7 +41,7 @@ class Settings4Tags extends Component {
                         <Grid celled >
                             <Grid.Row>
                                 <Grid.Column width={16}>
-                                    Tags
+                                    <span className='tableLabel'>Tags</span>
                                 </Grid.Column>
                             </Grid.Row>
                             {this.props.shelter.tags ? this.props.shelter.tags.map(tag => (

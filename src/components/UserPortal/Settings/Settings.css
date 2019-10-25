@@ -1,0 +1,22 @@
+.settingsContainer {
+    max-width: 695px;
+    display: block;
+    margin: auto;
+}
+.contactSettings {
+    max-width: 500px;
+    display: block;
+    margin: auto;
+}
+.settingsLabel {
+    text-align: center;
+    font-size: 18px;
+    margin: 40px 0 20px 0;
+}
+.settingsTitle{
+    font-family: 'Righteous', cursive;
+
+}
+.tableLabel {
+    font-size: 16px;
+}

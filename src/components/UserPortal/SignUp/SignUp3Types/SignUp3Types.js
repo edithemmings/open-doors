@@ -81,10 +81,10 @@ class UserPortalSignUp2 extends Component {
                             <Grid celled >
                                 <Grid.Row>
                                     <Grid.Column width={8}>
-                                        Guest Types
+                                        <span className='tableLabel'>Guest Types</span>
                             </Grid.Column>
                                     <Grid.Column width={8}>
-                                        Capacity
+                                        <span className='tableLabel'>Capacity</span>
                             </Grid.Column>
                                 </Grid.Row>
                                 {this.state.selectedTypes.map(selectedTypes => (

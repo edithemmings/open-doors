@@ -51,10 +51,10 @@ class Settings3Types extends Component {
                         <Grid celled >
                             <Grid.Row>
                                 <Grid.Column width={8}>
-                                    Guest Types
+                                    <span className='tableLabel'>Guest Types</span>
                             </Grid.Column>
                                 <Grid.Column width={8}>
-                                    Capacity
+                                    <span className='tableLabel'>Capacity</span>
                             </Grid.Column>
                             </Grid.Row>
                             {this.props.shelter.types ? this.props.shelter.types.map(selectedTypes => (
