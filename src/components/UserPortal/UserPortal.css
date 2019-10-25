@@ -1,0 +1,22 @@
+.incrementerContainer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.incrementer{
+    text-align: center;
+    width: 300px;
+    margin: 20px;
+    border-radius: 10px;
+}
+.incrementerBtns{
+    margin: 10px auto 10px auto;
+    box-shadow: darkgray 1px 1px 10px;
+    border-radius: 90px;
+}
+.plus {
+    width: 61.69px;
+}
+.minus {
+    width: 36px;
+}

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Button, Tab, Input } from 'semantic-ui-react'
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
+import '../UserPortal.css'
 
 class ShelterPortalHome extends Component {
     state = {}
@@ -22,7 +23,7 @@ class ShelterPortalHome extends Component {
             })
     }
     handleClick = (id, upOrDown, count, capacity) => {
-        if ((upOrDown === 'up' && count + 1 <= capacity) || (upOrDown === 'down' && count > 0) ){
+        if ((upOrDown === 'up' && count + 1 <= capacity) || (upOrDown === 'down' && count > 0)) {
             Axios.put(`/api/shelter/user/${upOrDown}/${id}`)
                 .then(response => {
                     console.log('updated guest count')
@@ -67,28 +68,39 @@ class ShelterPortalHome extends Component {
     }
     render() {
         return (
-            <> 
+            <>
                 {this.state.typeCounts ? <div>
 
                     <Tab panes={[
                         {
                             menuItem: 'Incrementer',
-                            render: () => <Tab.Pane>{
-                                this.state.typeCounts.map(type => (
-                                    <div key={type.id}>
+                            render: () => <Tab.Pane><div className='incrementerContainer'>
+                                {this.state.typeCounts.map(type => (
+                                    <div key={type.id} className='incrementer'>
                                         <h2>{type.count}/{type.capacity}</h2>
                                         <p>{type.type} guests</p>
+                                        <div className='incrementerBtns plus'>
                                         <Button
-                                            primary
+                                            circular
+                                            size='massive'
+                                            color='grey'
                                             onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
-                                        >Up +</Button>
+                                            icon='plus'
+                                            />
+                                        </div>
+                                        <div className='incrementerBtns minus'>
                                         <Button
-                                            primary
+                                            basic circular color='grey'
                                             onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
-                                        >Down -</Button>
+                                            icon='minus'
+                                            />
+                                        </div>
                                     </div>
                                 ))
-                            }</Tab.Pane>
+                                }
+                            </div>
+                            </Tab.Pane>
+
                         },
                         {
                             menuItem: 'Setter',
