@@ -5,9 +5,9 @@ class SelectedFilters extends Component {
     render() {
         return (
             <>
-                <ul>
+                <ul className='selectedFilterContainer'>
                     {this.props.filters.map(filter => (
-                        <li>{filter}</li>
+                        <li className='selectedFilter'>{filter}</li>
                     ))}
                 </ul>
             </>

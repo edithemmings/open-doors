@@ -1,0 +1,70 @@
+li.type {
+    list-style: none;
+}
+
+.count {
+    font-size: 30px;
+}
+.capacity {
+    font-size: 20px;
+}
+.availability {
+    display: block;
+}
+.greenStatus {
+    color: #236000;
+}
+.yellowStatus {
+    color: #c6ac03;
+}
+.redStatus {
+    color: #6b0700;
+}
+.card {
+    margin: 7px;
+    padding: 3px;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    background-color: #e4BB97
+}
+.cardGroup {
+    margin-top: 20px;
+}
+.selectedFilterContainer {
+    display: flex;
+    justify-content: center;
+}
+.selectedFilter {
+    list-style: none;
+    display: block;
+    padding: 5px 10px 3px 10px;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: #D6E3F8;
+    /* box-shadow: darkgray 1px 1px 10px; */
+}
+.titleOnCard {
+    display: block;
+    text-align: center;
+}
+.card div.content {
+    /* height: 323px; */
+    padding: 0px;
+    background-color: #FEF5EF
+}
+.listingCard {
+    width: 285px;
+    height: 266px;
+}
+.cardInnerContent {
+    height: 156px;
+}
+.typesOnCard {
+    list-style: none;
+}
+.searchModalButton {
+    display: block;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+
+}

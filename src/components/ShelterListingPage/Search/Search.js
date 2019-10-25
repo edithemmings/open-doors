@@ -14,7 +14,7 @@ import SearchModal from './SearchModal/SearchModal'
 
 //--------------COMPONENT------------------//
 
-class App extends Component {
+class Search extends Component {
     state = {
         form: {},
         results: []
@@ -71,7 +71,7 @@ class App extends Component {
     handleClose = () => this.setState({ modalOpen: false })
     render() {
         return (
-            <div className="App">
+            <div className="searchModalButton">
                 <Modal
                     trigger={<Button onClick={this.handleOpen}>Filter by Tags and Guest Type</Button>}
                     open={this.state.modalOpen}
@@ -115,4 +115,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Search;

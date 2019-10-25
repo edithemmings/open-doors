@@ -58,12 +58,12 @@ class ShelterDetails extends Component {
                                             return <li>{type.type}, {type.count}/{type.capacity}</li>
                                         })}
                                     </ul>
-                                    {this.state.googlePlace ?
+                                    {/* {this.state.googlePlace ?
                                         <Map
                                             coords={this.state.googlePlace.geometry}
                                             name={shelter.name}
                                         />
-                                        : ''}
+                                        : ''} */}
                                 </div>
                             }
                         })}</div>

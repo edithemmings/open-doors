@@ -107,11 +107,11 @@ class ShelterListingPage extends Component {
         return (
             <>
                 <Nav />
-                <Search
+                    <Search
                     filterSearchResults={this.filterSearchResults}
                     reloadSheltersWithSearchResults={this.reloadSheltersWithSearchResults}
                 />
-                {this.state ? <SelectedFilters filters={this.state.filters}/> : ''}
+                {this.state ? <SelectedFilters filters={this.state.filters} /> : ''}
                 <ShelterList
                     shelters={this.state ? this.state.shelters : this.props.reduxState.shelters}
                     goToDetailsPage={this.goToDetailsPage}
