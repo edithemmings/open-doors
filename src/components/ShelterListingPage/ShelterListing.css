@@ -70,14 +70,36 @@ li.type {
 
 }
 .detailsPage{
-    margin-top: 30px;
+    padding: 30px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.detailsDetails{
+    padding-bottom: 20px;
+    margin: 10px 20px 10px 20px;
+}
+.googleMap {
+    min-width: 400px;
+    margin: 10px 20px 10px 20px;
 }
 .detailsName{
     text-align: center;
     font-size: 30px;
 }
-.detailsDetails{
-    display: block;
-    width: fit-content;
-    margin: auto;
+.detailsTags{
+    margin: 5px;
+}
+.type.tags {
+    margin-top: 27px;
+}
+.detailsUL {
+    padding: 0;
+}
+a {
+    color: black
+}
+a:hover {
+    color: grey
 }

@@ -91,30 +91,30 @@ class ShelterList extends Component {
         }
     }
     getShelterCoordinates = (id, location) => {
-        // let url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${process.env.REACT_APP_API_KEY}&fields=photos,formatted_address,name,rating,opening_hours,geometry&inputtype=textquery&input=${location}`
-        // let proxy = "https://cors-anywhere.herokuapp.com/"
-        // axios({
-        //     method: 'GET',
-        //     url: proxy + url,
-        //     proxyurl: proxy
-        // })
-        //     .then((response) => {
-        //         console.log(location, response.data)
-        //         let coords = response.data.candidates[0];
-        //         this.setState({
-        //             ...this.state,
-        //             distances: [
-        //                 ...this.state.distances,
-        //                 {
-        //                     id: id,
-        //                     coords: coords.geometry.location
-        //                 }
-        //             ]
-        //         })
-        //         console.log(this.state.distances)
-        //     }).catch(error => {
-        //         console.log('error finding place: ', error)
-        //     })
+        let url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${process.env.REACT_APP_API_KEY}&fields=photos,formatted_address,name,rating,opening_hours,geometry&inputtype=textquery&input=${location}`
+        let proxy = "https://cors-anywhere.herokuapp.com/"
+        axios({
+            method: 'GET',
+            url: proxy + url,
+            proxyurl: proxy
+        })
+            .then((response) => {
+                console.log(location, response.data)
+                let coords = response.data.candidates[0];
+                this.setState({
+                    ...this.state,
+                    distances: [
+                        ...this.state.distances,
+                        {
+                            id: id,
+                            coords: coords.geometry.location
+                        }
+                    ]
+                })
+                console.log(this.state.distances)
+            }).catch(error => {
+                console.log('error finding place: ', error)
+            })
 
     }
 

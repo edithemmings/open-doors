@@ -26,22 +26,22 @@ class ShelterDetails extends Component {
     }
 
     getShelterCoordinates = (location) => {
-        // let url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${process.env.REACT_APP_API_KEY}&fields=photos,formatted_address,name,rating,opening_hours,geometry&inputtype=textquery&input=${location}`
-        // let proxy = "https://cors-anywhere.herokuapp.com/"
-        // axios({
-        //     method: 'GET',
-        //     url: proxy + url,
-        //     proxyurl: proxy
-        // })
-        //     .then((response) => {
-        //         console.log(location, response.data)
-        //         this.setState({
-        //             ...this.state,
-        //             googlePlace: response.data.candidates[0]
-        //         })
-        //     }).catch(error => {
-        //         console.log('error finding place: ', error)
-        //     })
+        let url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${process.env.REACT_APP_API_KEY}&fields=photos,formatted_address,name,rating,opening_hours,geometry&inputtype=textquery&input=${location}`
+        let proxy = "https://cors-anywhere.herokuapp.com/"
+        axios({
+            method: 'GET',
+            url: proxy + url,
+            proxyurl: proxy
+        })
+            .then((response) => {
+                console.log(location, response.data)
+                this.setState({
+                    ...this.state,
+                    googlePlace: response.data.candidates[0]
+                })
+            }).catch(error => {
+                console.log('error finding place: ', error)
+            })
     }
     render() {
         return (
