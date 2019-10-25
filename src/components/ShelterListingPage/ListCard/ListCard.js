@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Icon } from 'semantic-ui-react'
 import '../ShelterListing.css'
 import classNames from 'classnames'
 
@@ -38,8 +38,8 @@ class ListCard extends Component {
                             <ul className='typesOnCard'>
                                 <li>
                                     {this.props.shelter.timestamp ?
-                                        <p>Updated {this.props.subtractDate(this.props.shelter.timestamp)} ago</p>
-                                        : 'Last updated --'}
+                                        <p><Icon name='clock outline' /> Updated {this.props.subtractDate(this.props.shelter.timestamp)} ago</p>
+                                        : <p><Icon name='clock outline' /> Last updated --</p>}
                                 </li>
                                 <li>
                                     {this.props.distance !== '--' ?
@@ -47,8 +47,8 @@ class ListCard extends Component {
                                             'redStatus': this.props.distance > 3,
                                             'yellowStatus': this.props.distance <= 3 && this.props.distance > 1,
                                             'greenStatus': this.props.distance <= 1,
-                                        })}>{this.props.distance} miles away</p>
-                                        : 'Distance away --'}
+                                        })}><Icon name='location arrow'/> {this.props.distance} miles away</p>
+                                        : <p><Icon name='location arrow' /> Distance away --</p>}
                                 </li>
                             </ul>
                             </div>
