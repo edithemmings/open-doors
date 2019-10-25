@@ -4,6 +4,8 @@ import { Button, Tab, Input } from 'semantic-ui-react'
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
 import '../UserPortal.css'
+import classNames from 'classnames'
+import '../../ShelterListingPage/ShelterListing.css'
 
 class ShelterPortalHome extends Component {
     state = {}
@@ -77,22 +79,31 @@ class ShelterPortalHome extends Component {
                             render: () => <Tab.Pane><div className='incrementerContainer'>
                                 {this.state.typeCounts.map(type => (
                                     <div key={type.id} className='incrementer'>
-                                        <h2>{type.count}/{type.capacity}</h2>
-                                        <p>{type.type} guests</p>
+                                        {type.capacity ? <span className={classNames({
+                                            'availability': true,
+                                            'redStatus': (type.capacity - type.count) === 0,
+                                            'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                            'greenStatus': (type.capacity - type.count) > 5,
+                                        })}>
+                                            <span className='count'>{type.count}/</span>
+                                            <span className='capacity'>{type.capacity} <br/>beds occupied</span>
+                                        </span>
+                                            : '--  '}
+                                        <span className='typeName'>{type.type} guests</span>
                                         <div className='incrementerBtns plus'>
-                                        <Button
-                                            circular
-                                            size='massive'
-                                            color='grey'
-                                            onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
-                                            icon='plus'
+                                            <Button
+                                                circular
+                                                size='massive'
+                                                color='grey'
+                                                onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
+                                                icon='plus'
                                             />
                                         </div>
                                         <div className='incrementerBtns minus'>
-                                        <Button
-                                            basic circular color='grey'
-                                            onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
-                                            icon='minus'
+                                            <Button
+                                                basic circular color='grey'
+                                                onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
+                                                icon='minus'
                                             />
                                         </div>
                                     </div>
