@@ -17,7 +17,7 @@ class UserPortalSignUp1 extends Component {
             { id: 9, day: 'Saturday-Sunday' }
         ],
         selectedDays: this.props.reduxState.signUpForm.hours || [],
-        inputHour: {open: '', close: ''}
+        inputHour: { open: '', close: '' }
     }
     handleSubmit = () => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
@@ -53,7 +53,7 @@ class UserPortalSignUp1 extends Component {
         let deletedDay = event.target.value;
         let hourArray = [...this.state.selectedDays]
         hourArray.forEach(hour => {
-            if (hour.day === deletedDay){
+            if (hour.day === deletedDay) {
                 hourArray.splice(hourArray.indexOf(hour), 1);
             }
         })
@@ -65,22 +65,22 @@ class UserPortalSignUp1 extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <Header
-                        icon1={'checkmark'}
-                        value2={2}
-                        value3={3}
-                        value4={4}
-                        value5={'Review'}
-                        color2={'grey'}
-                    />
+                <Header
+                    icon1={'checkmark'}
+                    value2={2}
+                    value3={3}
+                    value4={4}
+                    value5={'Review'}
+                    color2={'grey'}
+                />
+                <div className='signUpContainer'>
                     <div>
                         <label>Hours</label>
                         <Grid celled >
                             <Grid.Row>
                                 <Grid.Column width={6}>
                                     <span className='tableLabel'>Day of the Week</span>
-                            </Grid.Column>
+                                </Grid.Column>
                                 <Grid.Column width={3}>
                                     <span className='tableLabel'>Opens</span>
                                 </Grid.Column>

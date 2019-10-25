@@ -38,7 +38,7 @@ class UserPortalSignUp1 extends Component {
                     value5={'Review'}
                     color1={'grey'}
                 />
-                <div>
+                <div className='contactSettings'> 
                     <label>Shelter Name</label>
                     <Input
                         fluid

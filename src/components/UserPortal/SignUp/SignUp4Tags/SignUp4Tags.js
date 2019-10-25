@@ -52,15 +52,15 @@ class UserPortalSignUp2 extends Component {
     render() {
         return (
             <>
-                <div>
-                    <Header
-                        icon1={'checkmark'}
-                        icon2={'checkmark'}
-                        icon3={'checkmark'}
-                        value4={4}
-                        value5={'Review'}
-                        color4={'grey'}
-                    />
+                <Header
+                    icon1={'checkmark'}
+                    icon2={'checkmark'}
+                    icon3={'checkmark'}
+                    value4={4}
+                    value5={'Review'}
+                    color4={'grey'}
+                />
+                <div className='signUpContainer'>
                     <div>
                         <Grid celled >
                             <Grid.Row>

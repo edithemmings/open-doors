@@ -76,7 +76,7 @@ class UserPortalSignUp2 extends Component {
                         value5={'Review'}
                         color3={'grey'}
                     />
-                    <div>
+                    <div className='signUpContainer'>
                         <div>
                             <Grid celled >
                                 <Grid.Row>
