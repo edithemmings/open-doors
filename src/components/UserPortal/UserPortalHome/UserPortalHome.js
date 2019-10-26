@@ -71,7 +71,7 @@ class ShelterPortalHome extends Component {
     render() {
         return (
             <>
-                {this.state.typeCounts ? <div>
+                {this.state.typeCounts ? <div className='tabs'>
 
                     <Tab panes={[
                         {
@@ -80,35 +80,36 @@ class ShelterPortalHome extends Component {
                                 {this.state.typeCounts.map(type => (
                                     <div key={type.id} className='incrementer'>
                                         <div className='incrementerText'>
-                                        {type.capacity ? <span className={classNames({
-                                            'availability': true,
-                                            'redStatus': (type.capacity - type.count) === 0,
-                                            'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
-                                            'greenStatus': (type.capacity - type.count) > 5,
-                                        })}>
-                                            <span className='count'>{type.count}/</span>
-                                            <span className='capacity'>{type.capacity} <br/>beds occupied</span>
-                                        </span>
-                                            : '--  '}
-                                        <span className='typeName'>{type.type} guests</span>
+                                            {type.capacity ? <span className={classNames({
+                                                'availability': true,
+                                                'redStatus': (type.capacity - type.count) === 0,
+                                                'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                                'greenStatus': (type.capacity - type.count) > 5,
+                                            })}>
+                                                <span className='count'>{type.count}/</span>
+                                                <span className='capacity'>{type.capacity} <br />beds occupied</span>
+                                            </span>
+                                                : `Please enter a capacity in settings for`}
+                                            <span className='typeName'>{type.type} guests</span>
                                         </div>
                                         <div className='incrementerBtns'>
-                                        <div className='incrementerBtn plus'>
-                                            <Button
-                                                circular
-                                                size='massive'
-                                                color='grey'
-                                                onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
-                                                icon='plus'
-                                            />
-                                        </div>
-                                        <div className='incrementerBtn minus'>
-                                            <Button
-                                                basic circular color='grey'
-                                                onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
-                                                icon='minus'
-                                            />
-                                        </div>
+                                            <div className='incrementerBtn plus'>
+                                                <Button
+                                                    circular
+                                                    size='massive'
+                                                    // color='grey'
+                                                    onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
+                                                    icon='plus'
+                                                />
+                                            </div>
+                                            <div className='incrementerBtn minus'>
+                                                <Button
+                                                    basic circular 
+                                                    // color='grey'
+                                                    onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
+                                                    icon='minus'
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 ))
@@ -121,16 +122,33 @@ class ShelterPortalHome extends Component {
                             menuItem: 'Setter',
                             render: () => <Tab.Pane>{
                                 this.state.typeCounts.map(type => (
-                                    <div key={type.id}>
-                                        <h2>{type.count}/{type.capacity}</h2>
-                                        <p>{type.type} guests</p>
-                                        <Input
-                                            type='number'
-                                            onChange={(e) => this.handleInputChange(e, 'count' + type.id)} />
-                                        <Button
-                                            primary
-                                            onClick={() => this.handleInputSubmit(type.id, 'count' + type.id, type.capacity)}
-                                        >Set</Button>
+                                    <div key={type.id} className='incrementer'>
+                                        <div className='incrementerText'>
+                                            {type.capacity ? <span className={classNames({
+                                                'availability': true,
+                                                'redStatus': (type.capacity - type.count) === 0,
+                                                'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                                'greenStatus': (type.capacity - type.count) > 5,
+                                            })}>
+                                                <span className='count'>{type.count}/</span>
+                                                <span className='capacity'>{type.capacity} <br />beds occupied</span>
+                                            </span>
+                                                : `Please enter a capacity in settings for`}
+                                            <span className='typeName'>{type.type} guests</span>
+                                        </div>
+                                        <div className='incrementerInputs'>
+                                            <div className='incrementerInput input'>
+                                                <Input
+                                                    type='number'
+                                                    fluid
+                                                    onChange={(e) => this.handleInputChange(e, 'count' + type.id)} />
+                                            </div>
+                                            <div className='incrementerInput btn'>
+                                                <Button 
+                                                    onClick={() => this.handleInputSubmit(type.id, 'count' + type.id, type.capacity)}
+                                                >Set</Button>
+                                            </div>
+                                        </div>
                                     </div>
                                 ))
                             }</Tab.Pane>

@@ -1,3 +1,8 @@
+
+.tabs {
+    max-width: 400px;
+    margin: auto;
+}
 .incrementerContainer {
     /* display: flex;
     justify-content: space-evenly;
@@ -6,8 +11,8 @@
 }
 .incrementer{
     /* text-align: center; */
-    width: 300px;
-    margin: 20px;
+    width: 340px;
+    margin: 20px auto 20px auto;
     border-radius: 20px; 
     display: flex;
     justify-content: space-between;
@@ -19,8 +24,11 @@
 }
 .incrementerBtn{
     margin: 10px auto 10px auto;
-    box-shadow: darkgray 1px 1px 10px;
+    box-shadow: black 0px 1px 3px;
     border-radius: 90px;
+}
+.incrementerBtn:active{ 
+    box-shadow: black 0px -1px 3px; 
 }
 .plus {
     width: 61.69px;
@@ -29,6 +37,26 @@
     width: 36px;
 }
 .incrementerBtns {
-    padding: 10px;
+    padding: 10px 30px 10px 10px;
+    /* border: 1px solid black; */
+}
+
+.incrementerInput{
+    margin: 10px auto 10px auto;
+}
+.incrementerInput.input {
+    width: 80px;
+}
+.incrementerInput.btn { 
+    width: 62.42px; 
+    border-radius: 4px;
+    box-shadow: black 0px 1px 3px;
+}
+.incrementerInput.btn:active { 
+    box-shadow: black 0px -1px 3px; 
+}
+.incrementerInputs {
+    padding: 20px 30px 20px 10px; 
+    height: 147.3px;
     /* border: 1px solid black; */
 }
