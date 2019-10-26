@@ -3,6 +3,9 @@
     max-width: 400px;
     margin: auto;
 }
+.homeTitle {
+    color: #3d3d3d; 
+}
 .incrementerContainer {
     /* display: flex;
     justify-content: space-evenly;

@@ -64,6 +64,10 @@ class ShelterPortalHome extends Component {
                 }).catch(error => {
                     console.log(error)
                 })
+            // updates the time stamp of most recent bed availability update
+            Axios.put('/api/timestamp', { timestamp: new Date() })
+                .then(response => { console.log('updated timestamp') })
+                .catch(error => { console.log(error) })
         } else {
             alert('outside the range')
         }
@@ -71,92 +75,93 @@ class ShelterPortalHome extends Component {
     render() {
         return (
             <>
-                {this.state.typeCounts ? <div className='tabs'>
-
-                    <Tab panes={[
-                        {
-                            menuItem: 'Incrementer',
-                            render: () => <Tab.Pane><div className='incrementerContainer'>
-                                {this.state.typeCounts.map(type => (
-                                    <div key={type.id} className='incrementer'>
-                                        <div className='incrementerText'>
-                                            {type.capacity ? <span className={classNames({
-                                                'availability': true,
-                                                'redStatus': (type.capacity - type.count) === 0,
-                                                'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
-                                                'greenStatus': (type.capacity - type.count) > 5,
-                                            })}>
-                                                <span className='count'>{type.count}/</span>
-                                                <span className='capacity'>{type.capacity} <br />beds occupied</span>
-                                            </span>
-                                                : `Please enter a capacity in settings for`}
-                                            <span className='typeName'>{type.type} guests</span>
-                                        </div>
-                                        <div className='incrementerBtns'>
-                                            <div className='incrementerBtn plus'>
-                                                <Button
-                                                    circular
-                                                    size='massive'
-                                                    // color='grey'
-                                                    onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
-                                                    icon='plus'
-                                                />
+                {this.state.typeCounts ? <div>
+                    <h1 className='homeTitle'>{this.props.shelter.name}</h1>
+                    <div className='tabs'>
+                        <Tab panes={[
+                            {
+                                menuItem: 'Incrementer',
+                                render: () => <Tab.Pane><div className='incrementerContainer'>
+                                    {this.state.typeCounts.map(type => (
+                                        <div key={type.id} className='incrementer'>
+                                            <div className='incrementerText'>
+                                                {type.capacity ? <span className={classNames({
+                                                    'availability': true,
+                                                    'redStatus': (type.capacity - type.count) === 0,
+                                                    'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                                    'greenStatus': (type.capacity - type.count) > 5,
+                                                })}>
+                                                    <span className='count'>{type.count}/</span>
+                                                    <span className='capacity'>{type.capacity} <br />beds occupied</span>
+                                                </span>
+                                                    : `Please enter a capacity in settings for `}
+                                                <span className='typeName'>{type.type} guests</span>
                                             </div>
-                                            <div className='incrementerBtn minus'>
-                                                <Button
-                                                    basic circular 
-                                                    // color='grey'
-                                                    onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
-                                                    icon='minus'
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))
-                                }
-                            </div>
-                            </Tab.Pane>
-
-                        },
-                        {
-                            menuItem: 'Setter',
-                            render: () => <Tab.Pane>{
-                                this.state.typeCounts.map(type => (
-                                    <div key={type.id} className='incrementer'>
-                                        <div className='incrementerText'>
-                                            {type.capacity ? <span className={classNames({
-                                                'availability': true,
-                                                'redStatus': (type.capacity - type.count) === 0,
-                                                'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
-                                                'greenStatus': (type.capacity - type.count) > 5,
-                                            })}>
-                                                <span className='count'>{type.count}/</span>
-                                                <span className='capacity'>{type.capacity} <br />beds occupied</span>
-                                            </span>
-                                                : `Please enter a capacity in settings for`}
-                                            <span className='typeName'>{type.type} guests</span>
-                                        </div>
-                                        <div className='incrementerInputs'>
-                                            <div className='incrementerInput input'>
-                                                <Input
-                                                    type='number'
-                                                    fluid
-                                                    onChange={(e) => this.handleInputChange(e, 'count' + type.id)} />
-                                            </div>
-                                            <div className='incrementerInput btn'>
-                                                <Button 
-                                                    onClick={() => this.handleInputSubmit(type.id, 'count' + type.id, type.capacity)}
-                                                >Set</Button>
+                                            <div className='incrementerBtns'>
+                                                <div className='incrementerBtn plus'>
+                                                    <Button
+                                                        circular
+                                                        size='massive'
+                                                        // color='grey'
+                                                        onClick={() => this.handleClick(type.id, 'up', type.count, type.capacity)}
+                                                        icon='plus'
+                                                    />
+                                                </div>
+                                                <div className='incrementerBtn minus'>
+                                                    <Button
+                                                        basic circular
+                                                        // color='grey'
+                                                        onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
+                                                        icon='minus'
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))
-                            }</Tab.Pane>
-                        },
-                    ]} />
+                                    ))
+                                    }
+                                </div>
+                                </Tab.Pane>
+
+                            },
+                            {
+                                menuItem: 'Setter',
+                                render: () => <Tab.Pane>{
+                                    this.state.typeCounts.map(type => (
+                                        <div key={type.id} className='incrementer'>
+                                            <div className='incrementerText'>
+                                                {type.capacity ? <span className={classNames({
+                                                    'availability': true,
+                                                    'redStatus': (type.capacity - type.count) === 0,
+                                                    'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                                    'greenStatus': (type.capacity - type.count) > 5,
+                                                })}>
+                                                    <span className='count'>{type.count}/</span>
+                                                    <span className='capacity'>{type.capacity} <br />beds occupied</span>
+                                                </span>
+                                                    : `Please enter a capacity in settings for `}
+                                                <span className='typeName'>{type.type} guests</span>
+                                            </div>
+                                            <div className='incrementerInputs'>
+                                                <div className='incrementerInput input'>
+                                                    <Input
+                                                        type='number'
+                                                        fluid
+                                                        onChange={(e) => this.handleInputChange(e, 'count' + type.id)} />
+                                                </div>
+                                                <div className='incrementerInput btn'>
+                                                    <Button
+                                                        onClick={() => this.handleInputSubmit(type.id, 'count' + type.id, type.capacity)}
+                                                    >Set</Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }</Tab.Pane>
+                            },
+                        ]} />
 
 
-                </div> : ''}
+                    </div> </div> : ''}
 
             </>
         )
