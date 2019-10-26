@@ -79,6 +79,7 @@ class ShelterPortalHome extends Component {
                             render: () => <Tab.Pane><div className='incrementerContainer'>
                                 {this.state.typeCounts.map(type => (
                                     <div key={type.id} className='incrementer'>
+                                        <div className='incrementerText'>
                                         {type.capacity ? <span className={classNames({
                                             'availability': true,
                                             'redStatus': (type.capacity - type.count) === 0,
@@ -90,7 +91,9 @@ class ShelterPortalHome extends Component {
                                         </span>
                                             : '--  '}
                                         <span className='typeName'>{type.type} guests</span>
-                                        <div className='incrementerBtns plus'>
+                                        </div>
+                                        <div className='incrementerBtns'>
+                                        <div className='incrementerBtn plus'>
                                             <Button
                                                 circular
                                                 size='massive'
@@ -99,12 +102,13 @@ class ShelterPortalHome extends Component {
                                                 icon='plus'
                                             />
                                         </div>
-                                        <div className='incrementerBtns minus'>
+                                        <div className='incrementerBtn minus'>
                                             <Button
                                                 basic circular color='grey'
                                                 onClick={() => this.handleClick(type.id, 'down', type.count, type.capacity)}
                                                 icon='minus'
                                             />
+                                        </div>
                                         </div>
                                     </div>
                                 ))

@@ -1,15 +1,23 @@
 .incrementerContainer {
-    display: flex;
+    /* display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
+    /* border: 1px solid black; */
 }
 .incrementer{
-    text-align: center;
+    /* text-align: center; */
     width: 300px;
     margin: 20px;
-    border-radius: 10px;
+    border-radius: 20px; 
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid grey;
 }
-.incrementerBtns{
+.incrementerText {
+    /* border: 1px solid black; */
+        padding: 30px;
+}
+.incrementerBtn{
     margin: 10px auto 10px auto;
     box-shadow: darkgray 1px 1px 10px;
     border-radius: 90px;
@@ -19,4 +27,8 @@
 }
 .minus {
     width: 36px;
+}
+.incrementerBtns {
+    padding: 10px;
+    /* border: 1px solid black; */
 }
