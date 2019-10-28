@@ -6,12 +6,12 @@
 .homeTitle {
     color: #3d3d3d; 
 }
-.incrementerContainer {
-    /* display: flex;
+/* .incrementerContainer {
+    display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap; */
-    /* border: 1px solid black; */
-}
+    flex-wrap: wrap;
+    border: 1px solid black; */
+
 .incrementer{
     /* text-align: center; */
     width: 340px;

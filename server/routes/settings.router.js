@@ -50,6 +50,8 @@ router.post('/post', (req, res) => {
 });
 
 // deletes hours, types, or tags that the user deleted in settings
+// this is doing a DELETE query, but it has to be a 'post' request because 
+// it receives data from the client
 router.post('/delete', (req, res) => {
     //-----------query text for any call
     console.log('in server delete', req.body)
@@ -83,6 +85,21 @@ router.post('/delete', (req, res) => {
         });
 });
 
-
+router.delete('/delete/:id', (req, res) => {
+    //-----------query text for any call
+    console.log('in server delete', req.body)
+    let queryText = `DELETE FROM "hours" WHERE "shelter_id" = ${req.params.id};
+    DELETE FROM "shelter_guest_count" WHERE "shelter_id" = ${req.params.id};
+    DELETE FROM "shelter_tags" WHERE "shelter_id" = ${req.params.id};
+    DELETE FROM "shelter" WHERE "id" = ${req.params.id};`
+   
+    //-------------querying database 
+    pool.query(queryText)
+        .then((result) => { res.sendStatus(201); console.log('delete seemed to work!'); })
+        .catch((err) => {
+            console.log('Error deleting', err);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = router;

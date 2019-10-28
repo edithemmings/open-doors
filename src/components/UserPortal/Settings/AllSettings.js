@@ -8,6 +8,7 @@ import Settings4Tags from '../Settings/Settings4Tags/Settings4Tags'
 import Axios from 'axios';
 import Nav from '../../Nav/Nav';
 import './Settings.css'
+import swal from 'sweetalert'
 
 
 class AllSettings extends Component {
@@ -87,6 +88,33 @@ class AllSettings extends Component {
         console.log('hours changed?', hoursDidChange)//returns false, or arrays of things to delete/post
         console.log('tags changed?', tagsDidChange)//returns false, or arrays of things to delete/post
         this.props.history.push('/home')
+    }
+    handleDeleteShelter = () => {
+        swal({
+            title: "Are you sure?",
+            text: "This cannot be undone",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    Axios.delete(`/api/settings/delete/${this.props.reduxState.userShelter.id}`)
+                        .then(response => {
+                            console.log(response)
+                            this.props.history.push('/home')
+                            swal("Your shelter was deleted", {
+                                icon: "success",
+                            });
+                        }).catch(error => { 
+                            console.log(error)
+                            swal("Error deleting shelter"); 
+                        })
+                } else {
+                    swal("Your shelter is safe!");
+                }
+            });
+        
     }
     contactDidChange = () => {
         // naming some variables :)
@@ -239,7 +267,10 @@ class AllSettings extends Component {
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
                         />
-                        <Button primary onClick={this.handleSave}>Save</Button>
+                        <div className='settingsBtns'>
+                        <Button primary onClick={this.handleSave}>Save</Button> <br/>
+                        <Button color='red' onClick={this.handleDeleteShelter}>Delete</Button>
+                        </div>
 
                     </div>
                 : <h1>LOADING</h1>}
