@@ -8,7 +8,7 @@ import Nav from '../Nav/Nav'
 class ShelterListingPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'GET_SHELTERS' });
-        console.log(this.props.reduxState.shelters, Array.isArray(this.props.reduxState.shelters))
+        // console.log(this.props.reduxState.shelters, Array.isArray(this.props.reduxState.shelters))
     }
     goToDetailsPage = (id) => {
         this.props.history.push(`/explore/${id}`)

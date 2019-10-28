@@ -49,7 +49,7 @@ class ShelterList extends Component {
         })
     }
     calculateDistance = (myLocation, shelterLocation) => {
-        console.log('mine: ', myLocation, 'shelter: ', shelterLocation)
+        // console.log('mine: ', myLocation, 'shelter: ', shelterLocation)
         const lat1 = myLocation.lat || '';
         const lon1 = myLocation.lng || '';
         const lat2 = shelterLocation.lat || '';
@@ -83,11 +83,11 @@ class ShelterList extends Component {
                     geolocation: pos
                 })
             }, function () {
-                console.log('nope1')
+                // console.log('nope1')
             });
         } else {
             // Browser doesn't support Geolocation	
-            console.log('nope2')
+            // console.log('nope2')
         }
     }
     getShelterCoordinates = (id, location) => {
@@ -99,7 +99,7 @@ class ShelterList extends Component {
             proxyurl: proxy
         })
             .then((response) => {
-                console.log(location, response.data)
+                // console.log(location, response.data)
                 let coords = response.data.candidates[0];
                 this.setState({
                     ...this.state,
@@ -111,7 +111,7 @@ class ShelterList extends Component {
                         }
                     ]
                 })
-                console.log(this.state.distances)
+                // console.log(this.state.distances)
             }).catch(error => {
                 console.log('error finding place: ', error)
             })
@@ -130,9 +130,9 @@ class ShelterList extends Component {
                                     shelterCoords = distance.coords
                                 }
                             })
-                            console.log(shelterCoords, this.state.geolocation, 'DOMDOMDOM')
+                            // console.log(shelterCoords, this.state.geolocation, 'DOMDOMDOM')
                             const distance = this.calculateDistance(shelterCoords, this.state.geolocation);
-                            console.log(distance)
+                            // console.log(distance)
                             return <div key={shelter.id} className='listingCard' value={shelter.id} onClick={() => this.props.goToDetailsPage(shelter.id)}>
                                 <ListCard
                                     shelter={shelter}

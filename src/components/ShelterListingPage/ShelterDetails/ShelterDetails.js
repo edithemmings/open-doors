@@ -34,7 +34,7 @@ class ShelterDetails extends Component {
             proxyurl: proxy
         })
             .then((response) => {
-                console.log(location, response.data)
+                // console.log(location, response.data)
                 this.setState({
                     ...this.state,
                     googlePlace: response.data.candidates[0]
