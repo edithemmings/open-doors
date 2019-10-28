@@ -23,8 +23,12 @@ class UserPortalSignUp1 extends Component {
         }
     }
     handleSubmit = () => {
-        this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
-        this.props.history.push('/sign-up-3')
+        if (!this.state.inputHour.day) {
+            swal("Error", "Please enter hours of operation", "error")
+        } else {
+            this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
+            this.props.history.push('/sign-up-3')
+        }
     }
     handleBack = () => {
         swal("Blocked", "Your shelter was already submitted. Please continue filling out the additional details. If you would like to make changes to your contact info, you may do it later in settings.", "error")
@@ -39,6 +43,9 @@ class UserPortalSignUp1 extends Component {
         })
     }
     handleHourAdd = () => {
+        if (!this.state.inputHour.day) {
+            return;
+        }
         if (this.state.inputHour) {
             this.setState({
                 ...this.state,
@@ -132,6 +139,7 @@ class UserPortalSignUp1 extends Component {
                                     <select className="dropdown"
                                         onChange={(e) => this.handleHourChange(e, 'day')}
                                     >
+                                        <option key='default'> </option>
                                         {this.state.allDays.map(day => (
                                             <option key={day.id}>{day.day}</option>
                                         ))}

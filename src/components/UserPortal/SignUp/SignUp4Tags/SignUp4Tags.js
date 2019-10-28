@@ -11,9 +11,13 @@ class UserPortalSignUp2 extends Component {
         this.props.dispatch({ type: 'GET_TAGS' });
     }
     handleSubmit = () => {
-        console.log(this.state.selectedTags)
-        this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
-        this.props.history.push('/sign-up-submit')
+        if (!this.state.inputHour.day) {
+            swal("Error", "Please enter at least one tag", "error")
+        } else {
+            // console.log(this.state.selectedTags)
+            this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
+            this.props.history.push('/sign-up-submit')
+        }
     }
     handleBack = () => {
         this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
@@ -80,8 +84,9 @@ class UserPortalSignUp2 extends Component {
                             ))}
                             <Grid.Row>
                                 <Grid.Column width={16}>
-                                    <select className="dropdown" 
-                                    onChange={this.handleTagChange}>
+                                    <select className="dropdown"
+                                        onChange={this.handleTagChange}>
+                                        <option key='default'> </option>
                                         {this.props.reduxState.tags.map(tag => (
                                             <option key={tag.id}>{tag.tag}</option>
                                         ))}
