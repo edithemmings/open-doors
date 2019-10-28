@@ -73,7 +73,7 @@ class Search extends Component {
         return (
             <div className="searchModalButton">
                 <Modal
-                    trigger={<Button onClick={this.handleOpen}>Filter by Tags and Guest Type</Button>}
+                    trigger={<Button onClick={this.handleOpen}>Filter Results</Button>}
                     open={this.state.modalOpen}
                     onClose={this.handleClose}
 

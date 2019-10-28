@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import '../UserPortal.css'
 import classNames from 'classnames'
 import '../../ShelterListingPage/ShelterListing.css'
+import swal from 'sweetalert'
 
 class ShelterPortalHome extends Component {
     state = {}
@@ -38,7 +39,8 @@ class ShelterPortalHome extends Component {
                 .then(response => { console.log('updated timestamp') })
                 .catch(error => { console.log(error) })
         } else {
-            alert('out of range')
+            // alert('out of range')
+            swal("Oops", "Out of range", "warning")
         }
     }
     handleInputChange = (event, keyName) => {
@@ -69,7 +71,8 @@ class ShelterPortalHome extends Component {
                 .then(response => { console.log('updated timestamp') })
                 .catch(error => { console.log(error) })
         } else {
-            alert('outside the range')
+            // alert('outside the range')
+            swal("Oops", "Out of range", "warning")
         }
     }
     render() {

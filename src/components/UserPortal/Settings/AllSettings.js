@@ -218,7 +218,7 @@ class AllSettings extends Component {
                 <Nav />
                 {this.state ?
                     <div className='settingsContainer'>
-                        <h2 className='settingsTitle'>Settings</h2>
+                        {/* <h2 className='settingsTitle'>Settings</h2> */}
                         <label className='settingsLabel'>Contact Information</label>
                         <Settings1Contact
                             shelter={this.state.contact}

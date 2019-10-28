@@ -13,14 +13,19 @@ li.type {
     display: block;
 }
 .greenStatus {
-    color: #236000;
+    /* color: #236000; */
+    color: #328800;
+
 }
 .yellowStatus {
     color: #c6ac03;
 }
 .redStatus {
-    color: #6b0700;
+    /* color: #930c03; */
+    color: #cb0e00;
+
 }
+
 .card {
     margin: 7px;
     padding: 3px;

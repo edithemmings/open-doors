@@ -8,3 +8,8 @@
     display: block;
     margin: auto;
 }
+.summaryPage {
+    width: 400px;
+    display: block;
+    margin: 0 auto 50px auto;
+}

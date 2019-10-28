@@ -86,7 +86,7 @@ class ShelterDetails extends Component {
                                        
                                     </div>
                                     <div className='googleMap'>
-                                    {this.state.googlePlace ?
+                                    {this.state.googlePlace.geometry ?
                                         <Map
                                             coords={this.state.googlePlace.geometry}
                                             name={shelter.name}

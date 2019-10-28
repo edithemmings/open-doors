@@ -32,7 +32,7 @@ class UserPortalSignUpSubmit extends Component {
                 value5={'Review'}
                 color5={'grey'}
             />
-                <div>
+                <div className='summaryPage'>
                     <h3>{shelterContact.name}, {shelterContact.id}</h3>
                     <p>{shelterContact.location}</p>
                     <p>Phone: {shelterContact.phone}</p>

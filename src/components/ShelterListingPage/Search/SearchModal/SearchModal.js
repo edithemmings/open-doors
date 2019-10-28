@@ -14,6 +14,20 @@ class SearchModal extends Component {
     render() {
         return (
             <FormControl component="fieldset">
+                <FormLabel component="legend">Search by Guest Type:</FormLabel>
+                <FormGroup>
+                    {this.props.types ? this.props.types.map(typeObj => {
+                        return <FormControlLabel
+                            control={<Checkbox
+                                checked={this.props.form.types ? this.props.form.types['id' + typeObj.id] : false}
+                                color="primary"
+                                onChange={(e) => this.props.handleChange(e, typeObj.id, 'types')}
+                            />}
+                            label={typeObj.type}
+                            key={typeObj.id}
+                        />
+                    }) : ''}
+                </FormGroup>
                 <FormLabel component="legend">Search by Tags:</FormLabel>
                 <FormGroup>
                     {this.props.tags ? this.props.tags.map(tagObj => {
@@ -25,20 +39,6 @@ class SearchModal extends Component {
                             />}
                             label={tagObj.tag}
                             key={tagObj.id}
-                        />
-                    }) : ''}
-                </FormGroup>
-                <FormLabel component="legend">Search by Tags:</FormLabel>
-                <FormGroup>
-                    {this.props.types ? this.props.types.map(typeObj => {
-                        return <FormControlLabel
-                            control={<Checkbox
-                                checked={this.props.form.types ? this.props.form.types['id' + typeObj.id] : false}
-                                color="primary"
-                                onChange={(e) => this.props.handleChange(e, typeObj.id, 'types')}
-                            />}
-                            label={typeObj.type}
-                            key={typeObj.id}
                         />
                     }) : ''}
                 </FormGroup>
