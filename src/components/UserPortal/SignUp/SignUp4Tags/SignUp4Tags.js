@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Button, Grid } from 'semantic-ui-react'
 import Header from '../Header/Header'
+import swal from 'sweetalert'
 
 class UserPortalSignUp2 extends Component {
     state = {
