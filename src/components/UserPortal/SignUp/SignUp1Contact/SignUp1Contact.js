@@ -39,7 +39,7 @@ class UserPortalSignUp1 extends Component {
         this.setState({
             ...this.state,
             contact: {
-                name: `St. Annes Place`,
+                name: `St. Anne's Place`,
                 address: '2634 Russell Ave North, Minneapolis, MN 55411',
                 phone: 6125212128,
                 website: 'www.havenhousing.org',

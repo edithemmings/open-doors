@@ -10,7 +10,7 @@ router.put('/', (req, res) => {
                         "phone" = $3, "website" = $4 
                         WHERE "user_id" = $5;`;
     //-------------querying database 
-    pool.query(queryText, [req.body.name, req.body.location, req.body.phone, 'http://' + req.body.website, req.user.id])
+    pool.query(queryText, [req.body.name, req.body.location, req.body.phone, req.body.website, req.user.id])
         .then((result) => { res.sendStatus(201); console.log(result); })
         .catch((err) => {
             console.log('Error grabbing updating contact info in settings', err);

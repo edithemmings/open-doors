@@ -12,7 +12,7 @@ class UserPortalSignUp2 extends Component {
         this.props.dispatch({ type: 'GET_TAGS' });
     }
     handleSubmit = () => {
-        if (!this.state.inputHour.day) {
+        if (!this.state.selectedTags) {
             swal("Error", "Please enter at least one tag", "error")
         } else {
             // console.log(this.state.selectedTags)
