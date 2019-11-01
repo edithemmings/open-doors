@@ -42,11 +42,16 @@ class UserPortalSignUp2 extends Component {
         })
     }
     handleTypeNameChange = (event) => {
-        this.setState({
-            ...this.state,
-            inputType: {
-                ...this.state.inputType,
-                type: event.target.value
+        this.props.reduxState.types.forEach(type => {
+            if (type.type === event.target.value){
+                this.setState({
+                    ...this.state,
+                    inputType: {
+                        ...this.state.inputType,
+                        type: event.target.value,
+                        type_id: type.id
+                    }
+                })
             }
         })
     }

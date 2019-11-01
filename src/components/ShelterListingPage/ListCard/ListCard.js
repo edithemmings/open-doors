@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react'
 import '../ShelterListing.css'
 import classNames from 'classnames'
+import {connect} from 'react-redux'
 
 class ListCard extends Component {
-
+    componentDidMount() {
+        this.props.dispatch({ type: 'GET_TYPES' });
+    }
     render() {
         return (
             <>
@@ -16,8 +19,14 @@ class ListCard extends Component {
                             </Card.Header>
                         </Card.Content>
                         <Card.Content><div className='cardInnerContent'>
-                            <ul className='typesOnCard'>
+                            {this.props.reduxState.types ? <ul className='typesOnCard'>
                                 {this.props.shelter.types.map(type => {
+                                    let typeName = '--';
+                                    this.props.reduxState.types.forEach(type2 => {
+                                        if (type2.id === type.type_id){
+                                            typeName = type2.type
+                                        }
+                                    })
                                     return <li className='type'>
                                         {type.capacity ? <span className={classNames({
                                             'availability': true,
@@ -31,10 +40,10 @@ class ListCard extends Component {
                                             <span className='capacity'> beds available</span>
                                             </span>
                                             : '--  '}
-                                        <span className='typeName'>{type.type}</span>
+                                        <span className='typeName'>{typeName}</span>
                                     </li>
                                 })}
-                            </ul>
+                            </ul> : ''}
                             <ul className='typesOnCard'>
                                 <li>
                                     {this.props.shelter.timestamp ?
@@ -60,5 +69,8 @@ class ListCard extends Component {
             }
         }
         
-        
-export default ListCard;
+const putStateOnProps = (reduxState) => ({
+    reduxState
+})
+
+export default connect(putStateOnProps)(ListCard);

@@ -35,9 +35,13 @@ class UserPortalSignUp2 extends Component {
             }
         })
         if (!redundant) {
-            this.setState({
-                ...this.state,
-                selectedTags: [...this.state.selectedTags, { tag: currentTag }]
+            this.props.reduxState.tags.forEach(tag => {
+                if (tag.tag === currentTag){
+                    this.setState({
+                        ...this.state,
+                        selectedTags: [...this.state.selectedTags, { tag: currentTag, tag_id: tag.id }]
+                    })
+                }
             })
         }
     }

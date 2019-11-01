@@ -35,7 +35,7 @@ router.post('/contact', (req, res) => {
 router.post('/moreInfo', (req, res) => {
     let queryText = ''
     req.body.types.forEach(obj => {
-        queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type", "capacity") VALUES(${Number(req.body.id)}, '${obj.type}', ${Number(obj.capacity)});`
+        queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type_id", "capacity") VALUES(${Number(req.body.id)}, ${Number(obj.type_id)}, ${Number(obj.capacity)});`
         console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
     })
     req.body.hours.forEach(obj => {
@@ -43,7 +43,7 @@ router.post('/moreInfo', (req, res) => {
         console.log('day, open, close', obj.day, obj.open, obj.close)
     })
     req.body.tags.forEach(obj => {
-        queryText = queryText + `INSERT INTO "shelter_tags" ("shelter_id", "tag") VALUES (${Number(req.body.id)}, '${obj.tag}');`
+        queryText = queryText + `INSERT INTO "shelter_tags" ("shelter_id", "tag_id") VALUES (${Number(req.body.id)}, ${Number(obj.tag_id)});`
         console.log('tag', obj.tag)
     })
     console.log(queryText)
