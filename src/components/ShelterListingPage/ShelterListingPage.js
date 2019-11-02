@@ -6,17 +6,19 @@ import SelectedFilters from './SelectedFilters/SelectedFilters'
 import Nav from '../Nav/Nav'
 
 class ShelterListingPage extends Component {
+
     componentDidMount() {
         this.props.dispatch({ type: 'GET_SHELTERS' });
-        // console.log(this.props.reduxState.shelters, Array.isArray(this.props.reduxState.shelters))
+        // all shelter data into global state
     }
     goToDetailsPage = (id) => {
         this.props.history.push(`/explore/${id}`)
     }
-    filterSearchResults = (allTags, allTypes, formTags, formTypes) => {
-        let selectedTags =[];
-        let selectedTypes = [];
 
+    filterSearchResults = (allTags, allTypes, formTags, formTypes) => {
+        let selectedTags = [];
+        let selectedTypes = [];
+        // if tags were selected in the modal, it pushes them to the selectedTags array
         if (allTags && formTags) {
             allTags.forEach(tagObj => {
                 if (formTags['id' + tagObj.id] === true) {
@@ -24,6 +26,7 @@ class ShelterListingPage extends Component {
                 }
             })
         }
+        // if types were selected in the modal, push them to the selectedtypes array
         if (allTypes && formTypes) {
             allTypes.forEach(typeObj => {
                 if (formTypes['id' + typeObj.id] === true) {
@@ -32,43 +35,43 @@ class ShelterListingPage extends Component {
             })
         }
         let matchingShelters = []
-        if (selectedTypes && selectedTags){
+        // if types AND tags were selected, we need to check that they all match match at once
+        if (selectedTypes.length > 0 && selectedTags.length > 0) {
             this.props.reduxState.shelters.forEach(shelter => {
-                if (this.doShelterTagsMatch(shelter.tags, selectedTags) && this.doShelterTypesMatch(shelter.types, selectedTypes)) {
+                // functions doFiltersMatch return true or false
+                if (this.doFiltersMatch(shelter.tags, selectedTags, 'tag') && this.doFiltersMatch(shelter.types, selectedTypes, 'type')) {
                     matchingShelters.push(shelter)
-                };
+                }
             })
-        } else if (selectedTypes ) {
+            // if only type filters were selected, then we only need to check that
+        } else if (selectedTypes.length > 0) {
             this.props.reduxState.shelters.forEach(shelter => {
-                if (this.doShelterTypesMatch(shelter.types.type, selectedTypes)) {
+                if (this.doFiltersMatch(shelter.types, selectedTypes, 'type')) {
                     matchingShelters.push(shelter)
-                };
+                }
             })
-        } else if ( selectedTags) {
+            // and same with tags
+        } else if (selectedTags.length > 0) {
             this.props.reduxState.shelters.forEach(shelter => {
-                if (this.doShelterTagsMatch(shelter.tags, selectedTags)) {
+                console.log(this.doFiltersMatch(shelter.tags, selectedTags, 'tag'))
+                if (this.doFiltersMatch(shelter.tags, selectedTags, 'tag')) {
                     matchingShelters.push(shelter)
-                };
+                }
             })
         }
-        if (matchingShelters !== []){
-            return {
-                shelters: matchingShelters, 
-                filters: [...selectedTags, ...selectedTypes]
-            };
-        } else {
-            return {
-                shelters: this.props.reduxState.shelters, 
-                filters: [...selectedTags, ...selectedTypes]
-        };;
-        }
+        return {
+            shelters: matchingShelters,
+            filters: [...selectedTags, ...selectedTypes]
+        };
     }
-    doShelterTagsMatch = (shelterItems, selectedItems) => {
+
+    doFiltersMatch = (shelterItems, selectedItems, keyName) => {
+        console.log(shelterItems, selectedItems, keyName)
         let fullMatch = true;
         selectedItems.forEach(selectedItem => {
             let itemMatch = false;
             shelterItems.forEach(shelterItem => {
-                if (shelterItem === selectedItem) {
+                if (shelterItem[keyName] === selectedItem) {
                     itemMatch = true;
                     return;
                 }
@@ -79,22 +82,7 @@ class ShelterListingPage extends Component {
         })
         return fullMatch
     }
-    doShelterTypesMatch = (shelterItems, selectedItems) => {
-        let fullMatch = true;
-        selectedItems.forEach(selectedItem => {
-            let itemMatch = false;
-            shelterItems.forEach(shelterItem => {
-                if (shelterItem.type === selectedItem) {
-                    itemMatch = true;
-                    return;
-                }
-            })
-            if (itemMatch === false) {
-                fullMatch = false
-            }
-        })
-        return fullMatch
-    }
+
     reloadSheltersWithSearchResults = (searchResults) => {
         this.setState({
             ...this.state,
@@ -102,12 +90,12 @@ class ShelterListingPage extends Component {
             filters: searchResults.filters
         })
     }
-    
+
     render() {
         return (
             <>
                 <Nav />
-                    <Search
+                <Search
                     filterSearchResults={this.filterSearchResults}
                     reloadSheltersWithSearchResults={this.reloadSheltersWithSearchResults}
                 />
