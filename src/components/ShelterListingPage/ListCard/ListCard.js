@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Card, Button, Icon } from 'semantic-ui-react'
 import '../ShelterListing.css'
 import classNames from 'classnames'
-import {connect} from 'react-redux'
 
 class ListCard extends Component {
-    componentDidMount() {
-        this.props.dispatch({ type: 'GET_TYPES' });
-    }
+
     render() {
         return (
             <>
@@ -19,31 +16,31 @@ class ListCard extends Component {
                             </Card.Header>
                         </Card.Content>
                         <Card.Content><div className='cardInnerContent'>
-                            {this.props.reduxState.types ? <ul className='typesOnCard'>
-                                {this.props.shelter.types.map(type => {
-                                    let typeName = '--';
-                                    this.props.reduxState.types.forEach(type2 => {
-                                        if (type2.id === type.type_id){
-                                            typeName = type2.type
-                                        }
-                                    })
-                                    return <li className='type'>
-                                        {type.capacity ? <span className={classNames({
-                                            'availability': true,
-                                            'redStatus': (type.capacity - type.count) === 0,
-                                            'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
-                                            'greenStatus': (type.capacity - type.count) > 5,
-                                        })}>
-                                            {/* <span className='count'>{type.count}/</span>
-                                            <span className='capacity'>{type.capacity} beds</span> */}
-                                            <span className='count'>{type.capacity - type.count}</span>
-                                            <span className='capacity'> beds available</span>
-                                            </span>
-                                            : '--  '}
-                                        <span className='typeName'>{typeName}</span>
-                                    </li>
-                                })}
-                            </ul> : ''}
+                            {/* {JSON.stringify(this.props.shelter)} */}
+                            <ul className='typesOnCard'>
+                                {this.props.shelter.counts.map(count => {
+                                            return <li className='type'>
+                                                {count.capacity ? <span className={classNames({
+                                                    'availability': true,
+                                                    'redStatus': (count.capacity - count.count) === 0,
+                                                    'yellowStatus': (count.capacity - count.count) <= 5 && (count.capacity - count.count) > 0,
+                                                    'greenStatus': (count.capacity - count.count) > 5,
+                                                })}>
+                                                    {/* <span className='count'>{count.count}/</span>
+                                            <span className='capacity'>{count.capacity} beds</span> */}
+                                                    <span className='count'>{count.capacity - count.count}</span>
+                                                    <span className='capacity'> beds available</span>
+                                                </span>
+                                                    : '--  '}
+                                                    {this.props.shelter.types.map(type => {
+                                                        if (count.type_id == type.id){
+                                                            return <span className='typeName'>{type.type}</span>
+                                                        }
+                                                    })}
+                                            </li>
+                                })//end loop through types
+                            }
+                            </ul>
                             <ul className='typesOnCard'>
                                 <li>
                                     {this.props.shelter.timestamp ?
@@ -55,22 +52,19 @@ class ListCard extends Component {
                                         <p className={classNames({
                                             'redStatus': this.props.distance > 3,
                                             'greenStatus': this.props.distance <= 3,
-                                        })}><Icon name='map pin'/> {this.props.distance} miles away</p>
+                                        })}><Icon name='map pin' /> {this.props.distance} miles away</p>
                                         : <p><Icon name='map pin' /> Distance away --</p>}
                                 </li>
                             </ul>
-                            </div>
+                        </div>
                         </Card.Content>
                     </Card>
                 </div>
 
             </>
-                )
-            }
-        }
-        
-const putStateOnProps = (reduxState) => ({
-    reduxState
-})
+        )
+    }
+}
 
-export default connect(putStateOnProps)(ListCard);
+
+export default ListCard;
