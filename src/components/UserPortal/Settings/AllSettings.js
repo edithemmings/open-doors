@@ -26,13 +26,14 @@ class AllSettings extends Component {
                     },
                     moreInfo: {
                         id: shelter.id,
-                        types: this.formatTypes(shelter.type_names, shelter.types),
+                        types: this.formatTypesToShow(shelter.type_names, shelter.types),
                         hours: shelter.hours,
                         tags: shelter.tags,
                     }
                 })
-            }).catch(error => {console.log(error)})
+            }).catch(error => { console.log(error) })
         this.props.dispatch({ type: 'GET_USER_ALL_SHELTER_INFO' });
+
     }
     handleEditContact = (event, keyName) => {
         this.setState({
@@ -50,14 +51,46 @@ class AllSettings extends Component {
             }
         })
     }
+
+    createListOfItemsToUpdate = (keyName, data, editType) => {
+        if (this.state[keyName] && this.state[keyName][editType]) {
+            this.setState({
+                [keyName]: {
+                    ...this.state[keyName],
+                    [editType]: [...this.state[keyName][editType], data]
+                }
+            })
+        } else {
+            this.setState({
+                [keyName]: {
+                    ...this.state[keyName],
+                    [editType]: [data]
+                }
+            })
+        }
+    }
+
     handleSave = () => {
         // declaring some variables
         const contactDidChange = this.contactDidChange();
-        const typesDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type');
-        const hoursDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day');
-        const tagsDidChange = this.arrayOfStringsDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags);
+        const hoursDidChange = this.state.hours || false;
         const shelterId = this.state.moreInfo.id;
+        let typesDidChange = false;
+        let tagsDidChange = false;
+        if (this.state.types) {
+            typesDidChange = {
+                delete: this.formatObjToSend(this.state.types.delete, 'type') || [],
+                post: this.formatObjToSend(this.state.types.post, 'type') || []
+            }
+        }
+        if (this.state.tags) {
+            tagsDidChange = {
+                delete: this.formatObjToSend(this.state.tags.delete, 'tag') || [],
+                post: this.formatObjToSend(this.state.tags.post, 'tag') || []
+            }
+        }
 
+        console.log('contact', contactDidChange, 'hours', hoursDidChange, 'types', typesDidChange, 'tags', tagsDidChange)
         //if datasets were changed, 
         if (contactDidChange) {
             Axios.put('api/settings', contactDidChange)
@@ -68,6 +101,7 @@ class AllSettings extends Component {
                 })
         }
         if (typesDidChange || hoursDidChange || tagsDidChange) {
+            console.log('editing', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
             Axios.post('/api/settings/post', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
                 .then(response => {
                     console.log(response)
@@ -81,13 +115,9 @@ class AllSettings extends Component {
                     console.log(error)
                 })
         }
-
-        console.log('contact changed?', contactDidChange)//returns true or false
-        console.log('types changed?', typesDidChange)//returns false, or arrays of things to delete/post
-        console.log('hours changed?', hoursDidChange)//returns false, or arrays of things to delete/post
-        console.log('tags changed?', tagsDidChange)//returns false, or arrays of things to delete/post
         this.props.history.push('/home')
     }
+
     handleDeleteShelter = () => {
         swal({
             title: "Are you sure?",
@@ -105,15 +135,15 @@ class AllSettings extends Component {
                             swal("Your shelter was deleted", {
                                 icon: "success",
                             });
-                        }).catch(error => { 
+                        }).catch(error => {
                             console.log(error)
-                            swal("Error deleting shelter"); 
+                            swal("Error deleting shelter");
                         })
                 } else {
                     swal("Your shelter is safe!");
                 }
             });
-        
+
     }
     contactDidChange = () => {
         // naming some variables :)
@@ -140,109 +170,15 @@ class AllSettings extends Component {
             return false;
         }
     }// end contactDidChange
-    arrayOfObjDidChange = (oldArray, newArray, keyToCheck) => {
-        let unchanged = [];
-        //checks for what objects were left unedited and stores them
-        oldArray.forEach(oldObj => {
-            newArray.forEach(newObj => {
-                if (oldObj[keyToCheck] === newObj[keyToCheck]) {
-                    unchanged.push(newObj);
-                }
-            });
-        });
-        //if no changes, returns false, if there are changes, it returns the 
-        //objects that need to be deleted or posted
-        if (unchanged.length === oldArray.length && unchanged.length === newArray.length) {
-            return false;
-        } else {
-            return {
-                delete: this.objectsToDelete(oldArray, unchanged, keyToCheck),
-                post: this.objectsToPost(newArray, unchanged, keyToCheck)
-            };
-        }
-    } //end arrayOfObjDidChange
-    arrayOfStringsDidChange = (oldArray, newArray) => {
-        let unchanged = [];
-        //checks for what strings were left unedited and stores them
-        oldArray.forEach(oldString => {
-            newArray.forEach(newString => {
-                if (oldString === newString) {
-                    unchanged.push(newString);
-                }
-            });
-        });
-        //if no changes, returns false, if there are changes, it returns the
-        //strings that need to be deleted or posted
-        if (unchanged.length === oldArray.length && unchanged.length === newArray.length) {
-            return false;
-        } else {
-            return {
-                delete: this.stringsToDelete(oldArray, unchanged),
-                post: this.stringsToPost(newArray, unchanged)
-            };
-        }
-    } //end arrayOfStringsDidChange
-    objectsToDelete = (oldArray, unchanged, keyToCheck) => {
-        //splices unedited items from the old array, which
-        //leaves behind only items that the user deleted from the state
-        //returns a list of the user's deleted items
-        let toDelete = [...oldArray];
-        oldArray.forEach(oldObj => {
-            unchanged.forEach(unchangedObj => {
-                if (oldObj[keyToCheck] === unchangedObj[keyToCheck]) {
-                    toDelete.splice(toDelete.indexOf(oldObj), 1)
-                }
-            });
-        });
-        return toDelete;
-    } //end objectsToDelete
-    stringsToDelete = (oldArray, unchanged) => {
-        //splices unedited items from the old array, which
-        //leaves behind only items that the user deleted from the state
-        //returns a list of the user's deleted items
-        let toDelete = [...oldArray];
-        oldArray.forEach(oldString => {
-            unchanged.forEach(unchangedString => {
-                if (oldString === unchangedString) {
-                    toDelete.splice(toDelete.indexOf(oldString), 1)
-                }
-            });
-        });
-        return toDelete;
-    } //end stringsToDelete
-    objectsToPost = (newArray, unchanged, keyToCheck) => {
-        //splices unedited items from the new array, which
-        //leaves behind only items that the user has added to state
-        //returns a list of the user's added items
-        let toPost = [...newArray];
-        newArray.forEach(newObj => {
-            unchanged.forEach(unchangedObj => {
-                if (newObj[keyToCheck] === unchangedObj[keyToCheck]) {
-                    toPost.splice(toPost.indexOf(newObj), 1)
-                }
-            });
-        });
-        return toPost;
-    } //end objectsToPost
-    stringsToPost = (newArray, unchanged) => {
-        //splices unedited items from the new array, which
-        //leaves behind only items that the user has added to state
-        //returns a list of the user's added items
-        let toPost = [...newArray];
-        newArray.forEach(newString => {
-            unchanged.forEach(unchangedString => {
-                if (newString === unchangedString) {
-                    toPost.splice(toPost.indexOf(newString), 1)
-                }
-            });
-        });
-        return toPost;
-    } //end stringsToPost
-    formatTypes = (type_names, types) => {
+
+
+
+    // turns types IDs into their names for display on the dom
+    formatTypesToShow = (type_names, types) => {
         let typesToSend = [];
         types.forEach(type => {
             type_names.forEach(typeName => {
-                if (type.type_id == typeName.id){
+                if (type.type_id == typeName.id) {
                     typesToSend = [...typesToSend, {
                         type: typeName.type,
                         id: type.type_id,
@@ -253,9 +189,34 @@ class AllSettings extends Component {
         })
         return typesToSend;
     }
+    //turns type names into IDs for posting to database
+    formatObjToSend = (obj, keyToCheck) => {
+        if (obj) {
+            const arrayToSend = []
+            obj.forEach(obj => {
+                this.props.reduxState[keyToCheck + 's'].forEach(item => {
+                    //if it's a type, then push an object to the array
+                    if (keyToCheck == 'type' && obj.type == item.type) {
+                        arrayToSend.push({
+                            type_id: item.id,
+                            capacity: obj.capacity
+                        })
+                        //if its a tag, push only the ID to the array
+                    } else if (keyToCheck == 'tag' && obj.tag == item.tag) {
+                        arrayToSend.push(item.id)
+                    }
+                })
+            })
+            console.log('ARRAY TO SEND FROM', keyToCheck, arrayToSend)
+            return arrayToSend;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         return (
-            <> 
+            <>
                 <Nav />
                 {this.state ?
                     <div className='settingsContainer'>
@@ -269,24 +230,27 @@ class AllSettings extends Component {
                         <Settings2Hours
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
+                            update={this.createListOfItemsToUpdate}
                         />
                         <label className='settingsLabel'>Guests Received</label>
                         <Settings3Types
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
+                            update={this.createListOfItemsToUpdate}
                         />
                         <label className='settingsLabel'>Amenities and Policy</label>
                         <Settings4Tags
                             shelter={this.state.moreInfo}
                             handleEdit={this.handleEditMoreInfo}
+                            update={this.createListOfItemsToUpdate}
                         />
                         <div className='settingsBtns'>
-                        <Button primary onClick={this.handleSave}>Save</Button> <br/>
-                        <Button color='red' onClick={this.handleDeleteShelter}>Delete</Button>
+                            <Button primary onClick={this.handleSave}>Save</Button> <br />
+                            <Button color='red' onClick={this.handleDeleteShelter}>Delete</Button>
                         </div>
 
                     </div>
-                : <h1>LOADING</h1>}
+                    : <h1>LOADING</h1>}
             </>
         )
     }
@@ -298,3 +262,150 @@ const putStateOnProps = (reduxState) => ({
 })
 
 export default connect(putStateOnProps)(AllSettings);
+
+// handleSave = () => {
+    // // declaring some variables
+    // const contactDidChange = this.contactDidChange();
+    // const typesDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.types, this.state.moreInfo.types, 'type');
+    // const hoursDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.hours, this.state.moreInfo.hours, 'day');
+    // const tagsDidChange = this.arrayOfObjDidChange(this.props.reduxState.userShelter.tags, this.state.moreInfo.tags, 'tag');
+    // const shelterId = this.state.moreInfo.id;
+
+    // //if datasets were changed, 
+    // if (contactDidChange) {
+    //     Axios.put('api/settings', contactDidChange)
+    //         .then(response => {
+    //             console.log(response)
+    //         }).catch(error => {
+    //             console.log(error)
+    //         })
+    // }
+    // if (typesDidChange || hoursDidChange || tagsDidChange) {
+    //     console.log('editing', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+    //     Axios.post('/api/settings/post', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+    //         .then(response => {
+    //             console.log(response)
+    //         }).catch(error => {
+    //             console.log(error)
+    //         })
+    //     Axios.post('/api/settings/delete', { id: shelterId, types: typesDidChange, hours: hoursDidChange, tags: tagsDidChange })
+    //         .then(response => {
+    //             console.log(response)
+    //         }).catch(error => {
+    //             console.log(error)
+    //         })
+    // }
+    // console.log('contact changed?', contactDidChange)//returns true or false
+    // console.log('types changed?', typesDidChange)//returns false, or arrays of things to delete/post
+    // console.log('hours changed?', hoursDidChange)//returns false, or arrays of things to delete/post
+    // console.log('tags changed?', tagsDidChange)//returns false, or arrays of things to delete/post
+    // this.props.history.push('/home')
+    // }
+    // arrayOfObjDidChange = (oldArray, newArray, keyToCheck) => {
+    //     let unchanged = [];
+    //     //checks for what objects were left unedited and stores them
+    //     oldArray.forEach(oldObj => {
+    //         newArray.forEach(newObj => {
+    //             if (oldObj[keyToCheck] === newObj[keyToCheck]) {
+    //                 unchanged.push(newObj);
+    //             }
+    //         });
+    //     });
+    //     //if no changes, returns false, if there are changes, it returns the 
+    //     //objects that need to be deleted or posted
+    //     if (unchanged.length === oldArray.length && unchanged.length === newArray.length) {
+    //         return false;
+    //     } else if (keyToCheck == 'day') {
+    //         return {
+    //             delete: this.objectsToDelete(oldArray, unchanged, keyToCheck),
+    //             post: this.objectsToPost(newArray, unchanged, keyToCheck),
+    //         };
+    //     } else {
+    //         return {
+    //             delete: this.formatObjToSend(this.objectsToDelete(oldArray, unchanged, keyToCheck), keyToCheck),
+    //             post: this.formatObjToSend(this.objectsToPost(newArray, unchanged, keyToCheck), keyToCheck)
+    //         };
+    //     }
+    // } //end arrayOfObjDidChange
+
+    // arrayOfStringsDidChange = (oldArray, newArray) => {
+    //     let unchanged = [];
+    //     //checks for what strings were left unedited and stores them
+    //     oldArray.forEach(oldString => {
+    //         newArray.forEach(newString => {
+    //             if (oldString === newString) {
+    //                 unchanged.push(newString);
+    //             }
+    //         });
+    //     });
+    //     //if no changes, returns false, if there are changes, it returns the
+    //     //strings that need to be deleted or posted
+    //     if (unchanged.length === oldArray.length && unchanged.length === newArray.length) {
+    //         return false;
+    //     } else {
+    //         return {
+    //             delete: this.stringsToDelete(oldArray, unchanged),
+    //             post: this.stringsToPost(newArray, unchanged)
+    //         };
+    //     }
+    // } //end arrayOfStringsDidChange
+
+    // objectsToDelete = (oldArray, unchanged, keyToCheck) => {
+    //     //splices unedited items from the old array, which
+    //     //leaves behind only items that the user deleted from the state
+    //     //returns a list of the user's deleted items
+    //     let toDelete = [...oldArray];
+    //     oldArray.forEach(oldObj => {
+    //         unchanged.forEach(unchangedObj => {
+    //             if (oldObj[keyToCheck] === unchangedObj[keyToCheck]) {
+    //                 toDelete.splice(toDelete.indexOf(oldObj), 1)
+    //             }
+    //         });
+    //     });
+    //     return toDelete;
+    // } //end objectsToDelete
+
+    // stringsToDelete = (oldArray, unchanged) => {
+    //     //splices unedited items from the old array, which
+    //     //leaves behind only items that the user deleted from the state
+    //     //returns a list of the user's deleted items
+    //     let toDelete = [...oldArray];
+    //     oldArray.forEach(oldString => {
+    //         unchanged.forEach(unchangedString => {
+    //             if (oldString === unchangedString) {
+    //                 toDelete.splice(toDelete.indexOf(oldString), 1)
+    //             }
+    //         });
+    //     });
+    //     return toDelete;
+    // } //end stringsToDelete
+
+    // objectsToPost = (newArray, unchanged, keyToCheck) => {
+    //     //splices unedited items from the new array, which
+    //     //leaves behind only items that the user has added to state
+    //     //returns a list of the user's added items
+    //     let toPost = [...newArray];
+    //     newArray.forEach(newObj => {
+    //         unchanged.forEach(unchangedObj => {
+    //             if (newObj[keyToCheck] === unchangedObj[keyToCheck]) {
+    //                 toPost.splice(toPost.indexOf(newObj), 1)
+    //             }
+    //         });
+    //     });
+    //     return toPost;
+    // } //end objectsToPost
+
+    // stringsToPost = (newArray, unchanged) => {
+    //     //splices unedited items from the new array, which
+    //     //leaves behind only items that the user has added to state
+    //     //returns a list of the user's added items
+    //     let toPost = [...newArray];
+    //     newArray.forEach(newString => {
+    //         unchanged.forEach(unchangedString => {
+    //             if (newString === unchangedString) {
+    //                 toPost.splice(toPost.indexOf(newString), 1)
+    //             }
+    //         });
+    //     });
+    //     return toPost;
+    // } //end stringsToPost
