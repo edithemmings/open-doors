@@ -26,7 +26,7 @@ class AllSettings extends Component {
                     },
                     moreInfo: {
                         id: shelter.id,
-                        types: shelter.types,
+                        types: this.formatTypes(shelter.type_names, shelter.types),
                         hours: shelter.hours,
                         tags: shelter.tags,
                     }
@@ -50,7 +50,6 @@ class AllSettings extends Component {
             }
         })
     }
-
     handleSave = () => {
         // declaring some variables
         const contactDidChange = this.contactDidChange();
@@ -239,7 +238,21 @@ class AllSettings extends Component {
         });
         return toPost;
     } //end stringsToPost
-
+    formatTypes = (type_names, types) => {
+        let typesToSend = [];
+        types.forEach(type => {
+            type_names.forEach(typeName => {
+                if (type.type_id == typeName.id){
+                    typesToSend = [...typesToSend, {
+                        type: typeName.type,
+                        id: type.type_id,
+                        capacity: type.capacity
+                    }]
+                }
+            })
+        })
+        return typesToSend;
+    }
     render() {
         return (
             <> 

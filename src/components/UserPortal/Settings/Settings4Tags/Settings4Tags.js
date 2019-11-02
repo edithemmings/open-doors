@@ -45,14 +45,14 @@ class Settings4Tags extends Component {
                                 </Grid.Column>
                             </Grid.Row>
                             {this.props.shelter.tags ? this.props.shelter.tags.map(tag => (
-                                <Grid.Row>
+                                <Grid.Row key={tag.id}>
                                     <Grid.Column width={14}>
-                                        {tag}
+                                        {tag.tag}
                                     </Grid.Column>
                                     <Grid.Column width={2}>
                                         <Button
                                             size='mini'
-                                            value={tag}
+                                            value={tag.tag}
                                             onClick={this.deleteTag}
                                         >X</Button>
                                     </Grid.Column>
