@@ -18,23 +18,21 @@ class ListCard extends Component {
                         <Card.Content><div className='cardInnerContent'>
                             {/* {JSON.stringify(this.props.shelter)} */}
                             <ul className='typesOnCard'>
-                                {this.props.shelter.counts.map(count => {
+                                {this.props.shelter.types.map(type => {
                                             return <li className='type'>
-                                                {count.capacity ? <span className={classNames({
+                                                {type.capacity ? <span className={classNames({
                                                     'availability': true,
-                                                    'redStatus': (count.capacity - count.count) === 0,
-                                                    'yellowStatus': (count.capacity - count.count) <= 5 && (count.capacity - count.count) > 0,
-                                                    'greenStatus': (count.capacity - count.count) > 5,
+                                                    'redStatus': (type.capacity - type.count) === 0,
+                                                    'yellowStatus': (type.capacity - type.count) <= 5 && (type.capacity - type.count) > 0,
+                                                    'greenStatus': (type.capacity - type.count) > 5,
                                                 })}>
-                                                    {/* <span className='count'>{count.count}/</span>
-                                            <span className='capacity'>{count.capacity} beds</span> */}
-                                                    <span className='count'>{count.capacity - count.count}</span>
+                                                    <span className='count'>{type.capacity - type.count}</span>
                                                     <span className='capacity'> beds available</span>
                                                 </span>
                                                     : '--  '}
-                                                    {this.props.shelter.types.map(type => {
-                                                        if (count.type_id == type.id){
-                                                            return <span className='typeName'>{type.type}</span>
+                                                    {this.props.shelter.type_names.map(typeName => {
+                                                        if (type.type_id == typeName.id){
+                                                            return <span className='typeName'>{typeName.type}</span>
                                                         }
                                                     })}
                                             </li>

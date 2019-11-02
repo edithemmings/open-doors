@@ -14,8 +14,8 @@ router.get('/', (req, res) => {
         "website",
         "user_id",
         json_agg(distinct "tags") AS "tags",
-            json_agg(distinct "guest_type") AS "types",
-                json_agg(distinct "shelter_guest_count") AS "counts",
+            json_agg(distinct "guest_type") AS "type_names",
+                json_agg(distinct "shelter_guest_count") AS "types",
                     json_agg(distinct "hours") AS "hours",
                         "timestamp"
     FROM "shelter"

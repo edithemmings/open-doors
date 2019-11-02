@@ -47,8 +47,8 @@ class ShelterDetails extends Component {
         return (
             <>
                 <Nav />
-                {Array.isArray(this.props.reduxState.shelters) ?
-                    <div onClick={this.goToDetailsPage}>
+                {this.props.reduxState.shelters ?
+                    <div >
                         {this.props.reduxState.shelters.map((shelter) => {
                             if (shelter.id == this.props.match.params.id) {
                                 return <div className='detailsPage' key={shelter.id}>
@@ -73,13 +73,17 @@ class ShelterDetails extends Component {
                                                         <span className='capacity'> beds available</span>
                                                     </span>
                                                         : '--  '}
-                                                    <span className='typeName'>for {type.type} guests ({type.capacity} total)</span>
+                                                    {shelter.type_names.map(typeName => {
+                                                        if (type.type_id == typeName.id) {
+                                                            return <span className='typeName'>for {typeName.type} guests ({type.capacity} total)</span>
+                                                        }
+                                                    })}
                                                 </li>
                                             })}
                                             <li className='type tags'><Icon name='hashtag' />Shelter Tags</li>
                                             <li className='type'><ul>
                                                 {shelter.tags.map(tag => {
-                                                    return <li className='detailsTags'>{tag}</li>
+                                                    return <li className='detailsTags' key={tag.id}>{tag.tag}</li>
                                                 })}
                                             </ul></li>
                                         </ul>
