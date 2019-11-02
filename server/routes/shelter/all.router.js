@@ -15,7 +15,8 @@ router.get('/', (req, res) => {
 	"user_id",
 	json_agg(distinct "tags") AS "tags",
 	json_agg(distinct "shelter_guest_count") AS "types",
-	json_agg(distinct "hours") AS "hours"
+	json_agg(distinct "hours") AS "hours",
+	"timestamp"
  FROM "shelter"
     JOIN "hours" 
     	on "shelter".id = "hours".shelter_id
