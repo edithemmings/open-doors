@@ -22,21 +22,21 @@ router.put('/', (req, res) => {
 router.post('/post', (req, res) => {
     //-----------query text for any call
     let queryText = ''
-    if (req.body.types) {
+    if (req.body.types.post) {
         req.body.types.post.forEach(obj => {
             queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type_id", "capacity") VALUES(${Number(req.body.id)}, ${Number(obj.type_id)}, ${Number(obj.capacity)});`
             // console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
         })
     }
-    if (req.body.hours) {
+    if (req.body.hours.post) {
         req.body.hours.post.forEach(obj => {
             queryText = queryText + `INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES (${Number(req.body.id)}, '${obj.day}', '${obj.open}', '${obj.close}');`
             // console.log('day, open, close', obj.day, obj.open, obj.close)
         })
     }
-    if (req.body.tags) {
-        req.body.tags.post.forEach(obj => {
-            queryText = queryText + `INSERT INTO "shelter_tags" ("shelter_id", "tag_id") VALUES (${Number(req.body.id)}, ${Number(obj.tag_id)});`
+    if (req.body.tags.post) {
+        req.body.tags.post.forEach(id => {
+            queryText = queryText + `INSERT INTO "shelter_tags" ("shelter_id", "tag_id") VALUES (${Number(req.body.id)}, ${Number(id)});`
             // console.log('tag', obj.tag)
         })
     }
@@ -56,23 +56,20 @@ router.post('/delete', (req, res) => {
     //-----------query text for any call
     console.log('in server delete', req.body)
     let queryText = ''
-    if (req.body.types){
-        console.log('-----TYPES', req.body.types)
+    if (req.body.types.delete){
         req.body.types.delete.forEach(obj => {
-            queryText = queryText + `DELETE FROM "shelter_guest_count" WHERE "shelter_id" = ${req.body.id} AND "type" = '${obj.type}';`
+            queryText = queryText + `DELETE FROM "shelter_guest_count" WHERE "shelter_id" = ${req.body.id} AND "type_id" = ${obj.type_id};`
         })
     }
-    if (req.body.hours){
-        console.log('-----HOURS', req.body.hours)
+    if (req.body.hours.delete){
         req.body.hours.delete.forEach(obj => {
             queryText = queryText + `DELETE FROM "hours" WHERE "shelter_id" = ${req.body.id} AND "day" = '${obj.day}';`
             // console.log('day, open, close', obj.day, obj.open, obj.close)
         })
     }
-    if (req.body.tags) {
-        console.log('-----TAGS', req.body.tags)
+    if (req.body.tags.delete) {
         req.body.tags.delete.forEach(string => {
-            queryText = queryText + `DELETE FROM "shelter_tags" WHERE "shelter_id" = ${req.body.id} AND "tag" = '${string}';`
+            queryText = queryText + `DELETE FROM "shelter_tags" WHERE "shelter_id" = ${req.body.id} AND "tag_id" = '${string}';`
             // console.log('tag', obj.tag)
         })
     }  

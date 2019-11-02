@@ -6,7 +6,6 @@ class Settings3Types extends Component {
     state = { inputType: { capacity: '' } }
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TYPES' });
-        // console.log(this.props.shelter.guest_types)
     }
     handleTypeChange = (event, keyName) => {
         this.setState({
@@ -25,6 +24,7 @@ class Settings3Types extends Component {
             totalTypes.push(this.state.inputType)
         }
         this.props.handleEdit('types', totalTypes)
+        this.props.update('types', this.state.inputType, 'post')
         this.setState({
             ...this.state,
             inputType: {
@@ -41,6 +41,7 @@ class Settings3Types extends Component {
             }
         })
         this.props.handleEdit('types', remainingTypes)
+        this.props.update('types', {type: event.target.value}, 'delete')
     }
 
     render() {

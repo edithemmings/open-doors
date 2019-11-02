@@ -19,18 +19,20 @@ class Settings4Tags extends Component {
             })
         }
         if (!redundant) {
-            let totalTags = [...this.props.shelter.tags, event.target.value]
+            let totalTags = [...this.props.shelter.tags, {id: event.target.value, tag: event.target.value}]
             this.props.handleEdit('tags', totalTags)
+            this.props.update('tags', {tag: event.target.value}, 'post')
         }
     }
     deleteTag = (event) => {
         let remainingTags = []
         this.props.shelter.tags.forEach(tag => {
-            if (tag != event.target.value) {
+            if (tag.tag != event.target.value) {
                 remainingTags.push(tag)
             }
         })
         this.props.handleEdit('tags', remainingTags)
+        this.props.update('tags', {tag: event.target.value}, 'delete')
     }
     
     render() {

@@ -35,6 +35,7 @@ class Settings2Hours extends Component {
             totalHours.push(this.state.inputHour);
         }
         this.props.handleEdit('hours', totalHours)
+        this.props.update('hours', this.state.inputHour, 'post')
         this.setState({
             ...this.state,
             inputHour: {
@@ -52,6 +53,7 @@ class Settings2Hours extends Component {
             }
         })
         this.props.handleEdit('hours', remainingHours)
+        this.props.update('hours', {day: event.target.value}, 'delete')
     }
     render() {
         return (
