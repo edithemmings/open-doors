@@ -12,6 +12,7 @@ class ShelterPortalHome extends Component {
     state = {}
     componentDidMount() {
         this.getUserGuestCounts();
+        this.props.dispatch({ type: 'GET_TYPES' });
     }
     getUserGuestCounts = () => {
         Axios.get(`/api/shelter/user/types/${this.props.shelter.id}`)
@@ -24,6 +25,7 @@ class ShelterPortalHome extends Component {
             }).catch(error => {
                 console.log(error)
             })
+
     }
     handleClick = (id, upOrDown, count, capacity) => {
         if ((upOrDown === 'up' && count + 1 <= capacity) || (upOrDown === 'down' && count > 0)) {
@@ -98,7 +100,11 @@ class ShelterPortalHome extends Component {
                                                     <span className='capacity'>{type.capacity} <br />beds occupied</span>
                                                 </span>
                                                     : `Please enter a capacity in settings for `}
-                                                <span className='typeName'>{type.type} guests</span>
+                                                {this.props.reduxState.types.map(typeName => {
+                                                    if (type.type_id == typeName.id) {
+                                                        return <span className='typeName'>{typeName.type}</span>
+                                                    }
+                                                })}
                                             </div>
                                             <div className='incrementerBtns'>
                                                 <div className='incrementerBtn plus'>
@@ -142,8 +148,11 @@ class ShelterPortalHome extends Component {
                                                     <span className='capacity'>{type.capacity} <br />beds occupied</span>
                                                 </span>
                                                     : `Please enter a capacity in settings for `}
-                                                <span className='typeName'>{type.type} guests</span>
-                                            </div>
+                                                {this.props.reduxState.types.map(typeName => {
+                                                    if (type.type_id == typeName.id) {
+                                                        return <span className='typeName'>{typeName.type}</span>
+                                                    }
+                                                })}                                            </div>
                                             <div className='incrementerInputs'>
                                                 <div className='incrementerInput input'>
                                                     <Input
