@@ -14,14 +14,11 @@ class UserPortalSignUp2 extends Component {
     }
 
     handleSubmit = () => {
-        if (!this.state.inputType.type) {
-            swal("Error", "Please input a guest type", "error")
-        } else {
             // console.log(this.state.selectedTypes)
             this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
             this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
             this.props.history.push('/sign-up-4')
-        }
+    
     }
     handleBack = () => {
         this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })

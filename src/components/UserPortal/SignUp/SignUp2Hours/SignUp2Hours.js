@@ -23,12 +23,9 @@ class UserPortalSignUp1 extends Component {
         }
     }
     handleSubmit = () => {
-        if (!this.state.inputHour.day) {
-            swal("Error", "Please enter hours of operation", "error")
-        } else {
             this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
             this.props.history.push('/sign-up-3')
-        }
+        
     }
     handleBack = () => {
         swal("Blocked", "Your shelter was already submitted. Please continue filling out the additional details. If you would like to make changes to your contact info, you may do it later in settings.", "error")
