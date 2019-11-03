@@ -121,18 +121,20 @@ class ShelterList extends Component {
     render() {
         return (
             <>
-                {this.props.shelters && (this.state.loadingDistances === false) && this.state.distances ?
+                {this.props.shelters ?
                     <div className='cardGroup'><Card.Group centered>
                         {this.props.shelters.map((shelter) => {
-                            let shelterCoords = {};
-                            this.state.distances.forEach(distance => {
-                                if (distance.id == shelter.id) {
-                                    shelterCoords = distance.coords
-                                }
-                            })
-                            // console.log(shelterCoords, this.state.geolocation, 'DOMDOMDOM')
-                            const distance = this.calculateDistance(shelterCoords, this.state.geolocation);
-                            // console.log(distance)
+                            let distance = '--'
+                            //if location data is there, then send it to the list card through props
+                            if ((this.state.loadingDistances === false) && this.state.distances && this.state.geolocation) {
+                                let shelterCoords = {};
+                                this.state.distances.forEach(distance => {
+                                    if (distance.id == shelter.id) {
+                                        shelterCoords = distance.coords
+                                    }
+                                })
+                                distance = this.calculateDistance(shelterCoords, this.state.geolocation);
+                            }
                             return <div key={shelter.id} className='listingCard' value={shelter.id} onClick={() => this.props.goToDetailsPage(shelter.id)}>
                                 <ListCard
                                     shelter={shelter}
