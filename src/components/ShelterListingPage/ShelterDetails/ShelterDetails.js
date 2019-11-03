@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { Icon } from 'semantic-ui-react'
 
 class ShelterDetails extends Component {
-    state = { googlePlace: {}, loading: true }
+    state = { loading: true }
 
     componentDidMount() {
         this.props.dispatch({ type: 'GET_SHELTERS' });
@@ -90,7 +90,7 @@ class ShelterDetails extends Component {
                                        
                                     </div>
                                     <div className='googleMap'>
-                                    {this.state.googlePlace.geometry ?
+                                    {this.state.googlePlace ?
                                         <Map
                                             coords={this.state.googlePlace.geometry}
                                             name={shelter.name}
