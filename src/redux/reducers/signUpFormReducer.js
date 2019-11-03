@@ -12,6 +12,9 @@ const signUpForm = (state = {}, action) => {
         case 'ID_FOR_FORM':
             console.log(action.payload)
             return { ...state, id: action.payload }; 
+        case 'CONTACT_FORM':
+            console.log(action.payload)
+            return { ...state, contact: action.payload }; 
         default:
             return state;
     }

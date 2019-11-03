@@ -8,7 +8,7 @@ import swal from 'sweetalert'
 class UserPortalSignUpSubmit extends Component {
 
     postShelter = () => {
-        axios.post('/api/shelter/user/moreInfo', this.props.reduxState.signUpForm)
+        axios.post('/api/shelter/user/new-shelter', this.props.reduxState.signUpForm)
             .then(response => {
                 console.log('shelter was posted', response)
                 this.props.history.push('/home')
@@ -22,7 +22,6 @@ class UserPortalSignUpSubmit extends Component {
     }
     render() {
         let shelter = this.props.reduxState.signUpForm
-        let shelterContact = this.props.reduxState.userShelter
         return (
             <div><Header
                 icon1={'checkmark'}
@@ -33,10 +32,10 @@ class UserPortalSignUpSubmit extends Component {
                 color5={'grey'}
             />
                 <div className='summaryPage'>
-                    <h3>{shelterContact.name}, {shelterContact.id}</h3>
-                    <p>{shelterContact.location}</p>
-                    <p>Phone: {shelterContact.phone}</p>
-                    <p>URL: {shelterContact.website}</p>
+                    <h3>{shelter.contact.name}, {shelter.contact.id}</h3>
+                    <p>{shelter.contact.location}</p>
+                    <p>Phone: {shelter.contact.phone}</p>
+                    <p>URL: {shelter.contact.website}</p>
                     {shelter.hours ?
                         <div>
                             <p>Hours:</p>

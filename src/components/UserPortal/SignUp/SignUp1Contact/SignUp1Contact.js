@@ -15,15 +15,17 @@ class UserPortalSignUp1 extends Component {
     }
     handleSubmit = () => {
         console.log(this.state.contact)
-        Axios.post('/api/shelter/user/contact', this.state.contact)
-            .then(response => {
-                console.log(response)
-                this.props.dispatch({ type: 'GET_USER_SHELTER' })
-                this.props.history.push('/sign-up-2')
-                // this.props.toPage2();
-            }).catch(error => {
-                console.log(error)
-            })
+        // Axios.post('/api/shelter/user/contact', this.state.contact)
+        //     .then(response => {
+        //         console.log(response)
+        //         this.props.dispatch({ type: 'GET_USER_SHELTER' })
+        //         this.props.history.push('/sign-up-2')
+        //         // this.props.toPage2();
+        //     }).catch(error => {
+        //         console.log(error)
+        //     })
+        this.props.dispatch({ type: 'CONTACT_FORM', payload: this.state.contact })
+        this.props.history.push('/sign-up-2')
     }
     handleContactChange = (event, keyName) => {
         this.setState({

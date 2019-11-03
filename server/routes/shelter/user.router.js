@@ -16,6 +16,49 @@ router.get('/', (req, res) => {
         });
 });
 
+//----------------------------------------------------------//
+//-----------POSTING NEW SHELTER DURING SIGN UP-------------//
+router.post('/new-shelter', async (req, res) => {
+    const connection = await pool.connect();
+    const postToShelter = `INSERT INTO "shelter" ("name", "location", "phone", "website", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id";`
+    console.log(req.body.contact.name, req.body.contact.address, req.body.contact.phone, 'http://' + req.body.contact.website, req.user.id)
+    let postMoreInfo = ''
+    
+    try {
+        await connection.query('BEGIN');
+        const shelterId = await connection.query(postToShelter, [req.body.contact.name, req.body.contact.address, req.body.contact.phone, 'http://' + req.body.contact.website, req.user.id]);
+        console.log('SHELTER ID', shelterId.rows[0].id)
+
+        await req.body.types.forEach(obj => {
+            connection.query(
+                `INSERT INTO "shelter_guest_count"("shelter_id", "type_id", "capacity") VALUES($1, ${Number(obj.type_id)}, ${Number(obj.capacity)});`,
+                [shelterId.rows[0].id]);
+            // console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
+        })
+        await req.body.hours.forEach(obj => {
+            connection.query(
+                `INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES ($1, '${obj.day}', '${obj.open}', '${obj.close}');`,
+                [shelterId.rows[0].id]);
+            // console.log('day, open, close', obj.day, obj.open, obj.close)
+        })
+        await req.body.tags.forEach(obj => {
+            connection.query(
+                `INSERT INTO "shelter_tags" ("shelter_id", "tag_id") VALUES ($1, ${Number(obj.tag_id)});`,
+                [shelterId.rows[0].id]);
+            // console.log('tag', obj.tag)
+        })
+
+        await connection.query('COMMIT')
+        console.log('success')
+        res.send(201)
+    } catch (error) {
+        await connection.query('ROLLBACK')
+        console.log(error)
+    } finally {
+        console.log('success')
+        connection.release()
+    }
+})
 
 //----------------------------------------------------------//
 //----------------POSTING NEW SHELTER CONTACT INFO-----------------------//
