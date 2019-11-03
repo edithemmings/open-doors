@@ -121,7 +121,7 @@ class ShelterList extends Component {
     render() {
         return (
             <>
-                {this.props.shelters && (this.state.loadingDistances === false) && this.state.distances && this.state.geolocation ?
+                {this.props.shelters && (this.state.loadingDistances === false) && this.state.distances ?
                     <div className='cardGroup'><Card.Group centered>
                         {this.props.shelters.map((shelter) => {
                             let shelterCoords = {};
