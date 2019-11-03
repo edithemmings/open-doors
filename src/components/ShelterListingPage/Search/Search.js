@@ -22,6 +22,7 @@ class Search extends Component {
     componentDidMount() {
         this.getTags();
         this.getTypes();
+        //refactor to use the existing saga & redux store for these
     }
     getTags = () => {
         axios.get('/api/shelter/tags').then(response => {
@@ -59,12 +60,11 @@ class Search extends Component {
         });
     };
     handleSubmit = () => {
-        console.log(this.state)
         //closes modal
         this.handleClose();
         const searchResults = this.props.filterSearchResults(this.state.tags, this.state.types, this.state.form.tags, this.state.form.types)
-        this.props.reloadSheltersWithSearchResults(searchResults);
         console.log(searchResults)
+        this.props.reloadSheltersWithSearchResults(searchResults);
     } // end handle submit
 
     handleOpen = () => this.setState({ modalOpen: true })
