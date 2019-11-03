@@ -60,44 +60,6 @@ router.post('/new-shelter', async (req, res) => {
     }
 })
 
-//----------------------------------------------------------//
-//----------------POSTING NEW SHELTER CONTACT INFO-----------------------//
-router.post('/contact', (req, res) => {
-    //-----------query text
-    const queryText = `INSERT INTO "shelter" ("name", "location", "phone", "website", "user_id") VALUES ($1, $2, $3, $4, $5);`;
-    //-------------querying database 
-    pool.query(queryText, [req.body.name, req.body.address, req.body.phone, 'http://' + req.body.website, req.user.id])
-        .then((result) => { res.send(result.rows); console.log(result.rows); })
-        .catch((err) => {
-            console.log('Error grabbing shelters by tag', err);
-            res.sendStatus(500);
-        });
-});
-//----------------------------------------------------------//
-//----------------POSTING NEW HOURS, TYPES AND TAGS FOR SHELTER-----------------------//
-router.post('/moreInfo', (req, res) => {
-    let queryText = ''
-    req.body.types.forEach(obj => {
-        queryText = queryText + `INSERT INTO "shelter_guest_count"("shelter_id", "type_id", "capacity") VALUES(${Number(req.body.id)}, ${Number(obj.type_id)}, ${Number(obj.capacity)});`
-        console.log('id, type, capacity', req.body.id, obj.type, obj.capacity)
-    })
-    req.body.hours.forEach(obj => {
-        queryText = queryText + `INSERT INTO "hours" ("shelter_id", "day", "open", "close") VALUES (${Number(req.body.id)}, '${obj.day}', '${obj.open}', '${obj.close}');`
-        console.log('day, open, close', obj.day, obj.open, obj.close)
-    })
-    req.body.tags.forEach(obj => {
-        queryText = queryText + `INSERT INTO "shelter_tags" ("shelter_id", "tag_id") VALUES (${Number(req.body.id)}, ${Number(obj.tag_id)});`
-        console.log('tag', obj.tag)
-    })
-    console.log(queryText)
-    //-----------query text
-    pool.query(queryText,)
-        .then((result) => { res.send(result.rows); console.log(result.rows); })
-        .catch((err) => {
-            console.log('Error grabbing adding your shelter details', err);
-            res.sendStatus(500);
-        });
-});
 
 // --------------------------------------------------//
 // ------------GETTING ONE SHELTER TYPES--------------//
