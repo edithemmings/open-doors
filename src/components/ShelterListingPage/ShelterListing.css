@@ -2,7 +2,10 @@ li.type {
     list-style: none;
     margin-bottom: 10px;
 }
-
+.disclaimer {
+    width: 60%;
+    margin: auto;
+}
 .count {
     font-size: 30px;
 }
