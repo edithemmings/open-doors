@@ -50,7 +50,7 @@ class ShelterDetails extends Component {
                 <div className='disclaimer'><p>
                     This data is for demonstration purposes only. Although location and contact info may pertain
                     to existing emergency shelters, bed availability figures are completely fictional. Shelter names
-                    have been changed to avoid misleading potential users.
+                    have been changed to avoid confusion.
                 </p></div>
                 {this.props.reduxState.shelters ?
                     <div >
