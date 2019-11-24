@@ -8,11 +8,10 @@ A web app that aims to make it easier to find available emergency housing in you
 
 Before you get started, make sure you have the following software installed on your computer:
 
-```
 - [Node.js](https://nodejs.org/en/)
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
-```
+
 
 ### Installing
 
