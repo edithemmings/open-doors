@@ -95,11 +95,11 @@ class ShelterListingPage extends Component {
         return (
             <>
                 <Nav />
-                <div className='disclaimer'><p>
+                {/* <div className='disclaimer'><p>
                     This data is for demonstration purposes only. Although location and contact info may pertain 
                     to existing emergency shelters, bed availability figures are completely fictional. Shelter names 
                     have been changed to avoid misleading potential users.
-                </p></div>
+                </p></div> */}
                 <Search
                     filterSearchResults={this.filterSearchResults}
                     reloadSheltersWithSearchResults={this.reloadSheltersWithSearchResults}

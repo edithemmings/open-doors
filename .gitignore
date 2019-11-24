@@ -1,6 +1,11 @@
+# Local files
+PostmanPrimeSoloRoutes.json
+testing.js
+
 # Mac Auto-Generated Files
 .DS_Store
 .DS_STORE/
+.vscode
 
 # Logs
 logs

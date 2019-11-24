@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../../modules/pool');
 
 // --------------------------------------------------//
-// ------------GETTING ONE SHELTER --------------//
+// ------------TAGS --------------//
 router.get('/', (req, res) => {
     //-----------query text for any call
     const queryText = `SELECT * FROM "tags";`;
