@@ -1,4 +1,4 @@
---------NAME YOUR LOCAL DATABASE "open_doors"----------------
+--------NAME YOUR LOCAL DATABASE "open-doors"----------------
 
 -- USER is a reserved keyword with Postgres
 -- You must use double quotes in every query that user is in:
