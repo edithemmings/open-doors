@@ -59,6 +59,9 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## Versioning
 
 
+## Deployment
+
+Although this app is not yet in use, it is deployed on [Heroku](https://open-doors-housing-resource.herokuapp.com/). Every push to the branch *deployment* will automatically update that site. 
 
 ## Authors
 
