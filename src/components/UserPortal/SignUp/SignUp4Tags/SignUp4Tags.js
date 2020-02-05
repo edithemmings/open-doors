@@ -57,14 +57,14 @@ class UserPortalSignUp2 extends Component {
     render() {
         return (
             <>
-                <Header
+                {/* <Header
                     icon1={'checkmark'}
                     icon2={'checkmark'}
                     icon3={'checkmark'}
                     value4={4}
                     value5={'Review'}
                     color4={'grey'}
-                />
+                /> */}
                 <div className='signUpContainer'>
                     <div>
                         <Grid celled >
@@ -96,8 +96,8 @@ class UserPortalSignUp2 extends Component {
                             </Grid.Row>
                         </Grid>
                     </div>
-                    <Button onClick={this.handleBack}>Back</Button>
-                    <Button primary onClick={this.handleSubmit}>Next</Button>
+                    {/* <Button onClick={this.handleBack}>Back</Button>
+                    <Button primary onClick={this.handleSubmit}>Next</Button> */}
 
                 </div>
             </>

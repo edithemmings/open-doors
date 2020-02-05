@@ -11,7 +11,8 @@ class Header extends Component {
         return (
             <div>
                 <h1>Register a Shelter</h1>
-                <div className='signUpHeader'>
+                
+                {/* <div className='signUpHeader'>
                     <Button
                         circular icon={this.props.icon1}
                         color={this.props.color1}
@@ -45,7 +46,7 @@ class Header extends Component {
                         onClick={this.alert}>
                         {this.props.value5}
                     </Button>
-                </div>
+                </div> */}
             </div>
         )
     }

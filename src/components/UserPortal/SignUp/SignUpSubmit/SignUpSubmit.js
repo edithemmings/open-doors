@@ -21,21 +21,22 @@ class UserPortalSignUpSubmit extends Component {
         this.props.history.push('/sign-up-4')
     }
     render() {
-        let shelter = this.props.reduxState.signUpForm
+        let shelter = this.props.reduxState.signUpForm 
         return (
-            <div><Header
+            <div>
+                {/* <Header
                 icon1={'checkmark'}
                 icon2={'checkmark'}
                 icon3={'checkmark'}
                 icon4={'checkmark'}
                 value5={'Review'}
                 color5={'grey'}
-            />
+            /> */}
                 <div className='summaryPage'>
-                    <h3>{shelter.contact.name}, {shelter.contact.id}</h3>
-                    <p>{shelter.contact.location}</p>
-                    <p>Phone: {shelter.contact.phone}</p>
-                    <p>URL: {shelter.contact.website}</p>
+                    <h3>{shelter.contact ? <span>{shelter.contact.name}, {shelter.contact.id}</span> : "Shelter: "}</h3>
+                    <p>{shelter.contact ? <span>{shelter.contact.location}</span> : "Location: "}</p>
+                    <p>Phone: {shelter.contact ? <span>{shelter.contact.phone}</span>: ''}</p>
+                    <p>URL: {shelter.contact ? <span>{shelter.contact.website}</span>: ''}</p>
                     {shelter.hours ?
                         <div>
                             <p>Hours:</p>
@@ -60,8 +61,8 @@ class UserPortalSignUpSubmit extends Component {
                             ))}</ul>
                         </div>
                         : ''}
-                    <Button onClick={this.handleBack}>Back</Button>
-                    <Button color='green' onClick={this.postShelter}>Submit</Button>
+                    {/* <Button onClick={this.handleBack}>Back</Button>
+                    <Button color='green' onClick={this.postShelter}>Submit</Button> */}
                 </div>
             </div>
         )

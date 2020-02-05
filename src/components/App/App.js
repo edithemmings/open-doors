@@ -19,6 +19,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AllSettings from '../UserPortal/Settings/AllSettings'
 import UserPortal from '../UserPortal/UserPortal'
+import SignUpForm from '../UserPortal/SignUp/SignUpForm/SignUpForm'
 import SignUp1Contact from '../UserPortal/SignUp/SignUp1Contact/SignUp1Contact'
 import SignUp2Hours from '../UserPortal/SignUp/SignUp2Hours/SignUp2Hours'
 import SignUp3Types from '../UserPortal/SignUp/SignUp3Types/SignUp3Types'
@@ -77,6 +78,11 @@ class App extends Component {
               exact
               path="/settings"
               component={AllSettings}
+            />
+            <ProtectedRoute
+              exact
+              path="/sign-up-form"
+              component={SignUpForm}
             />
             <ProtectedRoute
               exact

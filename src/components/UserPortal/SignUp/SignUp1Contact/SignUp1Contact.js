@@ -51,14 +51,14 @@ class UserPortalSignUp1 extends Component {
     render() {
         return (
             <div>
-                <Header
+                {/* <Header
                     value1={1}
                     value2={2}
                     value3={3}
                     value4={4}
                     value5={'Review'}
                     color1={'grey'}
-                />
+                /> */}
                 <div className='contactSettings'>
                     <label onClick={this.presentationInfo}>Shelter Name</label>
                     <Input
@@ -90,7 +90,7 @@ class UserPortalSignUp1 extends Component {
                         onChange={(e) => this.handleContactChange(e, 'website')}
                         value={this.state.contact.website}
                     />
-                    <Button primary onClick={this.handleSubmit}>Next</Button>
+                    {/* <Button primary onClick={this.handleSubmit}>Next</Button> */}
 
                 </div>
             </div>
