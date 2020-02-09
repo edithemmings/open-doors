@@ -6,9 +6,9 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SignUp1 from '../SignUp1Contact/SignUp1Contact'
-import SignUp2 from '../SignUp2Hours/SignUp2Hours'
-import SignUp3 from '../SignUp3Types/SignUp3Types'
-import SignUp4 from '../SignUp4Tags/SignUp4Tags'
+import SignUp2 from '../SU2/SU2'
+import SignUp3 from '../SU3/SU3'
+import SignUp4 from '../SU4/SU4'
 import SignUp5 from '../SignUpSubmit/SignUpSubmit'
 import Header from '../Header/Header'
 
