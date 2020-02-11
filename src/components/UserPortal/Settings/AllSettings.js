@@ -246,7 +246,7 @@ class AllSettings extends Component {
                         />
                         <div className='settingsBtns'>
                             <Button primary onClick={this.handleSave}>Save</Button> <br />
-                            <Button color='red' onClick={this.handleDeleteShelter}>Delete</Button>
+                            {/* <Button color='red' onClick={this.handleDeleteShelter}>Delete</Button> */}
                         </div>
 
                     </div>

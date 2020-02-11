@@ -11,14 +11,14 @@ class UserPortalSignUpSubmit extends Component {
         axios.post('/api/shelter/user/new-shelter', this.props.reduxState.signUpForm)
             .then(response => {
                 console.log('shelter was posted', response)
-                this.props.history.push('/home')
+                this.props.goHome()
                 swal("Success", "Details were added to your shelter", "success");
             }).catch(error => {
                 console.log(error)
             })
     }
     handleBack = () => {
-        this.props.history.push('/sign-up-4')
+        this.props.handleBack()
     }
     render() {
         let shelter = this.props.reduxState.signUpForm 
@@ -61,8 +61,8 @@ class UserPortalSignUpSubmit extends Component {
                             ))}</ul>
                         </div>
                         : ''}
-                    {/* <Button onClick={this.handleBack}>Back</Button>
-                    <Button color='green' onClick={this.postShelter}>Submit</Button> */}
+                    <Button onClick={this.handleBack}>Back</Button>
+                    <Button color='green' onClick={this.postShelter}>Submit</Button>
                 </div>
             </div>
         )

@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import SignUp1 from '../SignUp1Contact/SignUp1Contact'
+import SignUp1 from '../SU1/SU1'
 import SignUp2 from '../SU2/SU2'
 import SignUp3 from '../SU3/SU3'
 import SignUp4 from '../SU4/SU4'
@@ -35,22 +35,7 @@ function getSteps() {
     ];
 }
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <SignUp1/>;
-        case 1:
-            return <SignUp2 />;
-        case 2:
-            return <SignUp3 />;
-        case 3:
-            return <SignUp4 />;
-        default:
-            return 'Unknown step';
-    }
-}
-
-export default function HorizontalLinearStepper() {
+export default function HorizontalLinearStepper(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -71,7 +56,6 @@ export default function HorizontalLinearStepper() {
             newSkipped = new Set(newSkipped.values());
             newSkipped.delete(activeStep);
         }
-
         setActiveStep(prevActiveStep => prevActiveStep + 1);
         setSkipped(newSkipped);
     };
@@ -79,6 +63,21 @@ export default function HorizontalLinearStepper() {
     const handleBack = () => {
         setActiveStep(prevActiveStep => prevActiveStep - 1);
     };
+
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <SignUp1 handleNext={handleNext} />;
+            case 1:
+                return <SignUp2 handleNext={handleNext} handleBack={handleBack} />;
+            case 2:
+                return <SignUp3 handleNext={handleNext} handleBack={handleBack} />;
+            case 3:
+                return <SignUp4 handleNext={handleNext} handleBack={handleBack} />;
+            default:
+                return 'Unknown step';
+        }
+    }
 
     const handleSkip = () => {
         if (!isStepOptional(activeStep)) {
@@ -129,15 +128,15 @@ export default function HorizontalLinearStepper() {
             <div>
                 {activeStep === steps.length ? (
                     <div>
-                        <SignUp5 />
-                        <Button onClick={handleReset} className={classes.button}>
+                        <SignUp5 handleBack={handleBack} goHome={() => props.history.push('/home')}/>
+                        {/* <Button onClick={handleReset} className={classes.button}>
                             Reset
-            </Button>
+            </Button> */}
                     </div>
                 ) : (
                         <div>
                             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                            <div>
+                            {/* <div>
                                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                     Back
               </Button>
@@ -160,7 +159,7 @@ export default function HorizontalLinearStepper() {
                                 >
                                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                 </Button>
-                            </div>
+                            </div> */}
                         </div>
                     )}
             </div>

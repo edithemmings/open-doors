@@ -25,17 +25,21 @@ class UserPortalSignUp2 extends Component {
 
     componentDidMount() { this.props.dispatch({ type: 'GET_TYPES' }) }
 
-    handleSubmit = () => {
-        // console.log(this.state.selectedTypes)
+    handleDispatch = (direction) => {
         this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
+        console.log(this.state.selectedTypes)
         this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
-        this.props.history.push('/sign-up-4')
-
+        if (direction === 'NEXT'){
+            this.props.dispatch({ type: 'ID_FOR_FORM', payload: this.props.reduxState.userShelter.id })
+            this.props.handleNext()
+        } else {
+            this.props.handleBack()
+        }
     }
-    handleBack = () => {
-        this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
-        this.props.history.push('/sign-up-2')
-    }
+    // handleBack = () => {
+    //     this.props.dispatch({ type: 'TYPES_FORM', payload: this.state.selectedTypes })
+    //     this.props.history.push('/sign-up-2')
+    // }
 
     handleTypeAdd = () => {
         if (!this.state.inputType.type) {
@@ -136,8 +140,8 @@ class UserPortalSignUp2 extends Component {
                                 </Grid.Row>
                             </Grid>
                         </div>
-                        {/* <Button onClick={this.handleBack}>Back</Button> */}
-                        {/* <Button primary onClick={this.handleSubmit}>Next</Button> */}
+                        <Button onClick={() => this.handleDispatch('BACK')}>Back</Button>
+                        <Button primary onClick={() => this.handleDispatch('NEXT')}>Next</Button>
 
                     </div>
                 </div>

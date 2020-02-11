@@ -23,15 +23,18 @@ class UserPortalSignUp2 extends Component {
         })
         return dropdownValues
     }
-    handleSubmit = () => {
+    handleDispatch = (direction) => {
         this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
-        this.props.history.push('/sign-up-submit')
-
+        if (direction === 'NEXT'){
+            this.props.handleNext()
+        } else {
+            this.props.handleBack()
+        }
     }
-    handleBack = () => {
-        this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
-        this.props.history.push('/sign-up-3')
-    }
+    // handleBack = () => {
+    //     this.props.dispatch({ type: 'TAGS_FORM', payload: this.state.selectedTags })
+    //     this.props.history.push('/sign-up-3')
+    // }
     handleTagChange = (event, { value }) => {
         let currentTag = value;
         let redundant = false;
@@ -107,8 +110,8 @@ class UserPortalSignUp2 extends Component {
                             </Grid.Row>
                         </Grid>
                     </div>
-                    {/* <Button onClick={this.handleBack}>Back</Button>
-                    <Button primary onClick={this.handleSubmit}>Next</Button> */}
+                    <Button onClick={() => this.handleDispatch('BACK')}>Back</Button>
+                    <Button primary onClick={() => this.handleDispatch('NEXT')}>Next</Button>
 
                 </div>
             </>

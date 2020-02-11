@@ -81,33 +81,8 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/sign-up-form"
+              path="/sign-up"
               component={SignUpForm}
-            />
-            <ProtectedRoute
-              exact
-              path="/sign-up-1"
-              component={SignUp1Contact}
-            />
-            <ProtectedRoute
-              exact
-              path="/sign-up-2"
-              component={SignUp2Hours}
-            />
-            <ProtectedRoute
-              exact
-              path="/sign-up-3"
-              component={SignUp3Types}
-            />
-            <ProtectedRoute
-              exact
-              path="/sign-up-4"
-              component={SignUp4Tags}
-            />
-            <ProtectedRoute
-              exact
-              path="/sign-up-submit"
-              component={SignUpSubmit}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

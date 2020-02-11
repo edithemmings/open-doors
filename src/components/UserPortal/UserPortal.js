@@ -20,7 +20,7 @@ class ShelterPortalHome extends Component {
                     : <div>
                         <p>Waiting for your info ...</p>
                         <p>Still need to register your shelter?</p>
-                        <Link to='/sign-up-1'><Button>Click here!</Button></Link>
+                        <Link to='/sign-up'><Button>Click here!</Button></Link>
                     </div>
                 }
                 {/* {!this.props.reduxState.userShelter.types 

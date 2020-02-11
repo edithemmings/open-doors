@@ -3,33 +3,40 @@ import { connect } from "react-redux";
 import { Button, Input, Grid, Dropdown } from 'semantic-ui-react'
 import Header from '../Header/Header'
 import swal from "sweetalert";
+
+const allDays = [
+    { id: 1, key: 'Monday', value: 'Monday', text: 'Monday' },
+    { id: 2, key: 'Tuesday', value: 'Tuesday', text: 'Tuesday' },
+    { id: 3, key: 'Wednesday', value: 'Wednesday', text: 'Wednesday' },
+    { id: 4, key: 'Friday', value: 'Friday', text: 'Friday' },
+    { id: 5, key: 'Saturday', value: 'Saturday', text: 'Saturday' },
+    { id: 6, key: 'Sunday', value: 'Sunday', text: 'Sunday' },
+    { id: 7, key: 'Every day', value: 'Every day', text: 'Every day' },
+    { id: 8, key: 'Monday-Friday', value: 'Monday-Friday', text: 'Monday-Friday' },
+    { id: 9, key: 'Saturday-Sunday', value: 'Saturday-Sunday', text: 'Saturday-Sunday' }
+]
+
 class UserPortalSignUp1 extends Component {
     state = {
-        allDays: [
-            { id: 1, key: 'Monday', value: 'Monday', text: 'Monday' },
-            { id: 2, key: 'Tuesday', value: 'Tuesday', text: 'Tuesday' },
-            { id: 3, key: 'Wednesday', value: 'Wednesday', text: 'Wednesday' },
-            { id: 4, key: 'Friday', value: 'Friday', text: 'Friday' },
-            { id: 5, key: 'Saturday', value: 'Saturday', text: 'Saturday' },
-            { id: 6, key: 'Sunday', value: 'Sunday', text: 'Sunday' },
-            { id: 7, key: 'Every day', value: 'Every day', text: 'Every day' },
-            { id: 8, key: 'Monday-Friday', value: 'Monday-Friday', text: 'Monday-Friday' },
-            { id: 9, key: 'Saturday-Sunday', value: 'Saturday-Sunday', text: 'Saturday-Sunday' }
-        ],
         selectedDays: this.props.reduxState.signUpForm.hours || [],
         inputHour: {
             open: '',
             close: ''
         }
     }
-    handleSubmit = () => {
+    handleDispatch = (direction) => {
         this.props.dispatch({ type: 'HOURS_FORM', payload: this.state.selectedDays })
-        this.props.history.push('/sign-up-3')
-
+        console.log('payload: ', this.state.selectedDays)
+        if (direction === 'NEXT'){
+            this.props.handleNext()
+        } else {
+            this.props.handleBack()
+        }
     }
-    handleBack = () => {
-        swal("Blocked", "Your shelter was already submitted. Please continue filling out the additional details. If you would like to make changes to your contact info, you may do it later in settings.", "error")
-    }
+    // handleBack = () => {
+    //     this.props.handleBack
+    //     // swal("Blocked", "Your shelter was already submitted. Please continue filling out the additional details. If you would like to make changes to your contact info, you may do it later in settings.", "error")
+    // }
     handleHourChange = (event, keyName) => {
         this.setState({
             ...this.state,
@@ -138,7 +145,7 @@ class UserPortalSignUp1 extends Component {
                                     <Dropdown 
                                         selection
                                         placeholder='Select a day' 
-                                        options={this.state.allDays} 
+                                        options={allDays} 
                                         onChange={this.handleDayChange}
                                     />
                                 </Grid.Column>
@@ -164,8 +171,8 @@ class UserPortalSignUp1 extends Component {
                             </Grid.Row>
                         </Grid>
                     </div>
-                    {/* <Button onClick={this.handleBack}>Back</Button> */}
-                    {/* <Button primary onClick={this.handleSubmit}>Next</Button> */}
+                    <Button onClick={() => this.handleDispatch('BACK')}>Back</Button>
+                    <Button primary onClick={() => this.handleDispatch('NEXT')}>Next</Button>
 
                 </div>
             </div>
