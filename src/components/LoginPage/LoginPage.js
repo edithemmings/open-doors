@@ -43,7 +43,7 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <form onSubmit={this.login}>
+        <form onSubmit={this.login} autocomplete='off'>
           <h2>Login</h2>
           <div className='signUp'>
             <label htmlFor="username" className='username'>
@@ -54,7 +54,6 @@ class LoginPage extends Component {
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
-                autocomplete='off'
               />
           </div>
           <div className='signUp'> 

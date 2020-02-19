@@ -49,7 +49,7 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
+        <form onSubmit={this.registerUser} autocomplete='off'>
           <h2>Register User</h2>
           <div className='signUp'>
             <label htmlFor="username" className='username'>
@@ -60,7 +60,6 @@ class RegisterPage extends Component {
               name="username"
               value={this.state.username}
               onChange={this.handleInputChangeFor('username')}
-              autocomplete='off'
             />
           </div>
           <div className='signUp'>
