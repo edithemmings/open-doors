@@ -56,8 +56,8 @@ class UserPortalSignUp2 extends Component {
             })
         }
     }
-    deleteFromState = (event) => {
-        let deleteTag = event.target.value;
+    deleteFromState = (event, {value}) => {
+        let deleteTag = value;
         let tagsArray = [...this.state.selectedTags]
         tagsArray.forEach(tag => {
             if (tag === deleteTag) {

@@ -12,7 +12,7 @@ class UserPortalSignUpSubmit extends Component {
             .then(response => {
                 console.log('shelter was posted', response)
                 this.props.goHome()
-                swal("Success", "Details were added to your shelter", "success");
+                swal("Success", "Your shelter listing was added to the directory", "success");
             }).catch(error => {
                 console.log(error)
             })

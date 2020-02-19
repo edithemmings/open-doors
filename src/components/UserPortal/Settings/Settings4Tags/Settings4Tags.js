@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Button, Grid } from 'semantic-ui-react'
+import { Button, Grid, Dropdown } from 'semantic-ui-react'
 
 class Settings4Tags extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'GET_TAGS' });
     }
-    handleTagChange = (event) => {
-        let currentTag = event.target.value;
+    mapTagsToDropdown() {
+        let dropdownValues = []
+        this.props.reduxState.tags.forEach(obj => {
+            dropdownValues.push({
+                id: obj.id,
+                text: obj.tag,
+                key: obj.tag,
+                value: obj.tag,
+            })
+        })
+        return dropdownValues
+    }
+    handleTagChange = (event, {value}) => {
+        let currentTag = value;
         let redundant = false;
         if (this.props.shelter.tags){
             this.props.shelter.tags.forEach(tag => {
@@ -19,20 +31,20 @@ class Settings4Tags extends Component {
             })
         }
         if (!redundant) {
-            let totalTags = [...this.props.shelter.tags, {id: event.target.value, tag: event.target.value}]
+            let totalTags = [...this.props.shelter.tags, {id: value, tag: value}]
             this.props.handleEdit('tags', totalTags)
-            this.props.update('tags', {tag: event.target.value}, 'post')
+            this.props.update('tags', {tag: value}, 'post')
         }
     }
-    deleteTag = (event) => {
+    deleteTag = (event, {value}) => {
         let remainingTags = []
         this.props.shelter.tags.forEach(tag => {
-            if (tag.tag != event.target.value) {
+            if (tag.tag != value) {
                 remainingTags.push(tag)
             }
         })
         this.props.handleEdit('tags', remainingTags)
-        this.props.update('tags', {tag: event.target.value}, 'delete')
+        this.props.update('tags', {tag: value}, 'delete')
     }
     
     render() {
@@ -61,12 +73,13 @@ class Settings4Tags extends Component {
                                 </Grid.Row>
                             )): ''}
                             <Grid.Row>
-                                <Grid.Column width={14}>
-                                    <select className="dropdown" onChange={this.handleTagChange}>
-                                        {this.props.reduxState.tags.map(tag => (
-                                            <option key={tag.id}>{tag.tag}</option>
-                                        ))}
-                                    </select>
+                                <Grid.Column width={14}> 
+                                    <Dropdown
+                                        selection
+                                        placeholder='Select a tag'
+                                        options={this.mapTagsToDropdown()}
+                                        onChange={this.handleTagChange}
+                                    />
                                 </Grid.Column>
                                 <Grid.Column width={2}>
                                 </Grid.Column>

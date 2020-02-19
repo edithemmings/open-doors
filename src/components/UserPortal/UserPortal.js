@@ -18,9 +18,9 @@ class ShelterPortalHome extends Component {
                 {this.props.reduxState.userShelter.types
                     ? <UserPortalHome shelter={this.props.reduxState.userShelter} />
                     : <div>
-                        <p>Waiting for your info ...</p>
-                        <p>Still need to register your shelter?</p>
-                        <Link to='/sign-up'><Button>Click here!</Button></Link>
+                        {/* <p>Waiting for your info ...</p> */}
+                        {/* <p>Still need to register your shelter?</p> */}
+                        {/* <Link to='/sign-up'><Button>Click here!</Button></Link> */}
                     </div>
                 }
                 {/* {!this.props.reduxState.userShelter.types 
